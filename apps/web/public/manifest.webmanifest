@@ -1,0 +1,21 @@
+{
+  "name": "테일비 Talevi",
+  "short_name": "테일비",
+  "lang": "ko",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#111216",
+  "theme_color": "#111216",
+  "icons": [
+    {
+      "src": "/brand/talevi-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/brand/talevi-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

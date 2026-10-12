@@ -1,0 +1,8 @@
+store_and_agree True 가온. 내일 오후 세 시, 서고의 붉은 우편함 앞. 기억해 두지. 다친 곳이 없다면 그때 책을 살펴보자.
+recall_before_edit True 이름은 가온, 좋아하는 음료는 레몬차. 약속은 내일 오후 세 시, 서고의 붉은 우편함 앞이야.
+recall_after_edit True 이름은 다온, 좋아하는 음료는 복숭아차. 약속은 내일 오후 세 시, 서고의 붉은 우편함 앞이야.
+locked_memory_conflict True 다온, 이름과 음료 취향은 네가 따로 저장한 기록이 있어. 여기서 들은 말로는 덮어쓰지 않을게. 바꾸려면 기억 노트에서 고쳐 줘.
+locked_memory_recall True 기억 노트에는 이름이 다온, 좋아하는 음료가 복숭아차로 적혀 있어.
+recall_after_delete True 기억 못 해. 이름과 좋아하는 음료는 지금 기억 노트에서 지워져 있어. 아까 안다고 말한 건 내 실수야.
+cross_character_isolation True 아직 네 이름도 좋아하는 음료도 듣지 못했어. 아는 척하고 싶진 않네.
+unknown_shared_past True 지난주에 만나기로 했다는 약속은 내게 확인된 게 없어. 그래서 카페 이름도 모르겠어.

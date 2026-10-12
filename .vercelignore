@@ -1,0 +1,15 @@
+.env*
+!.env.example
+.venv
+.local
+.git
+.codex
+.agents
+apps/api
+apps/mobile/dist
+apps/web/.next
+node_modules
+docs/evidence
+**/__pycache__
+**/.pytest_cache
+**/*.tsbuildinfo

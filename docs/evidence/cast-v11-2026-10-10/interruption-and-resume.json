@@ -1,0 +1,10 @@
+{
+  "stage": "episode_compaction",
+  "error": "APITimeoutError",
+  "saved_rows_before_interruption": 817,
+  "saved_prefix_sha256": "5fd069f8951e71f42c8e338a1bd094331c90dcafdac3223e39864c486c35b4bb",
+  "original_log": "extended-run.log",
+  "resume_log": "extended-resume.log",
+  "action": "Preserved completed results; restored their recorded pre-turn narrative, memory and relationship; generated only missing rows. Evaluation harness now mirrors the existing production 25s compaction fallback. No production engine, persona, state or catalog change.",
+  "counting": "Completed recorded evaluation turns are counted. Interrupted in-flight attempts, drafts, moderation and compression calls are not the same as that count."
+}

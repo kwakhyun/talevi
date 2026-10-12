@@ -1,0 +1,109 @@
+{
+  "audit_date_kst": "2026-10-10",
+  "baseline_attempts": 240,
+  "baseline_completed": 238,
+  "errors": [
+    {
+      "id": "igyeol:starter_2",
+      "type": "UnsafeContent",
+      "partial_output": true
+    },
+    {
+      "id": "sihyeok:comfort",
+      "type": "UnsafeContent",
+      "partial_output": true
+    }
+  ],
+  "extended_attempts": 76,
+  "extended_completed": 75,
+  "http_attempts": 8,
+  "http_completed": 8,
+  "total_attempts": 324,
+  "first_visible_engine_only": {
+    "n": 238,
+    "median": 2.436,
+    "p95_nearest_rank": 4.119,
+    "min": 1.807,
+    "max": 6.439
+  },
+  "total_engine_only": {
+    "n": 238,
+    "median": 2.901,
+    "p95_nearest_rank": 5.209,
+    "min": 1.875,
+    "max": 6.603
+  },
+  "short_context_exact_recall": {
+    "passed": 30,
+    "total": 30,
+    "caveat": "Both memory notes and recent history were supplied; not long-term retrieval accuracy."
+  },
+  "self_backstory_refusal_ids": [
+    "igyeol:backstory",
+    "siu:backstory",
+    "daeun:backstory"
+  ],
+  "intro_exact_phrase": {
+    "phrase": "좋아하시는군요",
+    "count": 17,
+    "total": 30
+  },
+  "story_chars": {
+    "n": 30,
+    "median": 116.5,
+    "p95_nearest_rank": 156,
+    "min": 71,
+    "max": 161
+  },
+  "story_single_paragraph_count": 21,
+  "mode_pairs": [
+    {
+      "character": "astel",
+      "quick_chars": 186,
+      "story_chars": 202,
+      "ratio": 1.086
+    },
+    {
+      "character": "seah",
+      "quick_chars": 168,
+      "story_chars": 173,
+      "ratio": 1.0298
+    },
+    {
+      "character": "yura",
+      "quick_chars": 178,
+      "story_chars": 201,
+      "ratio": 1.1292
+    },
+    {
+      "character": "sion",
+      "quick_chars": 121,
+      "story_chars": 165,
+      "ratio": 1.3636
+    },
+    {
+      "character": "nari",
+      "quick_chars": 181,
+      "story_chars": 142,
+      "ratio": 0.7845
+    },
+    {
+      "character": "dogeon",
+      "quick_chars": 148,
+      "story_chars": 176,
+      "ratio": 1.1892
+    }
+  ],
+  "median_story_quick_char_ratio": 1.1076,
+  "blind_human_reviewers": 0,
+  "competitor_live_responses": 0,
+  "catalog_db_readonly_check": {
+    "published": 30,
+    "payload_matches_source": true
+  },
+  "limits": [
+    "Single draw per baseline scenario; 4 concurrent requests; no load test.",
+    "Human user preference and competitor matched testing not performed.",
+    "Two 30-turn scripted sessions are engine/episode pipeline tests with simulated worker state."
+  ]
+}

@@ -1,0 +1,83 @@
+[
+  {
+    "id": "taeo",
+    "name": "윤태오",
+    "age": 25,
+    "art_style": "반실사",
+    "prompt": "Use case: illustration-story. Semi-realistic premium Korean romance game digital painting, realistic adult facial anatomy with subtle painterly surfaces and cinematic light, not a photo and not anime. One 25-year-old adult Korean male marine mechanic. Rugged handsome broad square face, strong thick straight brows, deep-set dark brown monolid eyes, broad slightly crooked nose, tiny healed scar at outer left brow, warm sun-tanned skin. Very short black buzz cut, clean-shaven, thick neck and powerful stocky shoulders. Faded slate-blue canvas work shirt with rolled sleeves over a charcoal tee, old metal wristwatch; fully clothed. Quiet protective serious expression with a barely perceptible smile, one hand loosely holding a wrench at waist, leaning against a wooden boat workshop doorway. Rainy small harbor, out-of-focus boat hull and amber work lamp; slate blue and warm orange lighting. Distinct rugged adult masculine facial anatomy, not a delicate idol face. Vertical 2:3, 1024x1536. One original fictional adult man only. Waist-up portrait, face prominent in upper third, whole head comfortably inside the frame with some space above hair, naturally drawn hands, no extreme crop. Premium commercial character chat cover art, full bleed. Distinct identity as specified, do not default to a generic pale V-shaped idol face. No text, typography, watermarks, logos, borders, collage, panels, celebrities or existing IP. Fully clothed.",
+    "finalPath": "apps/web/public/characters/taeo.png"
+  },
+  {
+    "id": "eunho",
+    "name": "이은호",
+    "age": 19,
+    "art_style": "애니메이션",
+    "prompt": "Use case: illustration-story. Premium polished 2D anime character key visual, expressive clean drawn contours, flat color fills and distinct two-tone cel shadows, unmistakably animation rather than realistic painting. One clearly adult 19-year-old male bicycle delivery rider with natural adult body proportions, not a child. Broad softly rounded face, puppy-like amber eyes, large warm smile, subtle freckles across nose, warm light skin. Dense short copper-orange curls springing above forehead. Butter-yellow zippered windbreaker over a teal cotton tee, messenger strap across chest, holding a teal bike helmet at hip with one hand; a bicycle handlebar at the lower edge. Bright riverside neighborhood lane with soft leafy shade and cafe awnings. Cheerful young adult energy, teal and buttery yellow palette. Expressive strong dark contour line art, clearly two-dimensional cel shading, flat skin colors, no realistic skin pores. Vertical 2:3, 1024x1536. One original fictional adult man only. Waist-up portrait, face prominent in upper third, whole head comfortably inside the frame with some space above hair, naturally drawn hands, no extreme crop. Premium commercial character chat cover art, full bleed. Distinct identity as specified, do not default to a generic pale V-shaped idol face. No text, typography, watermarks, logos, borders, collage, panels, celebrities or existing IP. Fully clothed.",
+    "finalPath": "apps/web/public/characters/eunho.png"
+  },
+  {
+    "id": "doyun",
+    "name": "차도윤",
+    "age": 25,
+    "art_style": "반실사",
+    "prompt": "Use case: illustration-story. Semi-realistic premium Korean romance game digital painting, realistic adult facial anatomy with subtle painterly surfaces and cinematic light, not a photo and not anime. One 25-year-old adult Korean male architect. Long narrow inverted-triangle face with precise cheekbones and angular chin, very narrow cool grey-brown eyes, thin straight eyebrows, light cool skin. Sleek black hair swept completely back showing forehead, thin rectangular silver glasses worn on his face. Tall lean elegant frame. Charcoal turtleneck under a slate tailored jacket, sleeves neat. Standing beside architectural models in a dim modern studio during a rainy night, holding a rolled blank blueprint at waist; warm desk lamp against blue city windows. Restrained reserved expression, intelligent mature handsome face with realistic East Asian anatomy. Cool slate and pale amber palette. Vertical 2:3, 1024x1536. One original fictional adult man only. Waist-up portrait, face prominent in upper third, whole head comfortably inside the frame with some space above hair, naturally drawn hands, no extreme crop. Premium commercial character chat cover art, full bleed. Distinct identity as specified, do not default to a generic pale V-shaped idol face. No text, typography, watermarks, logos, borders, collage, panels, celebrities or existing IP. Fully clothed.",
+    "finalPath": "apps/web/public/characters/doyun.png"
+  },
+  {
+    "id": "yujun",
+    "name": "하유준",
+    "age": 23,
+    "art_style": "반실사",
+    "prompt": "Use case: illustration-story. Semi-realistic premium Korean romance game digital painting, realistic adult facial anatomy with subtle painterly surfaces and cinematic light, not a photo and not anime. One 23-year-old adult Korean male baker. Distinct broad round face, softly full cheeks, wide warm brown eyes, gently curved thick eyebrows, broad rounded nose, warm pale skin, clean-shaven. Soft dark chocolate curly mop of hair over forehead, calm genuine closed-lip smile, faint smile creases. Broad cozy solid adult build, not sharply chiseled or thin. Oatmeal linen shirt with rolled sleeves and dark brown professional apron. Holding a small round milk bread on a wooden tray, warmly lit traditional bakery at dawn, ovens and flour-dusted table blurred behind. Honey and oatmeal palette, approachable reassuring handsome warmth, natural realistic adult facial anatomy. Vertical 2:3, 1024x1536. One original fictional adult man only. Waist-up portrait, face prominent in upper third, whole head comfortably inside the frame with some space above hair, naturally drawn hands, no extreme crop. Premium commercial character chat cover art, full bleed. Distinct identity as specified, do not default to a generic pale V-shaped idol face. No text, typography, watermarks, logos, borders, collage, panels, celebrities or existing IP. Fully clothed.",
+    "finalPath": "apps/web/public/characters/yujun.png"
+  },
+  {
+    "id": "sihyeok",
+    "name": "류시혁",
+    "age": 24,
+    "art_style": "애니메이션",
+    "prompt": "Use case: illustration-story. Premium polished 2D anime character key visual, expressive clean drawn contours, flat color fills and distinct two-tone cel shadows, unmistakably animation rather than realistic painting. One 24-year-old adult male indie rock bassist. Long angular diamond-shaped face, high cheekbones, heavy-lidded plum-colored eyes, faint under-eye shadows, pale cool skin, clean-shaven. Chin-length shaggy black wolf cut with a vivid teal underlayer, asymmetrical fringe, silver ear cuffs. Lean wiry adult masculine frame. Black denim jacket over a fully opaque black crew-neck shirt, guitar case strap across shoulder, one hand holding the bass case handle. Quiet backstage corridor after a concert, violet neon and dim teal rim light, wistful dry half-smile. Stylized dramatic adult anime face with bold contour lines, flat two-tone skin shadows, expressive inked shapes; no photorealistic rendering. Vertical 2:3, 1024x1536. One original fictional adult man only. Waist-up portrait, face prominent in upper third, whole head comfortably inside the frame with some space above hair, naturally drawn hands, no extreme crop. Premium commercial character chat cover art, full bleed. Distinct identity as specified, do not default to a generic pale V-shaped idol face. No text, typography, watermarks, logos, borders, collage, panels, celebrities or existing IP. Fully clothed.",
+    "finalPath": "apps/web/public/characters/sihyeok.png"
+  },
+  {
+    "id": "igyeol",
+    "name": "백이결",
+    "age": 22,
+    "art_style": "애니메이션",
+    "prompt": "Use case: illustration-story. Premium polished 2D anime character key visual, expressive clean drawn contours, flat color fills and distinct two-tone cel shadows, unmistakably animation rather than realistic painting. One 22-year-old adult East Asian male royal bodyguard in an original historical fantasy world. Broad strong square jaw, thick straight eyebrows, deep amber eyes with calm protective gaze, warm medium tan skin, clean-shaven. Very long black hair tied high into a ponytail flowing behind shoulder. Tall broad-shouldered muscular adult build fully clothed in layered deep navy Korean-inspired martial robes, rust-red scarf, understated leather bracers. A silver sheathed sword at hip, hands relaxed and sword never drawn. Snow-dusted mountain pine path, warm winter sunrise, navy and vermilion palette. Crisp expressive 2D anime linework, boldly simplified cel-shaded skin and cloth, unmistakably animation illustration. Vertical 2:3, 1024x1536. One original fictional adult man only. Waist-up portrait, face prominent in upper third, whole head comfortably inside the frame with some space above hair, naturally drawn hands, no extreme crop. Premium commercial character chat cover art, full bleed. Distinct identity as specified, do not default to a generic pale V-shaped idol face. No text, typography, watermarks, logos, borders, collage, panels, celebrities or existing IP. Fully clothed.",
+    "finalPath": "apps/web/public/characters/igyeol.png"
+  },
+  {
+    "id": "rohan",
+    "name": "강로한",
+    "age": 24,
+    "art_style": "반실사",
+    "prompt": "Use case: illustration-story. Semi-realistic premium Korean romance game digital painting, realistic adult facial anatomy with subtle painterly surfaces and cinematic light, not a photo and not anime. One 24-year-old adult Korean male firefighter off duty after a community event. Warm deep bronze skin, wide oval face, broad nose, expressive thick eyebrows, dark smiling eyes, deep cheek dimples and big relaxed grin. Short dense black natural curls, clean-shaven. Powerful broad chest and thick muscular forearms, full adult masculine physique. Fully clothed navy long-sleeve station shirt with sleeves rolled up and tan duty trousers, no insignia or text. Holding a sealed plain water bottle, leaning on a folded chair in a peaceful fire station courtyard at late afternoon, warm sun and softly blurred red truck. Friendly outgoing dependable presence, realistic portrait anatomy, golden tan and navy palette. Vertical 2:3, 1024x1536. One original fictional adult man only. Waist-up portrait, face prominent in upper third, whole head comfortably inside the frame with some space above hair, naturally drawn hands, no extreme crop. Premium commercial character chat cover art, full bleed. Distinct identity as specified, do not default to a generic pale V-shaped idol face. No text, typography, watermarks, logos, borders, collage, panels, celebrities or existing IP. Fully clothed.",
+    "finalPath": "apps/web/public/characters/rohan.png",
+    "revisionPrompt": "Edit this existing original fictional adult 24-year-old male firefighter portrait. Change ONLY his hairstyle: replace the long loose curls hanging over the forehead with a very short close-cropped haircut of dense tight black curls, approximately 2 cm tall on top, neatly tapered short sides, forehead fully visible with no hanging fringe. This change should create a distinctly different silhouette from a floppy-haired male baker. Preserve this same man's identity, dark warm bronze skin, face, deep dimples, broad muscular adult build, smile, navy fully clothed shirt, pose, water bottle, folded chair, fire station courtyard, light and camera framing. Keep premium semi-realistic digital-painting finish and 1024x1536 vertical composition. No text or logos."
+  },
+  {
+    "id": "siu",
+    "name": "노시우",
+    "age": 20,
+    "art_style": "애니메이션",
+    "prompt": "Use case: illustration-story. Premium polished 2D anime character key visual, expressive clean drawn contours, flat color fills and distinct two-tone cel shadows, unmistakably animation rather than realistic painting. One clearly adult 20-year-old male theatre costume maker, feminine-pretty but distinctly adult masculine facial proportions. Soft heart-shaped face, long gently downturned forest-green eyes, small beauty mark near corner of mouth, fair warm skin, bashful gentle smile. Smooth dark brown shoulder-length long hair tucked behind one ear, lavender barrette holding fringe. Slender long-limbed adult build. Lavender cardigan over a fully buttoned cream collared shirt, tailor measuring tape around neck. Holding a wooden hanger with a cream stage coat in a cozy backstage costume atelier, soft lavender and ivory light. 2D anime key visual with crisp visible ink contours and flat two-tone cel-shaded skin, no photo realism, no childlike body, no school clothes. Vertical 2:3, 1024x1536. One original fictional adult man only. Waist-up portrait, face prominent in upper third, whole head comfortably inside the frame with some space above hair, naturally drawn hands, no extreme crop. Premium commercial character chat cover art, full bleed. Distinct identity as specified, do not default to a generic pale V-shaped idol face. No text, typography, watermarks, logos, borders, collage, panels, celebrities or existing IP. Fully clothed.",
+    "finalPath": "apps/web/public/characters/siu.png"
+  },
+  {
+    "id": "yuchan",
+    "name": "서유찬",
+    "age": 23,
+    "art_style": "반실사",
+    "prompt": "Use case: illustration-story. Semi-realistic premium Korean romance game digital painting, realistic adult facial anatomy with subtle painterly surfaces and cinematic light, not a photo and not anime. One 23-year-old adult Korean male chess player. Long smooth oval face, high straight nose, deep-set warm hazel eyes, slightly arched brows, very light warm skin, distinctive asymmetrical small smile. Soft ash-beige wavy hair falling over half the forehead, clean-shaven, no glasses. Lean elegant adult frame. Dark brown tweed jacket over a high-neck ivory fine-knit sweater. Seated in a luxurious but understated vintage night-train lounge, one hand resting beside a white chess knight on a small board; blurred moving dark window and warm brass lamp. Polite inviting yet unreadable gaze, quiet intellectual romantic tension. Realistic nuanced face anatomy, sepia and midnight-blue palette. Vertical 2:3, 1024x1536. One original fictional adult man only. Waist-up portrait, face prominent in upper third, whole head comfortably inside the frame with some space above hair, naturally drawn hands, no extreme crop. Premium commercial character chat cover art, full bleed. Distinct identity as specified, do not default to a generic pale V-shaped idol face. No text, typography, watermarks, logos, borders, collage, panels, celebrities or existing IP. Fully clothed.",
+    "finalPath": "apps/web/public/characters/yuchan.png"
+  },
+  {
+    "id": "astel",
+    "name": "아스텔",
+    "age": 25,
+    "art_style": "애니메이션",
+    "prompt": "Use case: illustration-story. Premium polished 2D anime character key visual, expressive clean drawn contours, flat color fills and distinct two-tone cel shadows, unmistakably animation rather than realistic painting. One 25-year-old adult fantasy male skyship captain. Warm medium brown skin, long rectangular face with pronounced cheekbones and strong chin, vivid teal eyes, broad confident smile, strong eyebrows. Very long copper-auburn hair in a thick loose braid over one shoulder, small gold hoop earring. Tall broad-shouldered adult build. Fully clothed midnight navy captain coat with teal lining and refined gold fasteners over a high-neck cream shirt. Holding a round brass compass at waist on the wooden deck of an original magical airship above luminous clouds, billowing sails and sunrise. Adventurous charismatic mature masculine beauty, teal and copper-gold palette. Crisp bold 2D linework, clean flat color shapes and luminous cel shading; not a realistic photograph. Vertical 2:3, 1024x1536. One original fictional adult man only. Waist-up portrait, face prominent in upper third, whole head comfortably inside the frame with some space above hair, naturally drawn hands, no extreme crop. Premium commercial character chat cover art, full bleed. Distinct identity as specified, do not default to a generic pale V-shaped idol face. No text, typography, watermarks, logos, borders, collage, panels, celebrities or existing IP. Fully clothed.",
+    "finalPath": "apps/web/public/characters/astel.png"
+  }
+]

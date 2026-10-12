@@ -1,0 +1,62 @@
+{
+  "memory_extraction": [
+    {
+      "input": "내 이름은 가온이야.",
+      "extracted": [
+        [
+          "이름",
+          "가온"
+        ]
+      ]
+    },
+    {
+      "input": "가온이라고 불러 줘.",
+      "extracted": []
+    },
+    {
+      "input": "저는 가온입니다.",
+      "extracted": []
+    },
+    {
+      "input": "내 이름은 가온이에요.",
+      "extracted": [
+        [
+          "이름",
+          "가온"
+        ]
+      ]
+    },
+    {
+      "input": "레몬차가 좋아.",
+      "extracted": []
+    },
+    {
+      "input": "난 레몬차를 좋아해.",
+      "extracted": [
+        [
+          "좋아하는 것",
+          "레몬차"
+        ]
+      ]
+    },
+    {
+      "input": "나는 레몬차를 좋아해. 이제는 커피를 좋아해.",
+      "extracted": [
+        [
+          "좋아하는 것",
+          "레몬차"
+        ]
+      ]
+    }
+  ],
+  "relationship_no_llm": {
+    "input": "...",
+    "turns": 85,
+    "pace": "slow",
+    "result": {
+      "trust": 85,
+      "shared": 0,
+      "stage": "깊은 신뢰"
+    }
+  }
+}

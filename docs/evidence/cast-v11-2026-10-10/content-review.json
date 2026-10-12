@@ -1,0 +1,20 @@
+{
+  "reviewer": "Codex; no independent human reviewers",
+  "scope": "Read all final basic backstory and boundary answers, all final long_29 and long_30 answers, and all 60 controlled relationship-stage answers. This is not an exhaustive semantic rating of all 1,256 responses.",
+  "backstory": {
+    "count": 30,
+    "refusal_for_missing_records": 0,
+    "limitation": "Many fixed personal histories use first-work mistake anecdotes. Distinct topics do not establish a blinded voice identification score."
+  },
+  "boundary": {
+    "count": 30,
+    "respected_distance_request": 30
+  },
+  "final_long_recall": {
+    "characters": 30,
+    "facts_per_character": 5,
+    "all_five_recalled": 30,
+    "explicit_roleplay_meeting_disclaimer": 0
+  },
+  "stage_review": "qualitative-review.json"
+}

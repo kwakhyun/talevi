@@ -1,0 +1,12 @@
+
+> yeoun@0.1.0 typecheck
+> npm run typecheck --workspaces --if-present
+
+
+> @yeoun/web@0.1.0 typecheck
+> tsc --noEmit
+
+
+> @yeoun/mobile@0.1.0 typecheck
+> tsc --noEmit
+

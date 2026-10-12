@@ -1,0 +1,22 @@
+{
+  "expo": {
+    "name": "테일비 Talevi",
+    "slug": "yeoun",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "dark",
+    "icon": "./assets/icon.png",
+    "scheme": "yeoun",
+    "ios": { "supportsTablet": true, "bundleIdentifier": "app.yeoun.chat" },
+    "android": {
+      "package": "app.yeoun.chat",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#F86B89",
+        "monochromeImage": "./assets/monochrome-icon.png"
+      }
+    },
+    "plugins": ["expo-secure-store"],
+    "experiments": { "typedRoutes": false }
+  }
+}

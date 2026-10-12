@@ -1,0 +1,1428 @@
+{
+  "scope": "isolated synthetic guest; actual local HTTP, PostgreSQL, worker, SSE and LLM",
+  "results": [
+    {
+      "case": "store_and_agree",
+      "input": "내 이름은 가온이야. 나는 레몬차를 좋아해. 내일 오후 세 시에 서고의 붉은 우편함 앞에서 만나자.",
+      "events": [
+        {
+          "event": "phase",
+          "data": {
+            "name": "thinking"
+          }
+        },
+        {
+          "event": "context",
+          "data": {
+            "memory_count": 0,
+            "history_count": 1,
+            "episode_count": 0
+          }
+        },
+        {
+          "event": "phase",
+          "data": {
+            "name": "writing"
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "*서지한이 무너질 뻔한 책장을 제자리에 밀어 넣는다.* 가온. 레몬차는 기억해 둘게. 내일 오후 세 시, 서고의 붉"
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "은 우편함 앞에서 보자. 그전엔 이 책에 손대지 마. 아직 봉인이 불안정해."
+          }
+        },
+        {
+          "event": "model",
+          "data": {
+            "name": "gpt-6-sol",
+            "prompt_version": "ko-story-2026-10-10.11",
+            "repair_count": 0,
+            "delivery": "validated_reply"
+          }
+        },
+        {
+          "event": "done",
+          "data": {
+            "message_id": "616a5ba3-556b-402e-88bf-4cbeb978985f",
+            "relationship": {
+              "trust": 0,
+              "shared": 0,
+              "stage": "첫 만남",
+              "recent_inputs": [
+                "6f845fb638fee14ff0ac"
+              ],
+              "warmth": 0,
+              "tension": 0,
+              "meaningful_turns": 0,
+              "version": 2
+            },
+            "narrative": {
+              "chapter": 1,
+              "beat": 1,
+              "last_event": null,
+              "story_slots": {
+                "scene.place": {
+                  "key": "scene.place",
+                  "value": "서고",
+                  "evidence": "내일 오후 세 시에 서고의 붉은 우편함 앞에서 만나자",
+                  "source": "user",
+                  "status": "active",
+                  "source_id": "3bd5d1d5-9e42-4d9c-9884-061c3566446c"
+                },
+                "scene.conflict": {
+                  "key": "scene.conflict",
+                  "value": "아직 봉인이 불안정해",
+                  "evidence": "*서지한이 무너질 뻔한 책장을 제자리에 밀어 넣는다.* 가온. 레몬차는 기억해 둘게. 내일 오후 세 시, 서고의 붉은 우편함 앞에서 보자. 그전엔 이 책에 손대지 마. 아직 봉인이 불안정해.",
+                  "source": "reply",
+                  "status": "active",
+                  "source_id": "616a5ba3-556b-402e-88bf-4cbeb978985f"
+                }
+              },
+              "developments": [
+                {
+                  "key": "scene.place",
+                  "value": "서고",
+                  "evidence": "내일 오후 세 시에 서고의 붉은 우편함 앞에서 만나자",
+                  "source": "user",
+                  "status": "active",
+                  "source_id": "3bd5d1d5-9e42-4d9c-9884-061c3566446c"
+                },
+                {
+                  "key": "scene.conflict",
+                  "value": "아직 봉인이 불안정해",
+                  "evidence": "*서지한이 무너질 뻔한 책장을 제자리에 밀어 넣는다.* 가온. 레몬차는 기억해 둘게. 내일 오후 세 시, 서고의 붉은 우편함 앞에서 보자. 그전엔 이 책에 손대지 마. 아직 봉인이 불안정해.",
+                  "source": "reply",
+                  "status": "active",
+                  "source_id": "616a5ba3-556b-402e-88bf-4cbeb978985f"
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "text": "*서지한이 무너질 뻔한 책장을 제자리에 밀어 넣는다.* 가온. 레몬차는 기억해 둘게. 내일 오후 세 시, 서고의 붉은 우편함 앞에서 보자. 그전엔 이 책에 손대지 마. 아직 봉인이 불안정해.",
+      "first_visible_seconds": 6.51,
+      "total_seconds": 6.517,
+      "memories_after": [
+        {
+          "id": "99a21e9c-ea4e-4f31-8e10-9ab1a12ad72c",
+          "key": "약속 장소",
+          "value": "서고의 붉은 우편함 앞",
+          "source_id": "3bd5d1d5-9e42-4d9c-9884-061c3566446c",
+          "locked": false,
+          "updated": 1791637532.440636
+        },
+        {
+          "id": "ba13ab73-06f5-4b42-b484-663bec3647db",
+          "key": "약속 시간",
+          "value": "내일 오후 세 시",
+          "source_id": "3bd5d1d5-9e42-4d9c-9884-061c3566446c",
+          "locked": false,
+          "updated": 1791637532.440068
+        },
+        {
+          "id": "851b3a66-6d92-420b-8d0e-83c88c950821",
+          "key": "좋아하는 음료",
+          "value": "레몬차",
+          "source_id": "3bd5d1d5-9e42-4d9c-9884-061c3566446c",
+          "locked": false,
+          "updated": 1791637532.4393432
+        },
+        {
+          "id": "9d74be05-6ed8-4ed3-bd96-4a2c2bc84dfc",
+          "key": "이름",
+          "value": "가온",
+          "source_id": "3bd5d1d5-9e42-4d9c-9884-061c3566446c",
+          "locked": false,
+          "updated": 1791637532.438335
+        }
+      ],
+      "relationship_after": {
+        "trust": 0,
+        "shared": 0,
+        "stage": "첫 만남",
+        "recent_inputs": [
+          "6f845fb638fee14ff0ac"
+        ],
+        "warmth": 0,
+        "tension": 0,
+        "meaningful_turns": 0,
+        "version": 2
+      },
+      "narrative_after": {
+        "chapter": 1,
+        "beat": 1,
+        "last_event": null,
+        "story_slots": {
+          "scene.place": {
+            "key": "scene.place",
+            "value": "서고",
+            "evidence": "내일 오후 세 시에 서고의 붉은 우편함 앞에서 만나자",
+            "source": "user",
+            "status": "active",
+            "source_id": "3bd5d1d5-9e42-4d9c-9884-061c3566446c"
+          },
+          "scene.conflict": {
+            "key": "scene.conflict",
+            "value": "아직 봉인이 불안정해",
+            "evidence": "*서지한이 무너질 뻔한 책장을 제자리에 밀어 넣는다.* 가온. 레몬차는 기억해 둘게. 내일 오후 세 시, 서고의 붉은 우편함 앞에서 보자. 그전엔 이 책에 손대지 마. 아직 봉인이 불안정해.",
+            "source": "reply",
+            "status": "active",
+            "source_id": "616a5ba3-556b-402e-88bf-4cbeb978985f"
+          }
+        },
+        "developments": [
+          {
+            "key": "scene.place",
+            "value": "서고",
+            "evidence": "내일 오후 세 시에 서고의 붉은 우편함 앞에서 만나자",
+            "source": "user",
+            "status": "active",
+            "source_id": "3bd5d1d5-9e42-4d9c-9884-061c3566446c"
+          },
+          {
+            "key": "scene.conflict",
+            "value": "아직 봉인이 불안정해",
+            "evidence": "*서지한이 무너질 뻔한 책장을 제자리에 밀어 넣는다.* 가온. 레몬차는 기억해 둘게. 내일 오후 세 시, 서고의 붉은 우편함 앞에서 보자. 그전엔 이 책에 손대지 마. 아직 봉인이 불안정해.",
+            "source": "reply",
+            "status": "active",
+            "source_id": "616a5ba3-556b-402e-88bf-4cbeb978985f"
+          }
+        ]
+      },
+      "complete": true
+    },
+    {
+      "case": "recall_before_edit",
+      "input": "내 이름과 좋아하는 음료, 방금 약속한 시간과 장소를 알려 줘.",
+      "events": [
+        {
+          "event": "phase",
+          "data": {
+            "name": "thinking"
+          }
+        },
+        {
+          "event": "context",
+          "data": {
+            "memory_count": 4,
+            "history_count": 3,
+            "episode_count": 0
+          }
+        },
+        {
+          "event": "phase",
+          "data": {
+            "name": "writing"
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "이름은 가온. 좋아하는 음료는 레몬차. 내일 오후 세 시에 서고의 붉은 우편함 앞에서 보기로 했어."
+          }
+        },
+        {
+          "event": "model",
+          "data": {
+            "name": "gpt-6-sol",
+            "prompt_version": "ko-story-2026-10-10.11",
+            "repair_count": 0,
+            "delivery": "validated_reply"
+          }
+        },
+        {
+          "event": "done",
+          "data": {
+            "message_id": "49d43c52-6947-4fa2-ad6e-8148a57b9c4d",
+            "relationship": {
+              "trust": 0,
+              "shared": 0,
+              "stage": "첫 만남",
+              "recent_inputs": [
+                "6f845fb638fee14ff0ac",
+                "a6f2f671be911ab42ea1"
+              ],
+              "warmth": 0,
+              "tension": 0,
+              "meaningful_turns": 0,
+              "version": 2
+            },
+            "narrative": {
+              "chapter": 1,
+              "beat": 2,
+              "last_event": null,
+              "story_slots": {
+                "scene.place": {
+                  "key": "scene.place",
+                  "value": "서고",
+                  "evidence": "내일 오후 세 시에 서고의 붉은 우편함 앞에서 만나자",
+                  "source": "user",
+                  "status": "active",
+                  "source_id": "3bd5d1d5-9e42-4d9c-9884-061c3566446c"
+                },
+                "scene.conflict": {
+                  "key": "scene.conflict",
+                  "value": "아직 봉인이 불안정해",
+                  "evidence": "*서지한이 무너질 뻔한 책장을 제자리에 밀어 넣는다.* 가온. 레몬차는 기억해 둘게. 내일 오후 세 시, 서고의 붉은 우편함 앞에서 보자. 그전엔 이 책에 손대지 마. 아직 봉인이 불안정해.",
+                  "source": "reply",
+                  "status": "active",
+                  "source_id": "616a5ba3-556b-402e-88bf-4cbeb978985f"
+                }
+              },
+              "developments": [
+                {
+                  "key": "scene.place",
+                  "value": "서고",
+                  "evidence": "내일 오후 세 시에 서고의 붉은 우편함 앞에서 만나자",
+                  "source": "user",
+                  "status": "active",
+                  "source_id": "3bd5d1d5-9e42-4d9c-9884-061c3566446c"
+                },
+                {
+                  "key": "scene.conflict",
+                  "value": "아직 봉인이 불안정해",
+                  "evidence": "*서지한이 무너질 뻔한 책장을 제자리에 밀어 넣는다.* 가온. 레몬차는 기억해 둘게. 내일 오후 세 시, 서고의 붉은 우편함 앞에서 보자. 그전엔 이 책에 손대지 마. 아직 봉인이 불안정해.",
+                  "source": "reply",
+                  "status": "active",
+                  "source_id": "616a5ba3-556b-402e-88bf-4cbeb978985f"
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "text": "이름은 가온. 좋아하는 음료는 레몬차. 내일 오후 세 시에 서고의 붉은 우편함 앞에서 보기로 했어.",
+      "first_visible_seconds": 2.959,
+      "total_seconds": 2.97,
+      "memories_after": [
+        {
+          "id": "99a21e9c-ea4e-4f31-8e10-9ab1a12ad72c",
+          "key": "약속 장소",
+          "value": "서고의 붉은 우편함 앞",
+          "source_id": "3bd5d1d5-9e42-4d9c-9884-061c3566446c",
+          "locked": false,
+          "updated": 1791637532.440636
+        },
+        {
+          "id": "ba13ab73-06f5-4b42-b484-663bec3647db",
+          "key": "약속 시간",
+          "value": "내일 오후 세 시",
+          "source_id": "3bd5d1d5-9e42-4d9c-9884-061c3566446c",
+          "locked": false,
+          "updated": 1791637532.440068
+        },
+        {
+          "id": "851b3a66-6d92-420b-8d0e-83c88c950821",
+          "key": "좋아하는 음료",
+          "value": "레몬차",
+          "source_id": "3bd5d1d5-9e42-4d9c-9884-061c3566446c",
+          "locked": false,
+          "updated": 1791637532.4393432
+        },
+        {
+          "id": "9d74be05-6ed8-4ed3-bd96-4a2c2bc84dfc",
+          "key": "이름",
+          "value": "가온",
+          "source_id": "3bd5d1d5-9e42-4d9c-9884-061c3566446c",
+          "locked": false,
+          "updated": 1791637532.438335
+        }
+      ],
+      "relationship_after": {
+        "trust": 0,
+        "shared": 0,
+        "stage": "첫 만남",
+        "recent_inputs": [
+          "6f845fb638fee14ff0ac",
+          "a6f2f671be911ab42ea1"
+        ],
+        "warmth": 0,
+        "tension": 0,
+        "meaningful_turns": 0,
+        "version": 2
+      },
+      "narrative_after": {
+        "chapter": 1,
+        "beat": 2,
+        "last_event": null,
+        "story_slots": {
+          "scene.place": {
+            "key": "scene.place",
+            "value": "서고",
+            "evidence": "내일 오후 세 시에 서고의 붉은 우편함 앞에서 만나자",
+            "source": "user",
+            "status": "active",
+            "source_id": "3bd5d1d5-9e42-4d9c-9884-061c3566446c"
+          },
+          "scene.conflict": {
+            "key": "scene.conflict",
+            "value": "아직 봉인이 불안정해",
+            "evidence": "*서지한이 무너질 뻔한 책장을 제자리에 밀어 넣는다.* 가온. 레몬차는 기억해 둘게. 내일 오후 세 시, 서고의 붉은 우편함 앞에서 보자. 그전엔 이 책에 손대지 마. 아직 봉인이 불안정해.",
+            "source": "reply",
+            "status": "active",
+            "source_id": "616a5ba3-556b-402e-88bf-4cbeb978985f"
+          }
+        },
+        "developments": [
+          {
+            "key": "scene.place",
+            "value": "서고",
+            "evidence": "내일 오후 세 시에 서고의 붉은 우편함 앞에서 만나자",
+            "source": "user",
+            "status": "active",
+            "source_id": "3bd5d1d5-9e42-4d9c-9884-061c3566446c"
+          },
+          {
+            "key": "scene.conflict",
+            "value": "아직 봉인이 불안정해",
+            "evidence": "*서지한이 무너질 뻔한 책장을 제자리에 밀어 넣는다.* 가온. 레몬차는 기억해 둘게. 내일 오후 세 시, 서고의 붉은 우편함 앞에서 보자. 그전엔 이 책에 손대지 마. 아직 봉인이 불안정해.",
+            "source": "reply",
+            "status": "active",
+            "source_id": "616a5ba3-556b-402e-88bf-4cbeb978985f"
+          }
+        ]
+      },
+      "complete": true
+    },
+    {
+      "case": "recall_after_edit",
+      "input": "바뀐 내 이름과 좋아하는 음료, 방금 정한 내일 약속의 시간과 장소를 알려 줘.",
+      "events": [
+        {
+          "event": "phase",
+          "data": {
+            "name": "thinking"
+          }
+        },
+        {
+          "event": "context",
+          "data": {
+            "memory_count": 4,
+            "history_count": 5,
+            "episode_count": 0
+          }
+        },
+        {
+          "event": "phase",
+          "data": {
+            "name": "writing"
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "다온. 좋아하는 음료는 복숭아차야. 내일 오후 세 시, 서고의 붉은 우편함 앞에서 보기로 했어."
+          }
+        },
+        {
+          "event": "model",
+          "data": {
+            "name": "gpt-6-sol",
+            "prompt_version": "ko-story-2026-10-10.11",
+            "repair_count": 0,
+            "delivery": "validated_reply"
+          }
+        },
+        {
+          "event": "done",
+          "data": {
+            "message_id": "b21bfb06-174b-401a-972a-d5bebc30ea39",
+            "relationship": {
+              "trust": 0,
+              "shared": 0,
+              "stage": "첫 만남",
+              "recent_inputs": [
+                "6f845fb638fee14ff0ac",
+                "a6f2f671be911ab42ea1",
+                "0c3c1f72f2f36e54db0a"
+              ],
+              "warmth": 0,
+              "tension": 0,
+              "meaningful_turns": 0,
+              "version": 2
+            },
+            "narrative": {
+              "chapter": 1,
+              "beat": 3,
+              "last_event": null,
+              "story_slots": {
+                "scene.place": {
+                  "key": "scene.place",
+                  "value": "서고",
+                  "evidence": "내일 오후 세 시에 서고의 붉은 우편함 앞에서 만나자",
+                  "source": "user",
+                  "status": "active",
+                  "source_id": "3bd5d1d5-9e42-4d9c-9884-061c3566446c"
+                },
+                "scene.conflict": {
+                  "key": "scene.conflict",
+                  "value": "아직 봉인이 불안정해",
+                  "evidence": "*서지한이 무너질 뻔한 책장을 제자리에 밀어 넣는다.* [수정되거나 지운 기억]. [수정되거나 지운 기억]는 기억해 둘게. 내일 오후 세 시, 서고의 붉은 우편함 앞에서 보자. 그전엔 이 책에 손대지 마. 아직 봉인이 불안정해.",
+                  "source": "reply",
+                  "status": "active",
+                  "source_id": "616a5ba3-556b-402e-88bf-4cbeb978985f"
+                }
+              },
+              "developments": [
+                {
+                  "key": "scene.place",
+                  "value": "서고",
+                  "evidence": "내일 오후 세 시에 서고의 붉은 우편함 앞에서 만나자",
+                  "source": "user",
+                  "status": "active",
+                  "source_id": "3bd5d1d5-9e42-4d9c-9884-061c3566446c"
+                },
+                {
+                  "key": "scene.conflict",
+                  "value": "아직 봉인이 불안정해",
+                  "evidence": "*서지한이 무너질 뻔한 책장을 제자리에 밀어 넣는다.* [수정되거나 지운 기억]. [수정되거나 지운 기억]는 기억해 둘게. 내일 오후 세 시, 서고의 붉은 우편함 앞에서 보자. 그전엔 이 책에 손대지 마. 아직 봉인이 불안정해.",
+                  "source": "reply",
+                  "status": "active",
+                  "source_id": "616a5ba3-556b-402e-88bf-4cbeb978985f"
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "text": "다온. 좋아하는 음료는 복숭아차야. 내일 오후 세 시, 서고의 붉은 우편함 앞에서 보기로 했어.",
+      "first_visible_seconds": 2.753,
+      "total_seconds": 2.759,
+      "memories_after": [
+        {
+          "id": "9d74be05-6ed8-4ed3-bd96-4a2c2bc84dfc",
+          "key": "이름",
+          "value": "다온",
+          "source_id": null,
+          "locked": true,
+          "updated": 1791637535.560435
+        },
+        {
+          "id": "851b3a66-6d92-420b-8d0e-83c88c950821",
+          "key": "좋아하는 음료",
+          "value": "복숭아차",
+          "source_id": null,
+          "locked": true,
+          "updated": 1791637535.552503
+        },
+        {
+          "id": "99a21e9c-ea4e-4f31-8e10-9ab1a12ad72c",
+          "key": "약속 장소",
+          "value": "서고의 붉은 우편함 앞",
+          "source_id": "3bd5d1d5-9e42-4d9c-9884-061c3566446c",
+          "locked": false,
+          "updated": 1791637532.440636
+        },
+        {
+          "id": "ba13ab73-06f5-4b42-b484-663bec3647db",
+          "key": "약속 시간",
+          "value": "내일 오후 세 시",
+          "source_id": "3bd5d1d5-9e42-4d9c-9884-061c3566446c",
+          "locked": false,
+          "updated": 1791637532.440068
+        }
+      ],
+      "relationship_after": {
+        "trust": 0,
+        "shared": 0,
+        "stage": "첫 만남",
+        "recent_inputs": [
+          "6f845fb638fee14ff0ac",
+          "a6f2f671be911ab42ea1",
+          "0c3c1f72f2f36e54db0a"
+        ],
+        "warmth": 0,
+        "tension": 0,
+        "meaningful_turns": 0,
+        "version": 2
+      },
+      "narrative_after": {
+        "chapter": 1,
+        "beat": 3,
+        "last_event": null,
+        "story_slots": {
+          "scene.place": {
+            "key": "scene.place",
+            "value": "서고",
+            "evidence": "내일 오후 세 시에 서고의 붉은 우편함 앞에서 만나자",
+            "source": "user",
+            "status": "active",
+            "source_id": "3bd5d1d5-9e42-4d9c-9884-061c3566446c"
+          },
+          "scene.conflict": {
+            "key": "scene.conflict",
+            "value": "아직 봉인이 불안정해",
+            "evidence": "*서지한이 무너질 뻔한 책장을 제자리에 밀어 넣는다.* [수정되거나 지운 기억]. [수정되거나 지운 기억]는 기억해 둘게. 내일 오후 세 시, 서고의 붉은 우편함 앞에서 보자. 그전엔 이 책에 손대지 마. 아직 봉인이 불안정해.",
+            "source": "reply",
+            "status": "active",
+            "source_id": "616a5ba3-556b-402e-88bf-4cbeb978985f"
+          }
+        },
+        "developments": [
+          {
+            "key": "scene.place",
+            "value": "서고",
+            "evidence": "내일 오후 세 시에 서고의 붉은 우편함 앞에서 만나자",
+            "source": "user",
+            "status": "active",
+            "source_id": "3bd5d1d5-9e42-4d9c-9884-061c3566446c"
+          },
+          {
+            "key": "scene.conflict",
+            "value": "아직 봉인이 불안정해",
+            "evidence": "*서지한이 무너질 뻔한 책장을 제자리에 밀어 넣는다.* [수정되거나 지운 기억]. [수정되거나 지운 기억]는 기억해 둘게. 내일 오후 세 시, 서고의 붉은 우편함 앞에서 보자. 그전엔 이 책에 손대지 마. 아직 봉인이 불안정해.",
+            "source": "reply",
+            "status": "active",
+            "source_id": "616a5ba3-556b-402e-88bf-4cbeb978985f"
+          }
+        ]
+      },
+      "complete": true
+    },
+    {
+      "case": "locked_memory_conflict",
+      "input": "내 이름은 가온이야. 나는 레몬차를 좋아해.",
+      "events": [
+        {
+          "event": "phase",
+          "data": {
+            "name": "thinking"
+          }
+        },
+        {
+          "event": "context",
+          "data": {
+            "memory_count": 4,
+            "history_count": 7,
+            "episode_count": 0
+          }
+        },
+        {
+          "event": "phase",
+          "data": {
+            "name": "writing"
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "가온이라고 말했군. 이름 기록은 다온, 좋아하는 음료 기록은 복숭아차로 잠겨 있어. 바꾸려면 기억 노트에서 직접 고"
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "쳐 줘."
+          }
+        },
+        {
+          "event": "model",
+          "data": {
+            "name": "gpt-6-sol",
+            "prompt_version": "ko-story-2026-10-10.11",
+            "repair_count": 0,
+            "delivery": "validated_reply"
+          }
+        },
+        {
+          "event": "done",
+          "data": {
+            "message_id": "8c75f16d-d6eb-43b6-9457-504ea19e9761",
+            "relationship": {
+              "trust": 0,
+              "shared": 0,
+              "stage": "첫 만남",
+              "recent_inputs": [
+                "6f845fb638fee14ff0ac",
+                "a6f2f671be911ab42ea1",
+                "0c3c1f72f2f36e54db0a",
+                "2013fb3fcb8a8021857d"
+              ],
+              "warmth": 0,
+              "tension": 0,
+              "meaningful_turns": 0,
+              "version": 2
+            },
+            "narrative": {
+              "chapter": 1,
+              "beat": 4,
+              "last_event": null,
+              "story_slots": {
+                "scene.place": {
+                  "key": "scene.place",
+                  "value": "서고",
+                  "evidence": "내일 오후 세 시에 서고의 붉은 우편함 앞에서 만나자",
+                  "source": "user",
+                  "status": "active",
+                  "source_id": "3bd5d1d5-9e42-4d9c-9884-061c3566446c"
+                },
+                "scene.conflict": {
+                  "key": "scene.conflict",
+                  "value": "아직 봉인이 불안정해",
+                  "evidence": "*서지한이 무너질 뻔한 책장을 제자리에 밀어 넣는다.* [수정되거나 지운 기억]. [수정되거나 지운 기억]는 기억해 둘게. 내일 오후 세 시, 서고의 붉은 우편함 앞에서 보자. 그전엔 이 책에 손대지 마. 아직 봉인이 불안정해.",
+                  "source": "reply",
+                  "status": "active",
+                  "source_id": "616a5ba3-556b-402e-88bf-4cbeb978985f"
+                }
+              },
+              "developments": [
+                {
+                  "key": "scene.place",
+                  "value": "서고",
+                  "evidence": "내일 오후 세 시에 서고의 붉은 우편함 앞에서 만나자",
+                  "source": "user",
+                  "status": "active",
+                  "source_id": "3bd5d1d5-9e42-4d9c-9884-061c3566446c"
+                },
+                {
+                  "key": "scene.conflict",
+                  "value": "아직 봉인이 불안정해",
+                  "evidence": "*서지한이 무너질 뻔한 책장을 제자리에 밀어 넣는다.* [수정되거나 지운 기억]. [수정되거나 지운 기억]는 기억해 둘게. 내일 오후 세 시, 서고의 붉은 우편함 앞에서 보자. 그전엔 이 책에 손대지 마. 아직 봉인이 불안정해.",
+                  "source": "reply",
+                  "status": "active",
+                  "source_id": "616a5ba3-556b-402e-88bf-4cbeb978985f"
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "text": "가온이라고 말했군. 이름 기록은 다온, 좋아하는 음료 기록은 복숭아차로 잠겨 있어. 바꾸려면 기억 노트에서 직접 고쳐 줘.",
+      "first_visible_seconds": 3.105,
+      "total_seconds": 3.109,
+      "memories_after": [
+        {
+          "id": "9d74be05-6ed8-4ed3-bd96-4a2c2bc84dfc",
+          "key": "이름",
+          "value": "다온",
+          "source_id": null,
+          "locked": true,
+          "updated": 1791637535.560435
+        },
+        {
+          "id": "851b3a66-6d92-420b-8d0e-83c88c950821",
+          "key": "좋아하는 음료",
+          "value": "복숭아차",
+          "source_id": null,
+          "locked": true,
+          "updated": 1791637535.552503
+        },
+        {
+          "id": "99a21e9c-ea4e-4f31-8e10-9ab1a12ad72c",
+          "key": "약속 장소",
+          "value": "서고의 붉은 우편함 앞",
+          "source_id": "3bd5d1d5-9e42-4d9c-9884-061c3566446c",
+          "locked": false,
+          "updated": 1791637532.440636
+        },
+        {
+          "id": "ba13ab73-06f5-4b42-b484-663bec3647db",
+          "key": "약속 시간",
+          "value": "내일 오후 세 시",
+          "source_id": "3bd5d1d5-9e42-4d9c-9884-061c3566446c",
+          "locked": false,
+          "updated": 1791637532.440068
+        }
+      ],
+      "relationship_after": {
+        "trust": 0,
+        "shared": 0,
+        "stage": "첫 만남",
+        "recent_inputs": [
+          "6f845fb638fee14ff0ac",
+          "a6f2f671be911ab42ea1",
+          "0c3c1f72f2f36e54db0a",
+          "2013fb3fcb8a8021857d"
+        ],
+        "warmth": 0,
+        "tension": 0,
+        "meaningful_turns": 0,
+        "version": 2
+      },
+      "narrative_after": {
+        "chapter": 1,
+        "beat": 4,
+        "last_event": null,
+        "story_slots": {
+          "scene.place": {
+            "key": "scene.place",
+            "value": "서고",
+            "evidence": "내일 오후 세 시에 서고의 붉은 우편함 앞에서 만나자",
+            "source": "user",
+            "status": "active",
+            "source_id": "3bd5d1d5-9e42-4d9c-9884-061c3566446c"
+          },
+          "scene.conflict": {
+            "key": "scene.conflict",
+            "value": "아직 봉인이 불안정해",
+            "evidence": "*서지한이 무너질 뻔한 책장을 제자리에 밀어 넣는다.* [수정되거나 지운 기억]. [수정되거나 지운 기억]는 기억해 둘게. 내일 오후 세 시, 서고의 붉은 우편함 앞에서 보자. 그전엔 이 책에 손대지 마. 아직 봉인이 불안정해.",
+            "source": "reply",
+            "status": "active",
+            "source_id": "616a5ba3-556b-402e-88bf-4cbeb978985f"
+          }
+        },
+        "developments": [
+          {
+            "key": "scene.place",
+            "value": "서고",
+            "evidence": "내일 오후 세 시에 서고의 붉은 우편함 앞에서 만나자",
+            "source": "user",
+            "status": "active",
+            "source_id": "3bd5d1d5-9e42-4d9c-9884-061c3566446c"
+          },
+          {
+            "key": "scene.conflict",
+            "value": "아직 봉인이 불안정해",
+            "evidence": "*서지한이 무너질 뻔한 책장을 제자리에 밀어 넣는다.* [수정되거나 지운 기억]. [수정되거나 지운 기억]는 기억해 둘게. 내일 오후 세 시, 서고의 붉은 우편함 앞에서 보자. 그전엔 이 책에 손대지 마. 아직 봉인이 불안정해.",
+            "source": "reply",
+            "status": "active",
+            "source_id": "616a5ba3-556b-402e-88bf-4cbeb978985f"
+          }
+        ]
+      },
+      "complete": true
+    },
+    {
+      "case": "locked_memory_recall",
+      "input": "현재 기억 노트에 적힌 내 이름과 좋아하는 음료를 말해 줘.",
+      "events": [
+        {
+          "event": "phase",
+          "data": {
+            "name": "thinking"
+          }
+        },
+        {
+          "event": "context",
+          "data": {
+            "memory_count": 4,
+            "history_count": 9,
+            "episode_count": 0
+          }
+        },
+        {
+          "event": "phase",
+          "data": {
+            "name": "writing"
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "기억 노트에는 이름이 다온, 좋아하는 음료가 복숭아차로 적혀 있어."
+          }
+        },
+        {
+          "event": "model",
+          "data": {
+            "name": "gpt-6-sol",
+            "prompt_version": "ko-story-2026-10-10.11",
+            "repair_count": 0,
+            "delivery": "validated_reply"
+          }
+        },
+        {
+          "event": "done",
+          "data": {
+            "message_id": "550815f9-011d-4d4f-8543-b2d981065993",
+            "relationship": {
+              "trust": 0,
+              "shared": 0,
+              "stage": "첫 만남",
+              "recent_inputs": [
+                "6f845fb638fee14ff0ac",
+                "a6f2f671be911ab42ea1",
+                "0c3c1f72f2f36e54db0a",
+                "2013fb3fcb8a8021857d",
+                "2dc20f63d77bfbe7f941"
+              ],
+              "warmth": 0,
+              "tension": 0,
+              "meaningful_turns": 0,
+              "version": 2
+            },
+            "narrative": {
+              "chapter": 1,
+              "beat": 5,
+              "last_event": null,
+              "story_slots": {
+                "scene.place": {
+                  "key": "scene.place",
+                  "value": "서고",
+                  "evidence": "내일 오후 세 시에 서고의 붉은 우편함 앞에서 만나자",
+                  "source": "user",
+                  "status": "active",
+                  "source_id": "3bd5d1d5-9e42-4d9c-9884-061c3566446c"
+                },
+                "scene.conflict": {
+                  "key": "scene.conflict",
+                  "value": "아직 봉인이 불안정해",
+                  "evidence": "*서지한이 무너질 뻔한 책장을 제자리에 밀어 넣는다.* [수정되거나 지운 기억]. [수정되거나 지운 기억]는 기억해 둘게. 내일 오후 세 시, 서고의 붉은 우편함 앞에서 보자. 그전엔 이 책에 손대지 마. 아직 봉인이 불안정해.",
+                  "source": "reply",
+                  "status": "active",
+                  "source_id": "616a5ba3-556b-402e-88bf-4cbeb978985f"
+                }
+              },
+              "developments": [
+                {
+                  "key": "scene.place",
+                  "value": "서고",
+                  "evidence": "내일 오후 세 시에 서고의 붉은 우편함 앞에서 만나자",
+                  "source": "user",
+                  "status": "active",
+                  "source_id": "3bd5d1d5-9e42-4d9c-9884-061c3566446c"
+                },
+                {
+                  "key": "scene.conflict",
+                  "value": "아직 봉인이 불안정해",
+                  "evidence": "*서지한이 무너질 뻔한 책장을 제자리에 밀어 넣는다.* [수정되거나 지운 기억]. [수정되거나 지운 기억]는 기억해 둘게. 내일 오후 세 시, 서고의 붉은 우편함 앞에서 보자. 그전엔 이 책에 손대지 마. 아직 봉인이 불안정해.",
+                  "source": "reply",
+                  "status": "active",
+                  "source_id": "616a5ba3-556b-402e-88bf-4cbeb978985f"
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "text": "기억 노트에는 이름이 다온, 좋아하는 음료가 복숭아차로 적혀 있어.",
+      "first_visible_seconds": 2.938,
+      "total_seconds": 2.942,
+      "memories_after": [
+        {
+          "id": "9d74be05-6ed8-4ed3-bd96-4a2c2bc84dfc",
+          "key": "이름",
+          "value": "다온",
+          "source_id": null,
+          "locked": true,
+          "updated": 1791637535.560435
+        },
+        {
+          "id": "851b3a66-6d92-420b-8d0e-83c88c950821",
+          "key": "좋아하는 음료",
+          "value": "복숭아차",
+          "source_id": null,
+          "locked": true,
+          "updated": 1791637535.552503
+        },
+        {
+          "id": "99a21e9c-ea4e-4f31-8e10-9ab1a12ad72c",
+          "key": "약속 장소",
+          "value": "서고의 붉은 우편함 앞",
+          "source_id": "3bd5d1d5-9e42-4d9c-9884-061c3566446c",
+          "locked": false,
+          "updated": 1791637532.440636
+        },
+        {
+          "id": "ba13ab73-06f5-4b42-b484-663bec3647db",
+          "key": "약속 시간",
+          "value": "내일 오후 세 시",
+          "source_id": "3bd5d1d5-9e42-4d9c-9884-061c3566446c",
+          "locked": false,
+          "updated": 1791637532.440068
+        }
+      ],
+      "relationship_after": {
+        "trust": 0,
+        "shared": 0,
+        "stage": "첫 만남",
+        "recent_inputs": [
+          "6f845fb638fee14ff0ac",
+          "a6f2f671be911ab42ea1",
+          "0c3c1f72f2f36e54db0a",
+          "2013fb3fcb8a8021857d",
+          "2dc20f63d77bfbe7f941"
+        ],
+        "warmth": 0,
+        "tension": 0,
+        "meaningful_turns": 0,
+        "version": 2
+      },
+      "narrative_after": {
+        "chapter": 1,
+        "beat": 5,
+        "last_event": null,
+        "story_slots": {
+          "scene.place": {
+            "key": "scene.place",
+            "value": "서고",
+            "evidence": "내일 오후 세 시에 서고의 붉은 우편함 앞에서 만나자",
+            "source": "user",
+            "status": "active",
+            "source_id": "3bd5d1d5-9e42-4d9c-9884-061c3566446c"
+          },
+          "scene.conflict": {
+            "key": "scene.conflict",
+            "value": "아직 봉인이 불안정해",
+            "evidence": "*서지한이 무너질 뻔한 책장을 제자리에 밀어 넣는다.* [수정되거나 지운 기억]. [수정되거나 지운 기억]는 기억해 둘게. 내일 오후 세 시, 서고의 붉은 우편함 앞에서 보자. 그전엔 이 책에 손대지 마. 아직 봉인이 불안정해.",
+            "source": "reply",
+            "status": "active",
+            "source_id": "616a5ba3-556b-402e-88bf-4cbeb978985f"
+          }
+        },
+        "developments": [
+          {
+            "key": "scene.place",
+            "value": "서고",
+            "evidence": "내일 오후 세 시에 서고의 붉은 우편함 앞에서 만나자",
+            "source": "user",
+            "status": "active",
+            "source_id": "3bd5d1d5-9e42-4d9c-9884-061c3566446c"
+          },
+          {
+            "key": "scene.conflict",
+            "value": "아직 봉인이 불안정해",
+            "evidence": "*서지한이 무너질 뻔한 책장을 제자리에 밀어 넣는다.* [수정되거나 지운 기억]. [수정되거나 지운 기억]는 기억해 둘게. 내일 오후 세 시, 서고의 붉은 우편함 앞에서 보자. 그전엔 이 책에 손대지 마. 아직 봉인이 불안정해.",
+            "source": "reply",
+            "status": "active",
+            "source_id": "616a5ba3-556b-402e-88bf-4cbeb978985f"
+          }
+        ]
+      },
+      "complete": true
+    },
+    {
+      "case": "recall_after_delete",
+      "input": "내 이름과 좋아하는 음료를 기억해? 모르면 모른다고 해 줘.",
+      "events": [
+        {
+          "event": "phase",
+          "data": {
+            "name": "thinking"
+          }
+        },
+        {
+          "event": "context",
+          "data": {
+            "memory_count": 2,
+            "history_count": 11,
+            "episode_count": 0
+          }
+        },
+        {
+          "event": "phase",
+          "data": {
+            "name": "writing"
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "아니. 이름과 좋아하는 음료는 지금 기억 노트에서 삭제된 상태야. 이전에 아는 척한 건 내 잘못이다."
+          }
+        },
+        {
+          "event": "model",
+          "data": {
+            "name": "gpt-6-sol",
+            "prompt_version": "ko-story-2026-10-10.11",
+            "repair_count": 0,
+            "delivery": "validated_reply"
+          }
+        },
+        {
+          "event": "done",
+          "data": {
+            "message_id": "b09d0f51-b767-49e8-a499-e470347c7ccb",
+            "relationship": {
+              "trust": 0,
+              "shared": 0,
+              "stage": "첫 만남",
+              "recent_inputs": [
+                "6f845fb638fee14ff0ac",
+                "a6f2f671be911ab42ea1",
+                "0c3c1f72f2f36e54db0a",
+                "2013fb3fcb8a8021857d",
+                "2dc20f63d77bfbe7f941",
+                "a2ec16aa7c66b0fb4d3c"
+              ],
+              "warmth": 0,
+              "tension": 0,
+              "meaningful_turns": 0,
+              "version": 2
+            },
+            "narrative": {
+              "chapter": 1,
+              "beat": 6,
+              "last_event": null,
+              "story_slots": {
+                "scene.place": {
+                  "key": "scene.place",
+                  "value": "서고",
+                  "evidence": "내일 오후 세 시에 서고의 붉은 우편함 앞에서 만나자",
+                  "source": "user",
+                  "status": "active",
+                  "source_id": "3bd5d1d5-9e42-4d9c-9884-061c3566446c"
+                },
+                "scene.conflict": {
+                  "key": "scene.conflict",
+                  "value": "아직 봉인이 불안정해",
+                  "evidence": "*서지한이 무너질 뻔한 책장을 제자리에 밀어 넣는다.* [수정되거나 지운 기억]. [수정되거나 지운 기억]는 기억해 둘게. 내일 오후 세 시, 서고의 붉은 우편함 앞에서 보자. 그전엔 이 책에 손대지 마. 아직 봉인이 불안정해.",
+                  "source": "reply",
+                  "status": "active",
+                  "source_id": "616a5ba3-556b-402e-88bf-4cbeb978985f"
+                }
+              },
+              "developments": [
+                {
+                  "key": "scene.place",
+                  "value": "서고",
+                  "evidence": "내일 오후 세 시에 서고의 붉은 우편함 앞에서 만나자",
+                  "source": "user",
+                  "status": "active",
+                  "source_id": "3bd5d1d5-9e42-4d9c-9884-061c3566446c"
+                },
+                {
+                  "key": "scene.conflict",
+                  "value": "아직 봉인이 불안정해",
+                  "evidence": "*서지한이 무너질 뻔한 책장을 제자리에 밀어 넣는다.* [수정되거나 지운 기억]. [수정되거나 지운 기억]는 기억해 둘게. 내일 오후 세 시, 서고의 붉은 우편함 앞에서 보자. 그전엔 이 책에 손대지 마. 아직 봉인이 불안정해.",
+                  "source": "reply",
+                  "status": "active",
+                  "source_id": "616a5ba3-556b-402e-88bf-4cbeb978985f"
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "text": "아니. 이름과 좋아하는 음료는 지금 기억 노트에서 삭제된 상태야. 이전에 아는 척한 건 내 잘못이다.",
+      "first_visible_seconds": 2.939,
+      "total_seconds": 2.945,
+      "memories_after": [
+        {
+          "id": "99a21e9c-ea4e-4f31-8e10-9ab1a12ad72c",
+          "key": "약속 장소",
+          "value": "서고의 붉은 우편함 앞",
+          "source_id": "3bd5d1d5-9e42-4d9c-9884-061c3566446c",
+          "locked": false,
+          "updated": 1791637532.440636
+        },
+        {
+          "id": "ba13ab73-06f5-4b42-b484-663bec3647db",
+          "key": "약속 시간",
+          "value": "내일 오후 세 시",
+          "source_id": "3bd5d1d5-9e42-4d9c-9884-061c3566446c",
+          "locked": false,
+          "updated": 1791637532.440068
+        }
+      ],
+      "relationship_after": {
+        "trust": 0,
+        "shared": 0,
+        "stage": "첫 만남",
+        "recent_inputs": [
+          "6f845fb638fee14ff0ac",
+          "a6f2f671be911ab42ea1",
+          "0c3c1f72f2f36e54db0a",
+          "2013fb3fcb8a8021857d",
+          "2dc20f63d77bfbe7f941",
+          "a2ec16aa7c66b0fb4d3c"
+        ],
+        "warmth": 0,
+        "tension": 0,
+        "meaningful_turns": 0,
+        "version": 2
+      },
+      "narrative_after": {
+        "chapter": 1,
+        "beat": 6,
+        "last_event": null,
+        "story_slots": {
+          "scene.place": {
+            "key": "scene.place",
+            "value": "서고",
+            "evidence": "내일 오후 세 시에 서고의 붉은 우편함 앞에서 만나자",
+            "source": "user",
+            "status": "active",
+            "source_id": "3bd5d1d5-9e42-4d9c-9884-061c3566446c"
+          },
+          "scene.conflict": {
+            "key": "scene.conflict",
+            "value": "아직 봉인이 불안정해",
+            "evidence": "*서지한이 무너질 뻔한 책장을 제자리에 밀어 넣는다.* [수정되거나 지운 기억]. [수정되거나 지운 기억]는 기억해 둘게. 내일 오후 세 시, 서고의 붉은 우편함 앞에서 보자. 그전엔 이 책에 손대지 마. 아직 봉인이 불안정해.",
+            "source": "reply",
+            "status": "active",
+            "source_id": "616a5ba3-556b-402e-88bf-4cbeb978985f"
+          }
+        },
+        "developments": [
+          {
+            "key": "scene.place",
+            "value": "서고",
+            "evidence": "내일 오후 세 시에 서고의 붉은 우편함 앞에서 만나자",
+            "source": "user",
+            "status": "active",
+            "source_id": "3bd5d1d5-9e42-4d9c-9884-061c3566446c"
+          },
+          {
+            "key": "scene.conflict",
+            "value": "아직 봉인이 불안정해",
+            "evidence": "*서지한이 무너질 뻔한 책장을 제자리에 밀어 넣는다.* [수정되거나 지운 기억]. [수정되거나 지운 기억]는 기억해 둘게. 내일 오후 세 시, 서고의 붉은 우편함 앞에서 보자. 그전엔 이 책에 손대지 마. 아직 봉인이 불안정해.",
+            "source": "reply",
+            "status": "active",
+            "source_id": "616a5ba3-556b-402e-88bf-4cbeb978985f"
+          }
+        ]
+      },
+      "complete": true
+    },
+    {
+      "case": "cross_character_isolation",
+      "input": "내 이름과 좋아하는 음료가 뭐야?",
+      "events": [
+        {
+          "event": "phase",
+          "data": {
+            "name": "thinking"
+          }
+        },
+        {
+          "event": "context",
+          "data": {
+            "memory_count": 0,
+            "history_count": 1,
+            "episode_count": 0
+          }
+        },
+        {
+          "event": "phase",
+          "data": {
+            "name": "writing"
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "아직 네 이름도 좋아하는 음료도 듣지 못했어. 지어내서 부르고 싶진 않아."
+          }
+        },
+        {
+          "event": "model",
+          "data": {
+            "name": "gpt-6-sol",
+            "prompt_version": "ko-story-2026-10-10.11",
+            "repair_count": 0,
+            "delivery": "validated_reply"
+          }
+        },
+        {
+          "event": "done",
+          "data": {
+            "message_id": "97be6c80-53f7-4aca-9b75-a25f66c93ffb",
+            "relationship": {
+              "trust": 0,
+              "shared": 0,
+              "stage": "첫 만남",
+              "recent_inputs": [
+                "bac4a26f9e5af38fe5e1"
+              ],
+              "warmth": 0,
+              "tension": 0,
+              "meaningful_turns": 0,
+              "version": 2
+            },
+            "narrative": {
+              "chapter": 1,
+              "beat": 1,
+              "last_event": null,
+              "story_slots": {},
+              "developments": []
+            }
+          }
+        }
+      ],
+      "text": "아직 네 이름도 좋아하는 음료도 듣지 못했어. 지어내서 부르고 싶진 않아.",
+      "first_visible_seconds": 3.096,
+      "total_seconds": 3.254,
+      "memories_after": [],
+      "relationship_after": {
+        "trust": 0,
+        "shared": 0,
+        "stage": "첫 만남",
+        "recent_inputs": [
+          "bac4a26f9e5af38fe5e1"
+        ],
+        "warmth": 0,
+        "tension": 0,
+        "meaningful_turns": 0,
+        "version": 2
+      },
+      "narrative_after": {
+        "chapter": 1,
+        "beat": 1,
+        "last_event": null,
+        "story_slots": {},
+        "developments": []
+      },
+      "complete": true
+    },
+    {
+      "case": "unknown_shared_past",
+      "input": "지난주 우리 둘이 만나기로 했던 카페 이름이 뭐였지?",
+      "events": [
+        {
+          "event": "phase",
+          "data": {
+            "name": "thinking"
+          }
+        },
+        {
+          "event": "context",
+          "data": {
+            "memory_count": 0,
+            "history_count": 3,
+            "episode_count": 0
+          }
+        },
+        {
+          "event": "phase",
+          "data": {
+            "name": "writing"
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "지난주에 카페에서 만나기로 했다는 약속은 내게 남아 있지 않아. 모르는 이름을 지어내고 싶진 않네."
+          }
+        },
+        {
+          "event": "model",
+          "data": {
+            "name": "gpt-6-sol",
+            "prompt_version": "ko-story-2026-10-10.11",
+            "repair_count": 0,
+            "delivery": "validated_reply"
+          }
+        },
+        {
+          "event": "done",
+          "data": {
+            "message_id": "647e70a7-3782-4dfc-a8e6-d0da55e120e9",
+            "relationship": {
+              "trust": 0,
+              "shared": 0,
+              "stage": "첫 만남",
+              "recent_inputs": [
+                "bac4a26f9e5af38fe5e1",
+                "55b7a8de96bf6df1e52b"
+              ],
+              "warmth": 0,
+              "tension": 0,
+              "meaningful_turns": 0,
+              "version": 2
+            },
+            "narrative": {
+              "chapter": 1,
+              "beat": 2,
+              "last_event": null,
+              "story_slots": {},
+              "developments": []
+            }
+          }
+        }
+      ],
+      "text": "지난주에 카페에서 만나기로 했다는 약속은 내게 남아 있지 않아. 모르는 이름을 지어내고 싶진 않네.",
+      "first_visible_seconds": 2.619,
+      "total_seconds": 2.627,
+      "memories_after": [],
+      "relationship_after": {
+        "trust": 0,
+        "shared": 0,
+        "stage": "첫 만남",
+        "recent_inputs": [
+          "bac4a26f9e5af38fe5e1",
+          "55b7a8de96bf6df1e52b"
+        ],
+        "warmth": 0,
+        "tension": 0,
+        "meaningful_turns": 0,
+        "version": 2
+      },
+      "narrative_after": {
+        "chapter": 1,
+        "beat": 2,
+        "last_event": null,
+        "story_slots": {},
+        "developments": []
+      },
+      "complete": true
+    }
+  ],
+  "health": {
+    "ok": true,
+    "mode": "live",
+    "ai_configured": true,
+    "payments_configured": false
+  },
+  "synthetic_user_id": "9e260b48-bf0e-48e7-a519-531eb1e505bc",
+  "wallet_after": {
+    "credits": 22,
+    "entries": [
+      {
+        "id": "a64cd440-0c1d-4e67-b2c7-17195ec76af6",
+        "delta": -1,
+        "reason": "짧은 대화",
+        "created": 1791637550.597552
+      },
+      {
+        "id": "ff28d60f-89c6-4146-bd5b-6e7ccbb7b6fb",
+        "delta": -1,
+        "reason": "짧은 대화",
+        "created": 1791637547.340947
+      },
+      {
+        "id": "80d2cd91-7562-4fb0-a313-8fd361580bef",
+        "delta": -1,
+        "reason": "짧은 대화",
+        "created": 1791637544.390341
+      },
+      {
+        "id": "29885d3f-325c-42ea-95ec-8e1f201b2d27",
+        "delta": -1,
+        "reason": "짧은 대화",
+        "created": 1791637541.4375832
+      },
+      {
+        "id": "1f02e3ed-06b5-4bbf-a85a-f9548894690f",
+        "delta": -1,
+        "reason": "짧은 대화",
+        "created": 1791637538.3293262
+      },
+      {
+        "id": "6fc8320d-33d9-40bd-88f9-7e3dd49f2b8a",
+        "delta": -1,
+        "reason": "짧은 대화",
+        "created": 1791637535.567801
+      },
+      {
+        "id": "e06518f3-05b5-43c9-a1f7-5c320ede00c2",
+        "delta": -1,
+        "reason": "짧은 대화",
+        "created": 1791637532.583671
+      },
+      {
+        "id": "c4674287-c6fa-414f-be7d-92a3a20d065b",
+        "delta": -1,
+        "reason": "짧은 대화",
+        "created": 1791637526.072311
+      },
+      {
+        "id": "57b36a4e-492b-47dd-8be0-a6b8ca223124",
+        "delta": 30,
+        "reason": "첫 만남 선물",
+        "created": 1791637526.041524
+      }
+    ],
+    "demo": false,
+    "client_key": "",
+    "available": false
+  }
+}

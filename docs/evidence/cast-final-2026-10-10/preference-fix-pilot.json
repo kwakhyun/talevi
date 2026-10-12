@@ -1,0 +1,58 @@
+[
+  {
+    "id": "preference-pilot",
+    "input": "내 이름은 하람이야. 나는 유자차를 좋아해.",
+    "story_event": null,
+    "text": "*태오가 젖은 손을 작업복에 닦는다.* 하람 씨. 기억해 둘게요. 유자차 좋아하는 것도요. 안쪽은 바람이 덜 들어와요.",
+    "reply_state": {
+      "facts": {
+        "이름": {
+          "value": "하람",
+          "evidence": "내 이름은 하람이야"
+        },
+        "좋아하는 음료": {
+          "value": "유자차",
+          "evidence": "나는 유자차를 좋아해"
+        }
+      },
+      "updates": [],
+      "relationship": {
+        "signal": "disclosure",
+        "evidence": "내 이름은 하람이야. 나는 유자차를 좋아해."
+      }
+    }
+  },
+  {
+    "id": "preference-pilot",
+    "input": "나는 무조건 괜찮다고만 하는 사람보다는 자기 생각을 말하는 사람이 좋아.",
+    "story_event": null,
+    "text": "저도 무조건 괜찮다고는 못 해요. 배 상태가 나쁘면 나쁘다고 말해야죠. 제 판단이 틀리면, 그때도 말해 주세요.",
+    "reply_state": {
+      "facts": {
+        "관계에서 중요하게 여기는 것": {
+          "value": "자기 생각을 말하는 사람이 좋아",
+          "evidence": "자기 생각을 말하는 사람이 좋아"
+        }
+      },
+      "updates": [],
+      "relationship": {
+        "signal": "disclosure",
+        "evidence": "나는 무조건 괜찮다고만 하는 사람보다는 자기 생각을 말하는 사람이 좋아."
+      }
+    }
+  },
+  {
+    "id": "preference-pilot",
+    "input": "내 이름과 좋아하는 음료, 관계에서 중요하게 여기는 것을 알려 줘.",
+    "story_event": null,
+    "text": "하람 씨예요. 유자차를 좋아하고, 관계에선 무조건 괜찮다고 하기보다 자기 생각을 말하는 사람을 중요하게 여기죠.",
+    "reply_state": {
+      "facts": {},
+      "updates": [],
+      "relationship": {
+        "signal": "none",
+        "evidence": ""
+      }
+    }
+  }
+]

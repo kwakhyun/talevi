@@ -1,0 +1,452 @@
+{
+  "evaluation_date": "2026-10-10",
+  "published_date": "2026-10-12",
+  "prompt_version": "ko-story-2026-10-10.11",
+  "input_type": "synthetic",
+  "reviewer": "Codex; no independent human reviewers",
+  "recorded_completed_responses": 1256,
+  "basic_count": 240,
+  "long_conversation_count": 900,
+  "relationship_stage_responses": 60,
+  "long_five_fact_recall_count": 30,
+  "api_regression_tests_passed": 61,
+  "first_visible_seconds": {
+    "quick": {
+      "p50": 3.737,
+      "p95": 4.65
+    },
+    "story": {
+      "p50": 10.27,
+      "p95": 13.64
+    }
+  },
+  "per_cast": [
+    {
+      "name": "윤태오",
+      "basic_completed": 8,
+      "long_completed": 30,
+      "compacted": true,
+      "literal_recall": {
+        "name": true,
+        "drink": true,
+        "time": true,
+        "place": true,
+        "item": true
+      },
+      "all_five_recalled": true
+    },
+    {
+      "name": "이은호",
+      "basic_completed": 8,
+      "long_completed": 30,
+      "compacted": true,
+      "literal_recall": {
+        "name": true,
+        "drink": true,
+        "time": true,
+        "place": true,
+        "item": true
+      },
+      "all_five_recalled": true
+    },
+    {
+      "name": "차도윤",
+      "basic_completed": 8,
+      "long_completed": 30,
+      "compacted": true,
+      "literal_recall": {
+        "name": true,
+        "drink": true,
+        "time": true,
+        "place": true,
+        "item": true
+      },
+      "all_five_recalled": true
+    },
+    {
+      "name": "하유준",
+      "basic_completed": 8,
+      "long_completed": 30,
+      "compacted": true,
+      "literal_recall": {
+        "name": true,
+        "drink": true,
+        "time": true,
+        "place": true,
+        "item": true
+      },
+      "all_five_recalled": true
+    },
+    {
+      "name": "류시혁",
+      "basic_completed": 8,
+      "long_completed": 30,
+      "compacted": true,
+      "literal_recall": {
+        "name": true,
+        "drink": true,
+        "time": true,
+        "place": true,
+        "item": true
+      },
+      "all_five_recalled": true
+    },
+    {
+      "name": "백이결",
+      "basic_completed": 8,
+      "long_completed": 30,
+      "compacted": true,
+      "literal_recall": {
+        "name": true,
+        "drink": true,
+        "time": true,
+        "place": true,
+        "item": true
+      },
+      "all_five_recalled": true
+    },
+    {
+      "name": "강로한",
+      "basic_completed": 8,
+      "long_completed": 30,
+      "compacted": true,
+      "literal_recall": {
+        "name": true,
+        "drink": true,
+        "time": true,
+        "place": true,
+        "item": true
+      },
+      "all_five_recalled": true
+    },
+    {
+      "name": "노시우",
+      "basic_completed": 8,
+      "long_completed": 30,
+      "compacted": true,
+      "literal_recall": {
+        "name": true,
+        "drink": true,
+        "time": true,
+        "place": true,
+        "item": true
+      },
+      "all_five_recalled": true
+    },
+    {
+      "name": "서유찬",
+      "basic_completed": 8,
+      "long_completed": 30,
+      "compacted": true,
+      "literal_recall": {
+        "name": true,
+        "drink": true,
+        "time": true,
+        "place": true,
+        "item": true
+      },
+      "all_five_recalled": true
+    },
+    {
+      "name": "아스텔",
+      "basic_completed": 8,
+      "long_completed": 30,
+      "compacted": true,
+      "literal_recall": {
+        "name": true,
+        "drink": true,
+        "time": true,
+        "place": true,
+        "item": true
+      },
+      "all_five_recalled": true
+    },
+    {
+      "name": "채아린",
+      "basic_completed": 8,
+      "long_completed": 30,
+      "compacted": true,
+      "literal_recall": {
+        "name": true,
+        "drink": true,
+        "time": true,
+        "place": true,
+        "item": true
+      },
+      "all_five_recalled": true
+    },
+    {
+      "name": "백나리",
+      "basic_completed": 8,
+      "long_completed": 30,
+      "compacted": true,
+      "literal_recall": {
+        "name": true,
+        "drink": true,
+        "time": true,
+        "place": true,
+        "item": true
+      },
+      "all_five_recalled": true
+    },
+    {
+      "name": "오리나",
+      "basic_completed": 8,
+      "long_completed": 30,
+      "compacted": true,
+      "literal_recall": {
+        "name": true,
+        "drink": true,
+        "time": true,
+        "place": true,
+        "item": true
+      },
+      "all_five_recalled": true
+    },
+    {
+      "name": "유지우",
+      "basic_completed": 8,
+      "long_completed": 30,
+      "compacted": true,
+      "literal_recall": {
+        "name": true,
+        "drink": true,
+        "time": true,
+        "place": true,
+        "item": true
+      },
+      "all_five_recalled": true
+    },
+    {
+      "name": "신소율",
+      "basic_completed": 8,
+      "long_completed": 30,
+      "compacted": true,
+      "literal_recall": {
+        "name": true,
+        "drink": true,
+        "time": true,
+        "place": true,
+        "item": true
+      },
+      "all_five_recalled": true
+    },
+    {
+      "name": "엘리세",
+      "basic_completed": 8,
+      "long_completed": 30,
+      "compacted": true,
+      "literal_recall": {
+        "name": true,
+        "drink": true,
+        "time": true,
+        "place": true,
+        "item": true
+      },
+      "all_five_recalled": true
+    },
+    {
+      "name": "홍채린",
+      "basic_completed": 8,
+      "long_completed": 30,
+      "compacted": true,
+      "literal_recall": {
+        "name": true,
+        "drink": true,
+        "time": true,
+        "place": true,
+        "item": true
+      },
+      "all_five_recalled": true
+    },
+    {
+      "name": "남루미",
+      "basic_completed": 8,
+      "long_completed": 30,
+      "compacted": true,
+      "literal_recall": {
+        "name": true,
+        "drink": true,
+        "time": true,
+        "place": true,
+        "item": true
+      },
+      "all_five_recalled": true
+    },
+    {
+      "name": "이다은",
+      "basic_completed": 8,
+      "long_completed": 30,
+      "compacted": true,
+      "literal_recall": {
+        "name": true,
+        "drink": true,
+        "time": true,
+        "place": true,
+        "item": true
+      },
+      "all_five_recalled": true
+    },
+    {
+      "name": "세레나",
+      "basic_completed": 8,
+      "long_completed": 30,
+      "compacted": true,
+      "literal_recall": {
+        "name": true,
+        "drink": true,
+        "time": true,
+        "place": true,
+        "item": true
+      },
+      "all_five_recalled": true
+    },
+    {
+      "name": "윤세아",
+      "basic_completed": 8,
+      "long_completed": 30,
+      "compacted": true,
+      "literal_recall": {
+        "name": true,
+        "drink": true,
+        "time": true,
+        "place": true,
+        "item": true
+      },
+      "all_five_recalled": true
+    },
+    {
+      "name": "강시온",
+      "basic_completed": 8,
+      "long_completed": 30,
+      "compacted": true,
+      "literal_recall": {
+        "name": true,
+        "drink": true,
+        "time": true,
+        "place": true,
+        "item": true
+      },
+      "all_five_recalled": true
+    },
+    {
+      "name": "차유라",
+      "basic_completed": 8,
+      "long_completed": 30,
+      "compacted": true,
+      "literal_recall": {
+        "name": true,
+        "drink": true,
+        "time": true,
+        "place": true,
+        "item": true
+      },
+      "all_five_recalled": true
+    },
+    {
+      "name": "서지한",
+      "basic_completed": 8,
+      "long_completed": 30,
+      "compacted": true,
+      "literal_recall": {
+        "name": true,
+        "drink": true,
+        "time": true,
+        "place": true,
+        "item": true
+      },
+      "all_five_recalled": true
+    },
+    {
+      "name": "민하루",
+      "basic_completed": 8,
+      "long_completed": 30,
+      "compacted": true,
+      "literal_recall": {
+        "name": true,
+        "drink": true,
+        "time": true,
+        "place": true,
+        "item": true
+      },
+      "all_five_recalled": true
+    },
+    {
+      "name": "권도건",
+      "basic_completed": 8,
+      "long_completed": 30,
+      "compacted": true,
+      "literal_recall": {
+        "name": true,
+        "drink": true,
+        "time": true,
+        "place": true,
+        "item": true
+      },
+      "all_five_recalled": true
+    },
+    {
+      "name": "한서윤",
+      "basic_completed": 8,
+      "long_completed": 30,
+      "compacted": true,
+      "literal_recall": {
+        "name": true,
+        "drink": true,
+        "time": true,
+        "place": true,
+        "item": true
+      },
+      "all_five_recalled": true
+    },
+    {
+      "name": "카이렌",
+      "basic_completed": 8,
+      "long_completed": 30,
+      "compacted": true,
+      "literal_recall": {
+        "name": true,
+        "drink": true,
+        "time": true,
+        "place": true,
+        "item": true
+      },
+      "all_five_recalled": true
+    },
+    {
+      "name": "류이안",
+      "basic_completed": 8,
+      "long_completed": 30,
+      "compacted": true,
+      "literal_recall": {
+        "name": true,
+        "drink": true,
+        "time": true,
+        "place": true,
+        "item": true
+      },
+      "all_five_recalled": true
+    },
+    {
+      "name": "이도하",
+      "basic_completed": 8,
+      "long_completed": 30,
+      "compacted": true,
+      "literal_recall": {
+        "name": true,
+        "drink": true,
+        "time": true,
+        "place": true,
+        "item": true
+      },
+      "all_five_recalled": true
+    }
+  ],
+  "source_summary_sha256": "ae9be953e1009e1e5b2a2e2d9353d78b2543a13c39ba779cede91ed08ecb8290",
+  "limitations": [
+    "One compaction timeout interrupted the evaluator; completed rows were retained and missing rows resumed.",
+    "Counts are completed evaluation responses, not all provider calls or a production reliability rate.",
+    "Controlled relationship states, not naturally accumulated deep relationships.",
+    "No independent user study, matched competitor comparison, months-long memory study or production load test."
+  ]
+}

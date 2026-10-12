@@ -1,0 +1,16 @@
+{
+  "sources": {
+    "apps/api/yeoun/engine.py": "3580db68caf2ffe993af7251697364aa4d0e57349f8ce294164a2d7e41d809da",
+    "apps/api/yeoun/personas.py": "e1b7370778c791afc85f73f9b2f41c18274e7887c73c1de19d65b5a3074f6c53",
+    "apps/api/yeoun/story_state.py": "9265ec51f423dd056489256bd50562b443eac4ca5693031d7d80517f83989da6",
+    "apps/api/yeoun/worker.py": "e4888a510693e8c28f038995950c17851a100ae1fe442c49ddb76abec22e9239",
+    "apps/api/yeoun/memory_context.py": "54fc61c987f1c725dc2e7b5a4a2edf6ab1847b24b558243c4103a46dcffcedbf",
+    "apps/api/yeoun/main.py": "18ef889df389d290be0d9305dccb3b8711f3a09ee5573e3c2f8121a0f360fbbc",
+    "apps/api/yeoun/episodes.py": "9350ad614439a71383cfa13790841ca5cd49e5acb022e5a86df7308eefbeecfb",
+    "apps/web/components/Talevi.tsx": "4e7a0ff39a8f97931ed7f1907162086b3b7e061521f23c19299bc3b447d09955",
+    "apps/mobile/App.tsx": "779aaefdd7afd7e964161f1ab4c6fc454014492c52fabc9a8d35438d05e28c13",
+    "packages/contracts/src/index.ts": "287e29d836f06ddde44eb9491ba2eef483bc79effec8d6fdf6b45097ea77c9d6",
+    "apps/api/yeoun/audit_extended.py": "35864015e05b22b9d42a06cba0a90a47c922f0affa8433e1824fdff666fe63e9"
+  },
+  "reused_validation": "Frontend build, mobile export and typecheck were completed after the final UI changes and before v11 prompt-only changes. Relationship deterministic rule replay is unchanged by v11 performance instructions. Logs copied without altering original results."
+}

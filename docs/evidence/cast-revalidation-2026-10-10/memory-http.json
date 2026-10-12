@@ -1,0 +1,1242 @@
+{
+  "scope": "isolated synthetic guest; actual local HTTP, PostgreSQL, worker, SSE and LLM",
+  "results": [
+    {
+      "case": "store_and_agree",
+      "input": "내 이름은 가온이야. 나는 레몬차를 좋아해. 내일 오후 세 시에 서고의 붉은 우편함 앞에서 만나자.",
+      "events": [
+        {
+          "event": "phase",
+          "data": {
+            "name": "thinking"
+          }
+        },
+        {
+          "event": "context",
+          "data": {
+            "memory_count": 0,
+            "history_count": 1,
+            "episode_count": 0
+          }
+        },
+        {
+          "event": "phase",
+          "data": {
+            "name": "writing"
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "*지한이 멈춰 세운 책장을 천천히 제자리에 밀어 넣는다.* 가온. 내일 오후 세 시, 서고의 붉은 우편함 앞이지. "
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "알겠어. 레몬차는 기억해 둘게. 먼저 다친 곳부터 확인해."
+          }
+        },
+        {
+          "event": "model",
+          "data": {
+            "name": "gpt-6-sol",
+            "prompt_version": "ko-story-2026-10-10.7",
+            "repair_count": 0,
+            "delivery": "validated_reply"
+          }
+        },
+        {
+          "event": "done",
+          "data": {
+            "message_id": "91df64c7-ee35-41a4-b036-e848280cb366",
+            "relationship": {
+              "trust": 0,
+              "shared": 0,
+              "stage": "첫 만남",
+              "recent_inputs": [
+                "6f845fb638fee14ff0ac"
+              ],
+              "warmth": 0,
+              "tension": 0,
+              "meaningful_turns": 0,
+              "version": 2
+            },
+            "narrative": {
+              "chapter": 1,
+              "beat": 1,
+              "last_event": null,
+              "story_slots": {
+                "scene.conflict": {
+                  "key": "scene.conflict",
+                  "value": "지한이 멈춰 세운 책장",
+                  "evidence": "*지한이 멈춰 세운 책장을 천천히 제자리에 밀어 넣는다.*",
+                  "source": "reply",
+                  "status": "resolved",
+                  "source_id": "91df64c7-ee35-41a4-b036-e848280cb366"
+                }
+              },
+              "developments": [
+                {
+                  "key": "scene.conflict",
+                  "value": "지한이 멈춰 세운 책장",
+                  "evidence": "*지한이 멈춰 세운 책장을 천천히 제자리에 밀어 넣는다.*",
+                  "source": "reply",
+                  "status": "resolved",
+                  "source_id": "91df64c7-ee35-41a4-b036-e848280cb366"
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "text": "*지한이 멈춰 세운 책장을 천천히 제자리에 밀어 넣는다.* 가온. 내일 오후 세 시, 서고의 붉은 우편함 앞이지. 알겠어. 레몬차는 기억해 둘게. 먼저 다친 곳부터 확인해.",
+      "first_visible_seconds": 5.302,
+      "total_seconds": 5.308,
+      "memories_after": [
+        {
+          "id": "fbe1d690-776b-4cff-a208-e0d1f6744020",
+          "key": "약속 장소",
+          "value": "서고의 붉은 우편함 앞",
+          "source_id": "1e2192bc-33e7-4637-9dc3-e9d086d3043d",
+          "locked": false,
+          "updated": 1791634706.991026
+        },
+        {
+          "id": "11edb656-525f-4ab7-903c-209269d2f8ca",
+          "key": "약속 시간",
+          "value": "내일 오후 세 시",
+          "source_id": "1e2192bc-33e7-4637-9dc3-e9d086d3043d",
+          "locked": false,
+          "updated": 1791634706.990489
+        },
+        {
+          "id": "8987d713-be1b-4d30-b45a-774e18beb9db",
+          "key": "좋아하는 것",
+          "value": "레몬차",
+          "source_id": "1e2192bc-33e7-4637-9dc3-e9d086d3043d",
+          "locked": false,
+          "updated": 1791634706.989907
+        },
+        {
+          "id": "078c9689-94e3-4eae-8afb-2c75b7eb9022",
+          "key": "이름",
+          "value": "가온",
+          "source_id": "1e2192bc-33e7-4637-9dc3-e9d086d3043d",
+          "locked": false,
+          "updated": 1791634706.9888818
+        }
+      ],
+      "relationship_after": {
+        "trust": 0,
+        "shared": 0,
+        "stage": "첫 만남",
+        "recent_inputs": [
+          "6f845fb638fee14ff0ac"
+        ],
+        "warmth": 0,
+        "tension": 0,
+        "meaningful_turns": 0,
+        "version": 2
+      },
+      "narrative_after": {
+        "chapter": 1,
+        "beat": 1,
+        "last_event": null,
+        "story_slots": {
+          "scene.conflict": {
+            "key": "scene.conflict",
+            "value": "지한이 멈춰 세운 책장",
+            "evidence": "*지한이 멈춰 세운 책장을 천천히 제자리에 밀어 넣는다.*",
+            "source": "reply",
+            "status": "resolved",
+            "source_id": "91df64c7-ee35-41a4-b036-e848280cb366"
+          }
+        },
+        "developments": [
+          {
+            "key": "scene.conflict",
+            "value": "지한이 멈춰 세운 책장",
+            "evidence": "*지한이 멈춰 세운 책장을 천천히 제자리에 밀어 넣는다.*",
+            "source": "reply",
+            "status": "resolved",
+            "source_id": "91df64c7-ee35-41a4-b036-e848280cb366"
+          }
+        ]
+      },
+      "complete": true
+    },
+    {
+      "case": "recall_before_edit",
+      "input": "내 이름과 좋아하는 음료, 방금 약속한 시간과 장소를 알려 줘.",
+      "events": [
+        {
+          "event": "phase",
+          "data": {
+            "name": "thinking"
+          }
+        },
+        {
+          "event": "context",
+          "data": {
+            "memory_count": 4,
+            "history_count": 3,
+            "episode_count": 0
+          }
+        },
+        {
+          "event": "phase",
+          "data": {
+            "name": "writing"
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "가온. 좋아하는 음료는 레몬차. 약속은 내일 오후 세 시, 서고의 붉은 우편함 앞이야."
+          }
+        },
+        {
+          "event": "model",
+          "data": {
+            "name": "gpt-6-sol",
+            "prompt_version": "ko-story-2026-10-10.7",
+            "repair_count": 0,
+            "delivery": "validated_reply"
+          }
+        },
+        {
+          "event": "done",
+          "data": {
+            "message_id": "c20d7f85-b9ed-41e9-b064-021e1a554a36",
+            "relationship": {
+              "trust": 0,
+              "shared": 0,
+              "stage": "첫 만남",
+              "recent_inputs": [
+                "6f845fb638fee14ff0ac",
+                "a6f2f671be911ab42ea1"
+              ],
+              "warmth": 0,
+              "tension": 0,
+              "meaningful_turns": 0,
+              "version": 2
+            },
+            "narrative": {
+              "chapter": 1,
+              "beat": 2,
+              "last_event": null,
+              "story_slots": {
+                "scene.conflict": {
+                  "key": "scene.conflict",
+                  "value": "지한이 멈춰 세운 책장",
+                  "evidence": "*지한이 멈춰 세운 책장을 천천히 제자리에 밀어 넣는다.*",
+                  "source": "reply",
+                  "status": "resolved",
+                  "source_id": "91df64c7-ee35-41a4-b036-e848280cb366"
+                }
+              },
+              "developments": [
+                {
+                  "key": "scene.conflict",
+                  "value": "지한이 멈춰 세운 책장",
+                  "evidence": "*지한이 멈춰 세운 책장을 천천히 제자리에 밀어 넣는다.*",
+                  "source": "reply",
+                  "status": "resolved",
+                  "source_id": "91df64c7-ee35-41a4-b036-e848280cb366"
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "text": "가온. 좋아하는 음료는 레몬차. 약속은 내일 오후 세 시, 서고의 붉은 우편함 앞이야.",
+      "first_visible_seconds": 3.118,
+      "total_seconds": 3.122,
+      "memories_after": [
+        {
+          "id": "fbe1d690-776b-4cff-a208-e0d1f6744020",
+          "key": "약속 장소",
+          "value": "서고의 붉은 우편함 앞",
+          "source_id": "1e2192bc-33e7-4637-9dc3-e9d086d3043d",
+          "locked": false,
+          "updated": 1791634706.991026
+        },
+        {
+          "id": "11edb656-525f-4ab7-903c-209269d2f8ca",
+          "key": "약속 시간",
+          "value": "내일 오후 세 시",
+          "source_id": "1e2192bc-33e7-4637-9dc3-e9d086d3043d",
+          "locked": false,
+          "updated": 1791634706.990489
+        },
+        {
+          "id": "8987d713-be1b-4d30-b45a-774e18beb9db",
+          "key": "좋아하는 것",
+          "value": "레몬차",
+          "source_id": "1e2192bc-33e7-4637-9dc3-e9d086d3043d",
+          "locked": false,
+          "updated": 1791634706.989907
+        },
+        {
+          "id": "078c9689-94e3-4eae-8afb-2c75b7eb9022",
+          "key": "이름",
+          "value": "가온",
+          "source_id": "1e2192bc-33e7-4637-9dc3-e9d086d3043d",
+          "locked": false,
+          "updated": 1791634706.9888818
+        }
+      ],
+      "relationship_after": {
+        "trust": 0,
+        "shared": 0,
+        "stage": "첫 만남",
+        "recent_inputs": [
+          "6f845fb638fee14ff0ac",
+          "a6f2f671be911ab42ea1"
+        ],
+        "warmth": 0,
+        "tension": 0,
+        "meaningful_turns": 0,
+        "version": 2
+      },
+      "narrative_after": {
+        "chapter": 1,
+        "beat": 2,
+        "last_event": null,
+        "story_slots": {
+          "scene.conflict": {
+            "key": "scene.conflict",
+            "value": "지한이 멈춰 세운 책장",
+            "evidence": "*지한이 멈춰 세운 책장을 천천히 제자리에 밀어 넣는다.*",
+            "source": "reply",
+            "status": "resolved",
+            "source_id": "91df64c7-ee35-41a4-b036-e848280cb366"
+          }
+        },
+        "developments": [
+          {
+            "key": "scene.conflict",
+            "value": "지한이 멈춰 세운 책장",
+            "evidence": "*지한이 멈춰 세운 책장을 천천히 제자리에 밀어 넣는다.*",
+            "source": "reply",
+            "status": "resolved",
+            "source_id": "91df64c7-ee35-41a4-b036-e848280cb366"
+          }
+        ]
+      },
+      "complete": true
+    },
+    {
+      "case": "recall_after_edit",
+      "input": "바뀐 내 이름과 좋아하는 음료, 방금 정한 내일 약속의 시간과 장소를 알려 줘.",
+      "events": [
+        {
+          "event": "phase",
+          "data": {
+            "name": "thinking"
+          }
+        },
+        {
+          "event": "context",
+          "data": {
+            "memory_count": 4,
+            "history_count": 5,
+            "episode_count": 0
+          }
+        },
+        {
+          "event": "phase",
+          "data": {
+            "name": "writing"
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "다온. 좋아하는 음료는 복숭아차야. 내일 오후 세 시, 서고의 붉은 우편함 앞에서 만나기로 했어."
+          }
+        },
+        {
+          "event": "model",
+          "data": {
+            "name": "gpt-6-sol",
+            "prompt_version": "ko-story-2026-10-10.7",
+            "repair_count": 0,
+            "delivery": "validated_reply"
+          }
+        },
+        {
+          "event": "done",
+          "data": {
+            "message_id": "4eaf89e1-6017-4a5b-acfb-b8db60e7082d",
+            "relationship": {
+              "trust": 0,
+              "shared": 0,
+              "stage": "첫 만남",
+              "recent_inputs": [
+                "6f845fb638fee14ff0ac",
+                "a6f2f671be911ab42ea1",
+                "0c3c1f72f2f36e54db0a"
+              ],
+              "warmth": 0,
+              "tension": 0,
+              "meaningful_turns": 0,
+              "version": 2
+            },
+            "narrative": {
+              "chapter": 1,
+              "beat": 3,
+              "last_event": null,
+              "story_slots": {
+                "scene.conflict": {
+                  "key": "scene.conflict",
+                  "value": "지한이 멈춰 세운 책장",
+                  "evidence": "*지한이 멈춰 세운 책장을 천천히 제자리에 밀어 넣는다.*",
+                  "source": "reply",
+                  "status": "resolved",
+                  "source_id": "91df64c7-ee35-41a4-b036-e848280cb366"
+                }
+              },
+              "developments": [
+                {
+                  "key": "scene.conflict",
+                  "value": "지한이 멈춰 세운 책장",
+                  "evidence": "*지한이 멈춰 세운 책장을 천천히 제자리에 밀어 넣는다.*",
+                  "source": "reply",
+                  "status": "resolved",
+                  "source_id": "91df64c7-ee35-41a4-b036-e848280cb366"
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "text": "다온. 좋아하는 음료는 복숭아차야. 내일 오후 세 시, 서고의 붉은 우편함 앞에서 만나기로 했어.",
+      "first_visible_seconds": 2.79,
+      "total_seconds": 2.795,
+      "memories_after": [
+        {
+          "id": "078c9689-94e3-4eae-8afb-2c75b7eb9022",
+          "key": "이름",
+          "value": "다온",
+          "source_id": null,
+          "locked": true,
+          "updated": 1791634710.271658
+        },
+        {
+          "id": "8987d713-be1b-4d30-b45a-774e18beb9db",
+          "key": "좋아하는 것",
+          "value": "복숭아차",
+          "source_id": null,
+          "locked": true,
+          "updated": 1791634710.266433
+        },
+        {
+          "id": "fbe1d690-776b-4cff-a208-e0d1f6744020",
+          "key": "약속 장소",
+          "value": "서고의 붉은 우편함 앞",
+          "source_id": "1e2192bc-33e7-4637-9dc3-e9d086d3043d",
+          "locked": false,
+          "updated": 1791634706.991026
+        },
+        {
+          "id": "11edb656-525f-4ab7-903c-209269d2f8ca",
+          "key": "약속 시간",
+          "value": "내일 오후 세 시",
+          "source_id": "1e2192bc-33e7-4637-9dc3-e9d086d3043d",
+          "locked": false,
+          "updated": 1791634706.990489
+        }
+      ],
+      "relationship_after": {
+        "trust": 0,
+        "shared": 0,
+        "stage": "첫 만남",
+        "recent_inputs": [
+          "6f845fb638fee14ff0ac",
+          "a6f2f671be911ab42ea1",
+          "0c3c1f72f2f36e54db0a"
+        ],
+        "warmth": 0,
+        "tension": 0,
+        "meaningful_turns": 0,
+        "version": 2
+      },
+      "narrative_after": {
+        "chapter": 1,
+        "beat": 3,
+        "last_event": null,
+        "story_slots": {
+          "scene.conflict": {
+            "key": "scene.conflict",
+            "value": "지한이 멈춰 세운 책장",
+            "evidence": "*지한이 멈춰 세운 책장을 천천히 제자리에 밀어 넣는다.*",
+            "source": "reply",
+            "status": "resolved",
+            "source_id": "91df64c7-ee35-41a4-b036-e848280cb366"
+          }
+        },
+        "developments": [
+          {
+            "key": "scene.conflict",
+            "value": "지한이 멈춰 세운 책장",
+            "evidence": "*지한이 멈춰 세운 책장을 천천히 제자리에 밀어 넣는다.*",
+            "source": "reply",
+            "status": "resolved",
+            "source_id": "91df64c7-ee35-41a4-b036-e848280cb366"
+          }
+        ]
+      },
+      "complete": true
+    },
+    {
+      "case": "locked_memory_conflict",
+      "input": "내 이름은 가온이야. 나는 레몬차를 좋아해.",
+      "events": [
+        {
+          "event": "phase",
+          "data": {
+            "name": "thinking"
+          }
+        },
+        {
+          "event": "context",
+          "data": {
+            "memory_count": 4,
+            "history_count": 7,
+            "episode_count": 0
+          }
+        },
+        {
+          "event": "phase",
+          "data": {
+            "name": "writing"
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "네가 지금은 가온이라고 하고, 레몬차를 좋아한다고 했어. 다만 내가 보관 중인 이름은 다온, 좋아하는 음료는 복숭아"
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "차야. 어느 쪽으로 부를지는 네가 정해."
+          }
+        },
+        {
+          "event": "model",
+          "data": {
+            "name": "gpt-6-sol",
+            "prompt_version": "ko-story-2026-10-10.7",
+            "repair_count": 0,
+            "delivery": "validated_reply"
+          }
+        },
+        {
+          "event": "done",
+          "data": {
+            "message_id": "76d2621d-b1ba-488f-bcab-cae6a4bf228d",
+            "relationship": {
+              "trust": 0,
+              "shared": 0,
+              "stage": "첫 만남",
+              "recent_inputs": [
+                "6f845fb638fee14ff0ac",
+                "a6f2f671be911ab42ea1",
+                "0c3c1f72f2f36e54db0a",
+                "2013fb3fcb8a8021857d"
+              ],
+              "warmth": 0,
+              "tension": 0,
+              "meaningful_turns": 0,
+              "version": 2
+            },
+            "narrative": {
+              "chapter": 1,
+              "beat": 4,
+              "last_event": null,
+              "story_slots": {
+                "scene.conflict": {
+                  "key": "scene.conflict",
+                  "value": "지한이 멈춰 세운 책장",
+                  "evidence": "*지한이 멈춰 세운 책장을 천천히 제자리에 밀어 넣는다.*",
+                  "source": "reply",
+                  "status": "resolved",
+                  "source_id": "91df64c7-ee35-41a4-b036-e848280cb366"
+                }
+              },
+              "developments": [
+                {
+                  "key": "scene.conflict",
+                  "value": "지한이 멈춰 세운 책장",
+                  "evidence": "*지한이 멈춰 세운 책장을 천천히 제자리에 밀어 넣는다.*",
+                  "source": "reply",
+                  "status": "resolved",
+                  "source_id": "91df64c7-ee35-41a4-b036-e848280cb366"
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "text": "네가 지금은 가온이라고 하고, 레몬차를 좋아한다고 했어. 다만 내가 보관 중인 이름은 다온, 좋아하는 음료는 복숭아차야. 어느 쪽으로 부를지는 네가 정해.",
+      "first_visible_seconds": 3.265,
+      "total_seconds": 3.273,
+      "memories_after": [
+        {
+          "id": "078c9689-94e3-4eae-8afb-2c75b7eb9022",
+          "key": "이름",
+          "value": "다온",
+          "source_id": null,
+          "locked": true,
+          "updated": 1791634710.271658
+        },
+        {
+          "id": "8987d713-be1b-4d30-b45a-774e18beb9db",
+          "key": "좋아하는 것",
+          "value": "복숭아차",
+          "source_id": null,
+          "locked": true,
+          "updated": 1791634710.266433
+        },
+        {
+          "id": "fbe1d690-776b-4cff-a208-e0d1f6744020",
+          "key": "약속 장소",
+          "value": "서고의 붉은 우편함 앞",
+          "source_id": "1e2192bc-33e7-4637-9dc3-e9d086d3043d",
+          "locked": false,
+          "updated": 1791634706.991026
+        },
+        {
+          "id": "11edb656-525f-4ab7-903c-209269d2f8ca",
+          "key": "약속 시간",
+          "value": "내일 오후 세 시",
+          "source_id": "1e2192bc-33e7-4637-9dc3-e9d086d3043d",
+          "locked": false,
+          "updated": 1791634706.990489
+        }
+      ],
+      "relationship_after": {
+        "trust": 0,
+        "shared": 0,
+        "stage": "첫 만남",
+        "recent_inputs": [
+          "6f845fb638fee14ff0ac",
+          "a6f2f671be911ab42ea1",
+          "0c3c1f72f2f36e54db0a",
+          "2013fb3fcb8a8021857d"
+        ],
+        "warmth": 0,
+        "tension": 0,
+        "meaningful_turns": 0,
+        "version": 2
+      },
+      "narrative_after": {
+        "chapter": 1,
+        "beat": 4,
+        "last_event": null,
+        "story_slots": {
+          "scene.conflict": {
+            "key": "scene.conflict",
+            "value": "지한이 멈춰 세운 책장",
+            "evidence": "*지한이 멈춰 세운 책장을 천천히 제자리에 밀어 넣는다.*",
+            "source": "reply",
+            "status": "resolved",
+            "source_id": "91df64c7-ee35-41a4-b036-e848280cb366"
+          }
+        },
+        "developments": [
+          {
+            "key": "scene.conflict",
+            "value": "지한이 멈춰 세운 책장",
+            "evidence": "*지한이 멈춰 세운 책장을 천천히 제자리에 밀어 넣는다.*",
+            "source": "reply",
+            "status": "resolved",
+            "source_id": "91df64c7-ee35-41a4-b036-e848280cb366"
+          }
+        ]
+      },
+      "complete": true
+    },
+    {
+      "case": "locked_memory_recall",
+      "input": "현재 기억 노트에 적힌 내 이름과 좋아하는 음료를 말해 줘.",
+      "events": [
+        {
+          "event": "phase",
+          "data": {
+            "name": "thinking"
+          }
+        },
+        {
+          "event": "context",
+          "data": {
+            "memory_count": 4,
+            "history_count": 9,
+            "episode_count": 0
+          }
+        },
+        {
+          "event": "phase",
+          "data": {
+            "name": "writing"
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "기억 노트에는 이름이 다온, 좋아하는 음료가 복숭아차로 적혀 있어."
+          }
+        },
+        {
+          "event": "model",
+          "data": {
+            "name": "gpt-6-sol",
+            "prompt_version": "ko-story-2026-10-10.7",
+            "repair_count": 0,
+            "delivery": "validated_reply"
+          }
+        },
+        {
+          "event": "done",
+          "data": {
+            "message_id": "44ebcbcb-63d4-46d1-a247-de8bef0505d9",
+            "relationship": {
+              "trust": 0,
+              "shared": 0,
+              "stage": "첫 만남",
+              "recent_inputs": [
+                "6f845fb638fee14ff0ac",
+                "a6f2f671be911ab42ea1",
+                "0c3c1f72f2f36e54db0a",
+                "2013fb3fcb8a8021857d",
+                "2dc20f63d77bfbe7f941"
+              ],
+              "warmth": 0,
+              "tension": 0,
+              "meaningful_turns": 0,
+              "version": 2
+            },
+            "narrative": {
+              "chapter": 1,
+              "beat": 5,
+              "last_event": null,
+              "story_slots": {
+                "scene.conflict": {
+                  "key": "scene.conflict",
+                  "value": "지한이 멈춰 세운 책장",
+                  "evidence": "*지한이 멈춰 세운 책장을 천천히 제자리에 밀어 넣는다.*",
+                  "source": "reply",
+                  "status": "resolved",
+                  "source_id": "91df64c7-ee35-41a4-b036-e848280cb366"
+                }
+              },
+              "developments": [
+                {
+                  "key": "scene.conflict",
+                  "value": "지한이 멈춰 세운 책장",
+                  "evidence": "*지한이 멈춰 세운 책장을 천천히 제자리에 밀어 넣는다.*",
+                  "source": "reply",
+                  "status": "resolved",
+                  "source_id": "91df64c7-ee35-41a4-b036-e848280cb366"
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "text": "기억 노트에는 이름이 다온, 좋아하는 음료가 복숭아차로 적혀 있어.",
+      "first_visible_seconds": 3.306,
+      "total_seconds": 3.313,
+      "memories_after": [
+        {
+          "id": "078c9689-94e3-4eae-8afb-2c75b7eb9022",
+          "key": "이름",
+          "value": "다온",
+          "source_id": null,
+          "locked": true,
+          "updated": 1791634710.271658
+        },
+        {
+          "id": "8987d713-be1b-4d30-b45a-774e18beb9db",
+          "key": "좋아하는 것",
+          "value": "복숭아차",
+          "source_id": null,
+          "locked": true,
+          "updated": 1791634710.266433
+        },
+        {
+          "id": "fbe1d690-776b-4cff-a208-e0d1f6744020",
+          "key": "약속 장소",
+          "value": "서고의 붉은 우편함 앞",
+          "source_id": "1e2192bc-33e7-4637-9dc3-e9d086d3043d",
+          "locked": false,
+          "updated": 1791634706.991026
+        },
+        {
+          "id": "11edb656-525f-4ab7-903c-209269d2f8ca",
+          "key": "약속 시간",
+          "value": "내일 오후 세 시",
+          "source_id": "1e2192bc-33e7-4637-9dc3-e9d086d3043d",
+          "locked": false,
+          "updated": 1791634706.990489
+        }
+      ],
+      "relationship_after": {
+        "trust": 0,
+        "shared": 0,
+        "stage": "첫 만남",
+        "recent_inputs": [
+          "6f845fb638fee14ff0ac",
+          "a6f2f671be911ab42ea1",
+          "0c3c1f72f2f36e54db0a",
+          "2013fb3fcb8a8021857d",
+          "2dc20f63d77bfbe7f941"
+        ],
+        "warmth": 0,
+        "tension": 0,
+        "meaningful_turns": 0,
+        "version": 2
+      },
+      "narrative_after": {
+        "chapter": 1,
+        "beat": 5,
+        "last_event": null,
+        "story_slots": {
+          "scene.conflict": {
+            "key": "scene.conflict",
+            "value": "지한이 멈춰 세운 책장",
+            "evidence": "*지한이 멈춰 세운 책장을 천천히 제자리에 밀어 넣는다.*",
+            "source": "reply",
+            "status": "resolved",
+            "source_id": "91df64c7-ee35-41a4-b036-e848280cb366"
+          }
+        },
+        "developments": [
+          {
+            "key": "scene.conflict",
+            "value": "지한이 멈춰 세운 책장",
+            "evidence": "*지한이 멈춰 세운 책장을 천천히 제자리에 밀어 넣는다.*",
+            "source": "reply",
+            "status": "resolved",
+            "source_id": "91df64c7-ee35-41a4-b036-e848280cb366"
+          }
+        ]
+      },
+      "complete": true
+    },
+    {
+      "case": "recall_after_delete",
+      "input": "내 이름과 좋아하는 음료를 기억해? 모르면 모른다고 해 줘.",
+      "events": [
+        {
+          "event": "phase",
+          "data": {
+            "name": "thinking"
+          }
+        },
+        {
+          "event": "context",
+          "data": {
+            "memory_count": 2,
+            "history_count": 11,
+            "episode_count": 0
+          }
+        },
+        {
+          "event": "phase",
+          "data": {
+            "name": "writing"
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "아니. 이름과 좋아하는 음료는 지금 내 기억에 없어. 전에 아는 척한 건 내 잘못이야."
+          }
+        },
+        {
+          "event": "model",
+          "data": {
+            "name": "gpt-6-sol",
+            "prompt_version": "ko-story-2026-10-10.7",
+            "repair_count": 0,
+            "delivery": "validated_reply"
+          }
+        },
+        {
+          "event": "done",
+          "data": {
+            "message_id": "028dfef8-9def-4332-9a91-2c4bdafea772",
+            "relationship": {
+              "trust": 0,
+              "shared": 0,
+              "stage": "첫 만남",
+              "recent_inputs": [
+                "6f845fb638fee14ff0ac",
+                "a6f2f671be911ab42ea1",
+                "0c3c1f72f2f36e54db0a",
+                "2013fb3fcb8a8021857d",
+                "2dc20f63d77bfbe7f941",
+                "a2ec16aa7c66b0fb4d3c"
+              ],
+              "warmth": 0,
+              "tension": 0,
+              "meaningful_turns": 0,
+              "version": 2
+            },
+            "narrative": {
+              "chapter": 1,
+              "beat": 6,
+              "last_event": null,
+              "story_slots": {
+                "scene.conflict": {
+                  "key": "scene.conflict",
+                  "value": "지한이 멈춰 세운 책장",
+                  "evidence": "*지한이 멈춰 세운 책장을 천천히 제자리에 밀어 넣는다.*",
+                  "source": "reply",
+                  "status": "resolved",
+                  "source_id": "91df64c7-ee35-41a4-b036-e848280cb366"
+                }
+              },
+              "developments": [
+                {
+                  "key": "scene.conflict",
+                  "value": "지한이 멈춰 세운 책장",
+                  "evidence": "*지한이 멈춰 세운 책장을 천천히 제자리에 밀어 넣는다.*",
+                  "source": "reply",
+                  "status": "resolved",
+                  "source_id": "91df64c7-ee35-41a4-b036-e848280cb366"
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "text": "아니. 이름과 좋아하는 음료는 지금 내 기억에 없어. 전에 아는 척한 건 내 잘못이야.",
+      "first_visible_seconds": 3.541,
+      "total_seconds": 3.548,
+      "memories_after": [
+        {
+          "id": "fbe1d690-776b-4cff-a208-e0d1f6744020",
+          "key": "약속 장소",
+          "value": "서고의 붉은 우편함 앞",
+          "source_id": "1e2192bc-33e7-4637-9dc3-e9d086d3043d",
+          "locked": false,
+          "updated": 1791634706.991026
+        },
+        {
+          "id": "11edb656-525f-4ab7-903c-209269d2f8ca",
+          "key": "약속 시간",
+          "value": "내일 오후 세 시",
+          "source_id": "1e2192bc-33e7-4637-9dc3-e9d086d3043d",
+          "locked": false,
+          "updated": 1791634706.990489
+        }
+      ],
+      "relationship_after": {
+        "trust": 0,
+        "shared": 0,
+        "stage": "첫 만남",
+        "recent_inputs": [
+          "6f845fb638fee14ff0ac",
+          "a6f2f671be911ab42ea1",
+          "0c3c1f72f2f36e54db0a",
+          "2013fb3fcb8a8021857d",
+          "2dc20f63d77bfbe7f941",
+          "a2ec16aa7c66b0fb4d3c"
+        ],
+        "warmth": 0,
+        "tension": 0,
+        "meaningful_turns": 0,
+        "version": 2
+      },
+      "narrative_after": {
+        "chapter": 1,
+        "beat": 6,
+        "last_event": null,
+        "story_slots": {
+          "scene.conflict": {
+            "key": "scene.conflict",
+            "value": "지한이 멈춰 세운 책장",
+            "evidence": "*지한이 멈춰 세운 책장을 천천히 제자리에 밀어 넣는다.*",
+            "source": "reply",
+            "status": "resolved",
+            "source_id": "91df64c7-ee35-41a4-b036-e848280cb366"
+          }
+        },
+        "developments": [
+          {
+            "key": "scene.conflict",
+            "value": "지한이 멈춰 세운 책장",
+            "evidence": "*지한이 멈춰 세운 책장을 천천히 제자리에 밀어 넣는다.*",
+            "source": "reply",
+            "status": "resolved",
+            "source_id": "91df64c7-ee35-41a4-b036-e848280cb366"
+          }
+        ]
+      },
+      "complete": true
+    },
+    {
+      "case": "cross_character_isolation",
+      "input": "내 이름과 좋아하는 음료가 뭐야?",
+      "events": [
+        {
+          "event": "phase",
+          "data": {
+            "name": "thinking"
+          }
+        },
+        {
+          "event": "context",
+          "data": {
+            "memory_count": 0,
+            "history_count": 1,
+            "episode_count": 0
+          }
+        },
+        {
+          "event": "phase",
+          "data": {
+            "name": "writing"
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "아직 네 이름도 좋아하는 음료도 듣지 못했어. 아는 척해서 틀리고 싶진 않네."
+          }
+        },
+        {
+          "event": "model",
+          "data": {
+            "name": "gpt-6-sol",
+            "prompt_version": "ko-story-2026-10-10.7",
+            "repair_count": 0,
+            "delivery": "validated_reply"
+          }
+        },
+        {
+          "event": "done",
+          "data": {
+            "message_id": "89b8704a-2a56-4116-9251-747ce7adb9d1",
+            "relationship": {
+              "trust": 0,
+              "shared": 0,
+              "stage": "첫 만남",
+              "recent_inputs": [
+                "bac4a26f9e5af38fe5e1"
+              ],
+              "warmth": 0,
+              "tension": 0,
+              "meaningful_turns": 0,
+              "version": 2
+            },
+            "narrative": {
+              "chapter": 1,
+              "beat": 1,
+              "last_event": null,
+              "story_slots": {},
+              "developments": []
+            }
+          }
+        }
+      ],
+      "text": "아직 네 이름도 좋아하는 음료도 듣지 못했어. 아는 척해서 틀리고 싶진 않네.",
+      "first_visible_seconds": 3.351,
+      "total_seconds": 3.36,
+      "memories_after": [],
+      "relationship_after": {
+        "trust": 0,
+        "shared": 0,
+        "stage": "첫 만남",
+        "recent_inputs": [
+          "bac4a26f9e5af38fe5e1"
+        ],
+        "warmth": 0,
+        "tension": 0,
+        "meaningful_turns": 0,
+        "version": 2
+      },
+      "narrative_after": {
+        "chapter": 1,
+        "beat": 1,
+        "last_event": null,
+        "story_slots": {},
+        "developments": []
+      },
+      "complete": true
+    },
+    {
+      "case": "unknown_shared_past",
+      "input": "지난주 우리 둘이 만나기로 했던 카페 이름이 뭐였지?",
+      "events": [
+        {
+          "event": "phase",
+          "data": {
+            "name": "thinking"
+          }
+        },
+        {
+          "event": "context",
+          "data": {
+            "memory_count": 0,
+            "history_count": 3,
+            "episode_count": 0
+          }
+        },
+        {
+          "event": "phase",
+          "data": {
+            "name": "writing"
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "지난주에 만나기로 했다는 약속은 내가 확인할 수 없어. 그래서 카페 이름도 말해 줄 수 없네. 없는 기억을 지어내진"
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": " 않을게."
+          }
+        },
+        {
+          "event": "model",
+          "data": {
+            "name": "gpt-6-sol",
+            "prompt_version": "ko-story-2026-10-10.7",
+            "repair_count": 0,
+            "delivery": "validated_reply"
+          }
+        },
+        {
+          "event": "done",
+          "data": {
+            "message_id": "4b90635b-0dd9-4c08-8cda-e3043b763eb6",
+            "relationship": {
+              "trust": 0,
+              "shared": 0,
+              "stage": "첫 만남",
+              "recent_inputs": [
+                "bac4a26f9e5af38fe5e1",
+                "55b7a8de96bf6df1e52b"
+              ],
+              "warmth": 0,
+              "tension": 0,
+              "meaningful_turns": 0,
+              "version": 2
+            },
+            "narrative": {
+              "chapter": 1,
+              "beat": 2,
+              "last_event": null,
+              "story_slots": {},
+              "developments": []
+            }
+          }
+        }
+      ],
+      "text": "지난주에 만나기로 했다는 약속은 내가 확인할 수 없어. 그래서 카페 이름도 말해 줄 수 없네. 없는 기억을 지어내진 않을게.",
+      "first_visible_seconds": 3.126,
+      "total_seconds": 3.135,
+      "memories_after": [],
+      "relationship_after": {
+        "trust": 0,
+        "shared": 0,
+        "stage": "첫 만남",
+        "recent_inputs": [
+          "bac4a26f9e5af38fe5e1",
+          "55b7a8de96bf6df1e52b"
+        ],
+        "warmth": 0,
+        "tension": 0,
+        "meaningful_turns": 0,
+        "version": 2
+      },
+      "narrative_after": {
+        "chapter": 1,
+        "beat": 2,
+        "last_event": null,
+        "story_slots": {},
+        "developments": []
+      },
+      "complete": true
+    }
+  ],
+  "health": {
+    "ok": true,
+    "mode": "live",
+    "ai_configured": true,
+    "payments_configured": false
+  },
+  "synthetic_user_id": "48e99f99-8c78-460a-b7f7-833e70ab072f",
+  "wallet_after": {
+    "credits": 22,
+    "entries": [
+      {
+        "id": "0721f218-7bd3-429d-a691-3974aaf3e2b8",
+        "delta": -1,
+        "reason": "짧은 대화",
+        "created": 1791634726.597368
+      },
+      {
+        "id": "74390498-46cb-4279-8feb-3b83a75d5743",
+        "delta": -1,
+        "reason": "짧은 대화",
+        "created": 1791634723.233842
+      },
+      {
+        "id": "e459ab90-6211-4195-aebd-532853402c4c",
+        "delta": -1,
+        "reason": "짧은 대화",
+        "created": 1791634719.672328
+      },
+      {
+        "id": "5a8fd5c5-db5b-4fef-b73f-815e997167f4",
+        "delta": -1,
+        "reason": "짧은 대화",
+        "created": 1791634716.350013
+      },
+      {
+        "id": "f398130f-3f1d-4320-9c81-821295d7d74e",
+        "delta": -1,
+        "reason": "짧은 대화",
+        "created": 1791634713.074764
+      },
+      {
+        "id": "537788d1-1224-41b2-9eb2-29d8f4f3fb67",
+        "delta": -1,
+        "reason": "짧은 대화",
+        "created": 1791634710.2776499
+      },
+      {
+        "id": "62cff8eb-358c-4853-a964-132eb1a97398",
+        "delta": -1,
+        "reason": "짧은 대화",
+        "created": 1791634707.144331
+      },
+      {
+        "id": "1f0a7bbe-4321-47a2-8457-357652b76e7e",
+        "delta": -1,
+        "reason": "짧은 대화",
+        "created": 1791634701.841535
+      },
+      {
+        "id": "cab1702c-cc16-4b6d-bccd-81b093618e96",
+        "delta": 30,
+        "reason": "첫 만남 선물",
+        "created": 1791634701.816214
+      }
+    ],
+    "demo": false,
+    "client_key": "",
+    "available": false
+  }
+}

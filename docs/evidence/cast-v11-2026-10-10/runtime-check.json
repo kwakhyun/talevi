@@ -1,0 +1,19 @@
+{
+  "published_count": 30,
+  "catalog_count": 30,
+  "payloads_match": true,
+  "migration": "fac702a6c118",
+  "browser_v11_turn": [
+    {
+      "status": "completed",
+      "model_events": [
+        {
+          "name": "gpt-6-sol",
+          "prompt_version": "ko-story-2026-10-10.11",
+          "repair_count": 0,
+          "delivery": "validated_reply"
+        }
+      ]
+    }
+  ]
+}

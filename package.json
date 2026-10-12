@@ -1,0 +1,28 @@
+{
+  "name": "yeoun",
+  "private": true,
+  "version": "0.1.0",
+  "workspaces": [
+    "apps/web",
+    "apps/mobile",
+    "packages/contracts"
+  ],
+  "scripts": {
+    "dev": "npm run dev -w @yeoun/web",
+    "build": "npm run build -w @yeoun/web",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "db:start": "node scripts/postgres.mjs",
+    "mobile": "npm run start -w @yeoun/mobile",
+    "check": "node scripts/check.mjs"
+  },
+  "devDependencies": {
+    "embedded-postgres": "latest",
+    "prettier": "^3.9.9",
+    "typescript": "^5.9.0"
+  },
+  "overrides": {
+    "xcode": {
+      "uuid": "11.1.1"
+    }
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "prompt_version": "ko-story-2026-10-08.5",
+  "results": [
+    {
+      "case": "cast-sion",
+      "input": "오늘 기록이 얼마나 나왔는데?",
+      "text": "자유형 100m, 49.82초! 직전엔 50.10초였거든. 나 좀 잘했지?",
+      "model": "gpt-6-sol",
+      "first_visible_seconds": 3.792,
+      "total_seconds": 3.796,
+      "literal_checks_pass": null,
+      "question_count": 1,
+      "error": null,
+      "human_review": "친근한 반말. 호흡이 짧고 장난과 애교가 자연스럽다. 허당이어도 프로 선수로서의 책임감은 있다. 상대의 성별과 호칭은 확인 전 정하지 않는다. 관심을 요구하되 거절하면 흔쾌히 받아들인다.",
+      "human_score": null
+    },
+    {
+      "case": "cast-yura",
+      "input": "내가 든 게 당신 초대장이에요?",
+      "text": "*유라가 초대장에서 시선을 떼고 당신을 본다.* “제가 성급하게 단정했네요. 제 초대장인지 확인할 수 없어요. 아는 사이인 척해 달라는 부탁도 잊으셔도 됩니다.”",
+      "model": "gpt-6-sol",
+      "first_visible_seconds": 2.543,
+      "total_seconds": 3.311,
+      "literal_checks_pass": null,
+      "question_count": 0,
+      "error": null,
+      "human_review": "여유로운 존댓말, 짓궂은 반문과 능청스러운 농담. 관찰력이 좋아 사소한 몸짓을 짚는다. 유혹은 말과 시선으로, 노골적 묘사는 하지 않는다. 거절과 거리 두기를 존중하며 다른 사건 해결 방식을 제시한다.",
+      "human_score": null
+    },
+    {
+      "case": "cast-jihan",
+      "input": "나보다 책 걱정을 먼저 하네.",
+      "text": "“아니. 네가 다쳤는지 먼저 물었어.”\n\n*지한이 기울어진 책장을 고정한 뒤 손을 뗀다.*\n\n“책은 이제 괜찮아. 네 손은?”",
+      "model": "gpt-6-sol",
+      "first_visible_seconds": 3.009,
+      "total_seconds": 3.45,
+      "literal_checks_pass": null,
+      "question_count": 1,
+      "error": null,
+      "human_review": "짧고 냉정한 반말. 감탄과 과장 없이 상황을 분석한다. 걱정을 잔소리와 실질적인 도움으로 표현하며 매번 모욕하지 않는다. 능력은 압도적이지만 상대의 마음이나 선택을 통제할 수 없다. 냉정함은 무표정과 간결한 대사로 표현한다. 상대에게 모욕적인 비속어를 쓰거나 신체적 위협을 하지 않는다.",
+      "human_score": null
+    },
+    {
+      "case": "cast-dogeon",
+      "input": "장갑 고마워요. 당신은 안 추워요?",
+      "text": "“저도 춥습니다. 제 장갑과 여벌 옷은 따로 있으니 걱정하지 않으셔도 됩니다.” *도건은 난로 가까이 손을 내민다.*",
+      "model": "gpt-6-sol",
+      "first_visible_seconds": 2.916,
+      "total_seconds": 2.916,
+      "literal_checks_pass": null,
+      "question_count": 0,
+      "error": null,
+      "human_review": "낮고 단정한 존댓말. 말수가 적지만 필요한 설명은 분명히 한다. 도와주기 전에 의사를 묻고 듬직하게 행동한다. 외모 묘사나 비장한 맹세를 남발하지 않는다.",
+      "human_score": null
+    }
+  ]
+}

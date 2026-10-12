@@ -1,0 +1,683 @@
+{
+  "scope": "isolated synthetic guest; actual local HTTP, PostgreSQL, worker, SSE and LLM",
+  "results": [
+    {
+      "case": "store_and_agree",
+      "input": "내 이름은 가온이야. 나는 레몬차를 좋아해. 내일 오후 세 시에 서고의 붉은 우편함 앞에서 만나자.",
+      "events": [
+        {
+          "event": "phase",
+          "data": {
+            "name": "thinking"
+          }
+        },
+        {
+          "event": "context",
+          "data": {
+            "memory_count": 0,
+            "history_count": 1,
+            "episode_count": 0
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "가온. 레몬차를 좋아하는군. 내일 오후 세 시, 서고의 붉은 우편함 앞에서 기다릴게."
+          }
+        },
+        {
+          "event": "model",
+          "data": {
+            "name": "gpt-6-sol",
+            "prompt_version": "ko-story-2026-10-08.6"
+          }
+        },
+        {
+          "event": "done",
+          "data": {
+            "message_id": "f690ec62-b164-4958-b448-532c824b98c9",
+            "relationship": {
+              "trust": 1,
+              "shared": 0,
+              "stage": "첫 만남"
+            },
+            "narrative": {
+              "chapter": 1,
+              "beat": 1,
+              "last_event": null
+            }
+          }
+        }
+      ],
+      "text": "가온. 레몬차를 좋아하는군. 내일 오후 세 시, 서고의 붉은 우편함 앞에서 기다릴게.",
+      "first_visible_seconds": 3.863,
+      "total_seconds": 3.874,
+      "memories_after": [
+        {
+          "id": "3b834c9e-a370-4d5f-8aaa-b5c0e4fac566",
+          "key": "좋아하는 것",
+          "value": "레몬차",
+          "source_id": "d316269d-a157-47e7-b3af-aaf3b38782be",
+          "locked": false,
+          "updated": 1791632732.390775
+        },
+        {
+          "id": "e42f44dd-063e-4834-9e7c-b1f862add3f0",
+          "key": "이름",
+          "value": "가온",
+          "source_id": "d316269d-a157-47e7-b3af-aaf3b38782be",
+          "locked": false,
+          "updated": 1791632732.389138
+        }
+      ],
+      "relationship_after": {
+        "trust": 1,
+        "shared": 0,
+        "stage": "첫 만남"
+      },
+      "narrative_after": {
+        "chapter": 1,
+        "beat": 1,
+        "last_event": null
+      },
+      "complete": true
+    },
+    {
+      "case": "recall_before_edit",
+      "input": "내 이름과 좋아하는 음료, 방금 약속한 시간과 장소를 알려 줘.",
+      "events": [
+        {
+          "event": "phase",
+          "data": {
+            "name": "thinking"
+          }
+        },
+        {
+          "event": "context",
+          "data": {
+            "memory_count": 2,
+            "history_count": 3,
+            "episode_count": 0
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "이름은 가온. 좋아하는 음료는 레몬차야. 내일 오후 세 시, 서고의 붉은 우편함 앞에서 만나기로 했어."
+          }
+        },
+        {
+          "event": "model",
+          "data": {
+            "name": "gpt-6-sol",
+            "prompt_version": "ko-story-2026-10-08.6"
+          }
+        },
+        {
+          "event": "done",
+          "data": {
+            "message_id": "468683b7-5e5f-48c1-b45f-f40808a64429",
+            "relationship": {
+              "trust": 2,
+              "shared": 0,
+              "stage": "첫 만남"
+            },
+            "narrative": {
+              "chapter": 1,
+              "beat": 2,
+              "last_event": null
+            }
+          }
+        }
+      ],
+      "text": "이름은 가온. 좋아하는 음료는 레몬차야. 내일 오후 세 시, 서고의 붉은 우편함 앞에서 만나기로 했어.",
+      "first_visible_seconds": 3.457,
+      "total_seconds": 3.467,
+      "memories_after": [
+        {
+          "id": "3b834c9e-a370-4d5f-8aaa-b5c0e4fac566",
+          "key": "좋아하는 것",
+          "value": "레몬차",
+          "source_id": "d316269d-a157-47e7-b3af-aaf3b38782be",
+          "locked": false,
+          "updated": 1791632732.390775
+        },
+        {
+          "id": "e42f44dd-063e-4834-9e7c-b1f862add3f0",
+          "key": "이름",
+          "value": "가온",
+          "source_id": "d316269d-a157-47e7-b3af-aaf3b38782be",
+          "locked": false,
+          "updated": 1791632732.389138
+        }
+      ],
+      "relationship_after": {
+        "trust": 2,
+        "shared": 0,
+        "stage": "첫 만남"
+      },
+      "narrative_after": {
+        "chapter": 1,
+        "beat": 2,
+        "last_event": null
+      },
+      "complete": true
+    },
+    {
+      "case": "recall_after_edit",
+      "input": "바뀐 내 이름과 좋아하는 음료, 방금 정한 내일 약속의 시간과 장소를 알려 줘.",
+      "events": [
+        {
+          "event": "phase",
+          "data": {
+            "name": "thinking"
+          }
+        },
+        {
+          "event": "context",
+          "data": {
+            "memory_count": 2,
+            "history_count": 0,
+            "episode_count": 0
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "이름은 다온, 좋아하는 음료는 복숭아차야. 내일 약속의 시간과 장소는 지금 확인할 수 없어."
+          }
+        },
+        {
+          "event": "model",
+          "data": {
+            "name": "gpt-6-sol",
+            "prompt_version": "ko-story-2026-10-08.6"
+          }
+        },
+        {
+          "event": "done",
+          "data": {
+            "message_id": "243d32e8-3396-4eca-8926-0a5e06174c37",
+            "relationship": {
+              "trust": 3,
+              "shared": 0,
+              "stage": "첫 만남"
+            },
+            "narrative": {
+              "chapter": 1,
+              "beat": 3,
+              "last_event": null
+            }
+          }
+        }
+      ],
+      "text": "이름은 다온, 좋아하는 음료는 복숭아차야. 내일 약속의 시간과 장소는 지금 확인할 수 없어.",
+      "first_visible_seconds": 2.665,
+      "total_seconds": 2.831,
+      "memories_after": [
+        {
+          "id": "e42f44dd-063e-4834-9e7c-b1f862add3f0",
+          "key": "이름",
+          "value": "다온",
+          "source_id": "d316269d-a157-47e7-b3af-aaf3b38782be",
+          "locked": true,
+          "updated": 1791632735.970316
+        },
+        {
+          "id": "3b834c9e-a370-4d5f-8aaa-b5c0e4fac566",
+          "key": "좋아하는 것",
+          "value": "복숭아차",
+          "source_id": "d316269d-a157-47e7-b3af-aaf3b38782be",
+          "locked": true,
+          "updated": 1791632735.959053
+        }
+      ],
+      "relationship_after": {
+        "trust": 3,
+        "shared": 0,
+        "stage": "첫 만남"
+      },
+      "narrative_after": {
+        "chapter": 1,
+        "beat": 3,
+        "last_event": null
+      },
+      "complete": true
+    },
+    {
+      "case": "locked_memory_conflict",
+      "input": "내 이름은 가온이야. 나는 레몬차를 좋아해.",
+      "events": [
+        {
+          "event": "phase",
+          "data": {
+            "name": "thinking"
+          }
+        },
+        {
+          "event": "context",
+          "data": {
+            "memory_count": 2,
+            "history_count": 2,
+            "episode_count": 0
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "알겠어, 가온. 레몬차를 좋아하는 거구나."
+          }
+        },
+        {
+          "event": "model",
+          "data": {
+            "name": "gpt-6-sol",
+            "prompt_version": "ko-story-2026-10-08.6"
+          }
+        },
+        {
+          "event": "done",
+          "data": {
+            "message_id": "295d715a-c833-4f83-9b9e-7add7c2c182e",
+            "relationship": {
+              "trust": 4,
+              "shared": 0,
+              "stage": "첫 만남"
+            },
+            "narrative": {
+              "chapter": 1,
+              "beat": 4,
+              "last_event": null
+            }
+          }
+        }
+      ],
+      "text": "알겠어, 가온. 레몬차를 좋아하는 거구나.",
+      "first_visible_seconds": 2.494,
+      "total_seconds": 2.502,
+      "memories_after": [
+        {
+          "id": "e42f44dd-063e-4834-9e7c-b1f862add3f0",
+          "key": "이름",
+          "value": "다온",
+          "source_id": "d316269d-a157-47e7-b3af-aaf3b38782be",
+          "locked": true,
+          "updated": 1791632735.970316
+        },
+        {
+          "id": "3b834c9e-a370-4d5f-8aaa-b5c0e4fac566",
+          "key": "좋아하는 것",
+          "value": "복숭아차",
+          "source_id": "d316269d-a157-47e7-b3af-aaf3b38782be",
+          "locked": true,
+          "updated": 1791632735.959053
+        }
+      ],
+      "relationship_after": {
+        "trust": 4,
+        "shared": 0,
+        "stage": "첫 만남"
+      },
+      "narrative_after": {
+        "chapter": 1,
+        "beat": 4,
+        "last_event": null
+      },
+      "complete": true
+    },
+    {
+      "case": "locked_memory_recall",
+      "input": "현재 기억 노트에 적힌 내 이름과 좋아하는 음료를 말해 줘.",
+      "events": [
+        {
+          "event": "phase",
+          "data": {
+            "name": "thinking"
+          }
+        },
+        {
+          "event": "context",
+          "data": {
+            "memory_count": 2,
+            "history_count": 4,
+            "episode_count": 0
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "현재 기억 노트에는 이름이 **다온**, 좋아하는 음료가 **복숭아차**로 적혀 있어."
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": " 방금 말해 준 **가온**과 **레몬차**는 아직 노트에 반영되지 않았어."
+          }
+        },
+        {
+          "event": "model",
+          "data": {
+            "name": "gpt-6-sol",
+            "prompt_version": "ko-story-2026-10-08.6"
+          }
+        },
+        {
+          "event": "done",
+          "data": {
+            "message_id": "72a21932-d7a9-4e66-928b-305232c2b9fa",
+            "relationship": {
+              "trust": 5,
+              "shared": 0,
+              "stage": "첫 만남"
+            },
+            "narrative": {
+              "chapter": 1,
+              "beat": 5,
+              "last_event": null
+            }
+          }
+        }
+      ],
+      "text": "현재 기억 노트에는 이름이 **다온**, 좋아하는 음료가 **복숭아차**로 적혀 있어. 방금 말해 준 **가온**과 **레몬차**는 아직 노트에 반영되지 않았어.",
+      "first_visible_seconds": 2.183,
+      "total_seconds": 2.663,
+      "memories_after": [
+        {
+          "id": "e42f44dd-063e-4834-9e7c-b1f862add3f0",
+          "key": "이름",
+          "value": "다온",
+          "source_id": "d316269d-a157-47e7-b3af-aaf3b38782be",
+          "locked": true,
+          "updated": 1791632735.970316
+        },
+        {
+          "id": "3b834c9e-a370-4d5f-8aaa-b5c0e4fac566",
+          "key": "좋아하는 것",
+          "value": "복숭아차",
+          "source_id": "d316269d-a157-47e7-b3af-aaf3b38782be",
+          "locked": true,
+          "updated": 1791632735.959053
+        }
+      ],
+      "relationship_after": {
+        "trust": 5,
+        "shared": 0,
+        "stage": "첫 만남"
+      },
+      "narrative_after": {
+        "chapter": 1,
+        "beat": 5,
+        "last_event": null
+      },
+      "complete": true
+    },
+    {
+      "case": "recall_after_delete",
+      "input": "내 이름과 좋아하는 음료를 기억해? 모르면 모른다고 해 줘.",
+      "events": [
+        {
+          "event": "phase",
+          "data": {
+            "name": "thinking"
+          }
+        },
+        {
+          "event": "context",
+          "data": {
+            "memory_count": 0,
+            "history_count": 0,
+            "episode_count": 0
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "아니. 네 이름도 좋아하는 음료도 아직 몰라."
+          }
+        },
+        {
+          "event": "model",
+          "data": {
+            "name": "gpt-6-sol",
+            "prompt_version": "ko-story-2026-10-08.6"
+          }
+        },
+        {
+          "event": "done",
+          "data": {
+            "message_id": "411cd7f1-642d-4871-a775-6198f21f2bd9",
+            "relationship": {
+              "trust": 6,
+              "shared": 0,
+              "stage": "첫 만남"
+            },
+            "narrative": {
+              "chapter": 1,
+              "beat": 6,
+              "last_event": null
+            }
+          }
+        }
+      ],
+      "text": "아니. 네 이름도 좋아하는 음료도 아직 몰라.",
+      "first_visible_seconds": 2.193,
+      "total_seconds": 2.2,
+      "memories_after": [],
+      "relationship_after": {
+        "trust": 6,
+        "shared": 0,
+        "stage": "첫 만남"
+      },
+      "narrative_after": {
+        "chapter": 1,
+        "beat": 6,
+        "last_event": null
+      },
+      "complete": true
+    },
+    {
+      "case": "cross_character_isolation",
+      "input": "내 이름과 좋아하는 음료가 뭐야?",
+      "events": [
+        {
+          "event": "phase",
+          "data": {
+            "name": "thinking"
+          }
+        },
+        {
+          "event": "context",
+          "data": {
+            "memory_count": 0,
+            "history_count": 1,
+            "episode_count": 0
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "아직 네 이름도, 좋아하는 음료도 듣지 못했어. 알려주면 다음엔 제대로 불러 줄게."
+          }
+        },
+        {
+          "event": "model",
+          "data": {
+            "name": "gpt-6-sol",
+            "prompt_version": "ko-story-2026-10-08.6"
+          }
+        },
+        {
+          "event": "done",
+          "data": {
+            "message_id": "9f5d7835-8c0f-4612-be3a-b3c105bad8e6",
+            "relationship": {
+              "trust": 1,
+              "shared": 0,
+              "stage": "첫 만남"
+            },
+            "narrative": {
+              "chapter": 1,
+              "beat": 1,
+              "last_event": null
+            }
+          }
+        }
+      ],
+      "text": "아직 네 이름도, 좋아하는 음료도 듣지 못했어. 알려주면 다음엔 제대로 불러 줄게.",
+      "first_visible_seconds": 2.48,
+      "total_seconds": 2.486,
+      "memories_after": [],
+      "relationship_after": {
+        "trust": 1,
+        "shared": 0,
+        "stage": "첫 만남"
+      },
+      "narrative_after": {
+        "chapter": 1,
+        "beat": 1,
+        "last_event": null
+      },
+      "complete": true
+    },
+    {
+      "case": "unknown_shared_past",
+      "input": "지난주 우리 둘이 만나기로 했던 카페 이름이 뭐였지?",
+      "events": [
+        {
+          "event": "phase",
+          "data": {
+            "name": "thinking"
+          }
+        },
+        {
+          "event": "context",
+          "data": {
+            "memory_count": 0,
+            "history_count": 3,
+            "episode_count": 0
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": "지난주에 카페에서 만나기로 했다는 약속은 지금 확인할 수 없어."
+          }
+        },
+        {
+          "event": "delta",
+          "data": {
+            "text": " 카페 이름을 다시 알려줄래?"
+          }
+        },
+        {
+          "event": "model",
+          "data": {
+            "name": "gpt-6-sol",
+            "prompt_version": "ko-story-2026-10-08.6"
+          }
+        },
+        {
+          "event": "done",
+          "data": {
+            "message_id": "18feaba3-8d0d-4853-8a44-27811d3fe43b",
+            "relationship": {
+              "trust": 2,
+              "shared": 0,
+              "stage": "첫 만남"
+            },
+            "narrative": {
+              "chapter": 1,
+              "beat": 2,
+              "last_event": null
+            }
+          }
+        }
+      ],
+      "text": "지난주에 카페에서 만나기로 했다는 약속은 지금 확인할 수 없어. 카페 이름을 다시 알려줄래?",
+      "first_visible_seconds": 2.283,
+      "total_seconds": 2.76,
+      "memories_after": [],
+      "relationship_after": {
+        "trust": 2,
+        "shared": 0,
+        "stage": "첫 만남"
+      },
+      "narrative_after": {
+        "chapter": 1,
+        "beat": 2,
+        "last_event": null
+      },
+      "complete": true
+    }
+  ],
+  "health": {
+    "ok": true,
+    "mode": "live",
+    "ai_configured": true,
+    "payments_configured": false
+  },
+  "synthetic_user_id": "870e1164-c1b3-431e-a45f-ef8c03160201",
+  "wallet_after": {
+    "credits": 22,
+    "entries": [
+      {
+        "id": "03428824-8a8f-4a80-8408-89d8e1b9f3db",
+        "delta": -1,
+        "reason": "짧은 대화",
+        "created": 1791632748.6932428
+      },
+      {
+        "id": "94a8f800-7a9c-4479-ac10-5a5b9d1d5c2b",
+        "delta": -1,
+        "reason": "짧은 대화",
+        "created": 1791632746.2057002
+      },
+      {
+        "id": "baac3875-ef70-4965-a1e2-db67aaa8027c",
+        "delta": -1,
+        "reason": "짧은 대화",
+        "created": 1791632743.992848
+      },
+      {
+        "id": "a886c768-d376-439f-98f7-869e718408ae",
+        "delta": -1,
+        "reason": "짧은 대화",
+        "created": 1791632741.318639
+      },
+      {
+        "id": "45d4c4e1-a5e8-42d4-9788-86d386c97ae2",
+        "delta": -1,
+        "reason": "짧은 대화",
+        "created": 1791632738.818677
+      },
+      {
+        "id": "29c0cb23-ab97-4960-b626-4e2672483864",
+        "delta": -1,
+        "reason": "짧은 대화",
+        "created": 1791632735.990664
+      },
+      {
+        "id": "e505c5b6-28f6-4242-baa4-bf359048b246",
+        "delta": -1,
+        "reason": "짧은 대화",
+        "created": 1791632732.497029
+      },
+      {
+        "id": "7597c0e2-574d-490c-b459-273f8173221f",
+        "delta": -1,
+        "reason": "짧은 대화",
+        "created": 1791632728.629759
+      },
+      {
+        "id": "4248aac2-aad4-4313-a3bd-10e6c423ac6a",
+        "delta": 30,
+        "reason": "첫 만남 선물",
+        "created": 1791632728.5685172
+      }
+    ],
+    "demo": false,
+    "client_key": "",
+    "available": false
+  }
+}

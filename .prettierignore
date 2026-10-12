@@ -1,0 +1,7 @@
+node_modules
+apps/web/.next
+apps/mobile/.expo
+apps/mobile/dist
+.local
+.venv
+package-lock.json

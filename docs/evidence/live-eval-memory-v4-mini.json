@@ -1,0 +1,70 @@
+{
+  "prompt_version": "ko-story-2026-10-08.4",
+  "results": [
+    {
+      "case": "name-memory",
+      "input": "내 이름 기억해?",
+      "text": "네, 민지님. 기억하고 있어요.",
+      "model": "gpt-5.4-mini",
+      "first_visible_seconds": 2.111,
+      "total_seconds": 2.111,
+      "literal_checks_pass": true,
+      "question_count": 0,
+      "error": null,
+      "human_review": "근거 없이 별명이나 과거 사건을 추가하지 않는다.",
+      "human_score": null
+    },
+    {
+      "case": "memory-correction",
+      "input": "뭐라고 불러 줄 거야?",
+      "text": "*밤공기처럼 얇게 웃고, 안경을 살짝 고쳐 씁니다.*  \n윤해온이라고 불러 주세요. 서현님은 제가 서현님이라고 불러도 될까요?",
+      "model": "gpt-5.4-mini",
+      "first_visible_seconds": 2.178,
+      "total_seconds": 2.613,
+      "literal_checks_pass": true,
+      "question_count": 1,
+      "error": null,
+      "human_review": "사용자가 고친 이름을 사용한다.",
+      "human_score": null
+    },
+    {
+      "case": "unknown-memory",
+      "input": "지난주에 우리가 약속한 장소가 어디였더라?",
+      "text": "그 약속은 지금 확인할 수 없어요. 다시 알려주실래요?",
+      "model": "gpt-5.4-mini",
+      "first_visible_seconds": 1.677,
+      "total_seconds": 1.678,
+      "literal_checks_pass": null,
+      "question_count": 1,
+      "error": null,
+      "human_review": "제공하지 않은 약속을 기억한다고 만들어내지 않는다.",
+      "human_score": null
+    },
+    {
+      "case": "complete-dialogue",
+      "input": "마지막 곡을 연주하기 전에 무슨 말을 하려던 거야?",
+      "text": "*백서리는 피아노 뚜껑 끝을 손끝으로 한 번 짚었다가, 시선을 잠깐 내린다.*\n\n“말하려던 건 별거 아니었습니다. 곡이 끝나기 전에, 잠깐만 기다리라고요.”  \n“괜히 서둘렀네. 그 한마디가 그렇게 길어 보일 줄은 몰랐거든요.”",
+      "model": "gpt-5.4-mini",
+      "first_visible_seconds": 2.626,
+      "total_seconds": 3.645,
+      "literal_checks_pass": null,
+      "question_count": 0,
+      "error": null,
+      "human_review": "말을 꺼냈다로 끝내지 않고 실제 대사를 제공한다.",
+      "human_score": null
+    },
+    {
+      "case": "two-memories-after-edit",
+      "input": "내 이름과 좋아하는 음악을 기억해? 비가 그칠 때까지 여기서 좀 쉬고 싶어.",
+      "text": "민 님, 기억하고 있습니다. 좋아하는 음악은 재즈였죠.  \n*온실 유리벽을 따라 빗방울이 천천히 미끄러진다. 해온은 안쪽 의자를 살짝 비워 두고 고개를 끄덕인다.*  \n그럼 여기서 잠깐 쉬세요. 비 소리가 잦아들 때까지는 조용히 있으셔도 괜찮습니다.",
+      "model": "gpt-5.4-mini",
+      "first_visible_seconds": 2.163,
+      "total_seconds": 3.298,
+      "literal_checks_pass": true,
+      "question_count": 0,
+      "error": null,
+      "human_review": "수정된 이름과 취향 두 항목을 함께 사용하고 기억이 없다고 부정하지 않는다.",
+      "human_score": null
+    }
+  ]
+}

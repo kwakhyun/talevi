@@ -1,0 +1,14 @@
+{
+  "reviewer": "Codex",
+  "canonical_string_matches": 4,
+  "reviewed_cases": 6,
+  "semantic_findings": {
+    "name_request": "가온",
+    "name_polite": "가온",
+    "drink_copula": "레몬차",
+    "last_correction": "최종 커피를 음료 분류에 저장. 이전 레몬차는 저장하지 않음. 값은 원문 구절 커피를 좋아해.",
+    "third_person": "친구의 이름과 취향을 사용자 정보로 저장하지 않음.",
+    "two_categories": "레몬차와 재즈를 서로 다른 음료/음악 항목에 저장. 값은 원문 구절."
+  },
+  "limitations": "원문 구절도 허용하는 스키마이므로 2건의 정확한 명사 일치 실패를 사실 기억 오류와 동일시하지 않음."
+}

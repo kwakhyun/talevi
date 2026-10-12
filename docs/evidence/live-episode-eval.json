@@ -1,0 +1,25 @@
+{
+  "prompt_version": "ko-story-2026-10-08.5",
+  "synthetic_messages": 100,
+  "recent_messages": 40,
+  "memory_model": "gpt-5.4-mini",
+  "reply_model": "gpt-6-sol",
+  "compaction_seconds": 1.887,
+  "notes": [
+    {
+      "source_id": "3",
+      "quote": "다음 주 수요일 오후 세 시에 동쪽 온실에서 푸른 씨앗을 함께 심기로 약속했어.",
+      "role": "user",
+      "created": 4.0
+    },
+    {
+      "source_id": "4",
+      "quote": "좋아요. 수요일 오후 세 시, 동쪽 온실에서 기다릴게요.",
+      "role": "assistant",
+      "created": 5.0
+    }
+  ],
+  "reply": "다음 주 수요일 오후 세 시, 동쪽 온실에서 만나 푸른 씨앗을 함께 심기로 했어요.",
+  "literal_checks_pass": true,
+  "human_score": null
+}

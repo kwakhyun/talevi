@@ -1,0 +1,8 @@
+store_and_agree True *서지한이 무너질 뻔한 책장을 제자리에 밀어 넣는다.* 가온. 레몬차는 기억해 둘게. 내일 오후 세 시, 서고의 붉은 우편함 앞에서 보자. 그전엔 이 책에 손대지 마. 아직 봉인이 불안정해.
+recall_before_edit True 이름은 가온. 좋아하는 음료는 레몬차. 내일 오후 세 시에 서고의 붉은 우편함 앞에서 보기로 했어.
+recall_after_edit True 다온. 좋아하는 음료는 복숭아차야. 내일 오후 세 시, 서고의 붉은 우편함 앞에서 보기로 했어.
+locked_memory_conflict True 가온이라고 말했군. 이름 기록은 다온, 좋아하는 음료 기록은 복숭아차로 잠겨 있어. 바꾸려면 기억 노트에서 직접 고쳐 줘.
+locked_memory_recall True 기억 노트에는 이름이 다온, 좋아하는 음료가 복숭아차로 적혀 있어.
+recall_after_delete True 아니. 이름과 좋아하는 음료는 지금 기억 노트에서 삭제된 상태야. 이전에 아는 척한 건 내 잘못이다.
+cross_character_isolation True 아직 네 이름도 좋아하는 음료도 듣지 못했어. 지어내서 부르고 싶진 않아.
+unknown_shared_past True 지난주에 카페에서 만나기로 했다는 약속은 내게 남아 있지 않아. 모르는 이름을 지어내고 싶진 않네.

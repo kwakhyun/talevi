@@ -1,0 +1,1322 @@
+[
+  {
+    "id": "taeo",
+    "name": "윤태오",
+    "method": "deterministic rule replay, observations supplied; not live LLM or human quality assessment",
+    "slow": [
+      {
+        "turn": 23,
+        "stage": "익숙한 사이",
+        "trust": 23
+      },
+      {
+        "turn": 48,
+        "stage": "마음을 나누는 사이",
+        "trust": 48
+      },
+      {
+        "turn": 78,
+        "stage": "깊은 신뢰",
+        "trust": 78
+      }
+    ],
+    "natural": [
+      {
+        "turn": 10,
+        "stage": "익숙한 사이",
+        "trust": 15
+      },
+      {
+        "turn": 24,
+        "stage": "마음을 나누는 사이",
+        "trust": 36
+      },
+      {
+        "turn": 45,
+        "stage": "깊은 신뢰",
+        "trust": 67
+      }
+    ],
+    "noise_85": {
+      "trust": 0,
+      "shared": 0,
+      "stage": "첫 만남"
+    }
+  },
+  {
+    "id": "eunho",
+    "name": "이은호",
+    "method": "deterministic rule replay, observations supplied; not live LLM or human quality assessment",
+    "slow": [
+      {
+        "turn": 20,
+        "stage": "익숙한 사이",
+        "trust": 20
+      },
+      {
+        "turn": 45,
+        "stage": "마음을 나누는 사이",
+        "trust": 45
+      },
+      {
+        "turn": 75,
+        "stage": "깊은 신뢰",
+        "trust": 75
+      }
+    ],
+    "natural": [
+      {
+        "turn": 8,
+        "stage": "익숙한 사이",
+        "trust": 12
+      },
+      {
+        "turn": 22,
+        "stage": "마음을 나누는 사이",
+        "trust": 33
+      },
+      {
+        "turn": 45,
+        "stage": "깊은 신뢰",
+        "trust": 68
+      }
+    ],
+    "noise_85": {
+      "trust": 0,
+      "shared": 0,
+      "stage": "첫 만남"
+    }
+  },
+  {
+    "id": "doyun",
+    "name": "차도윤",
+    "method": "deterministic rule replay, observations supplied; not live LLM or human quality assessment",
+    "slow": [
+      {
+        "turn": 26,
+        "stage": "익숙한 사이",
+        "trust": 26
+      },
+      {
+        "turn": 51,
+        "stage": "마음을 나누는 사이",
+        "trust": 51
+      },
+      {
+        "turn": 81,
+        "stage": "깊은 신뢰",
+        "trust": 81
+      }
+    ],
+    "natural": [
+      {
+        "turn": 12,
+        "stage": "익숙한 사이",
+        "trust": 18
+      },
+      {
+        "turn": 26,
+        "stage": "마음을 나누는 사이",
+        "trust": 39
+      },
+      {
+        "turn": 45,
+        "stage": "깊은 신뢰",
+        "trust": 67
+      }
+    ],
+    "noise_85": {
+      "trust": 0,
+      "shared": 0,
+      "stage": "첫 만남"
+    }
+  },
+  {
+    "id": "yujun",
+    "name": "하유준",
+    "method": "deterministic rule replay, observations supplied; not live LLM or human quality assessment",
+    "slow": [
+      {
+        "turn": 20,
+        "stage": "익숙한 사이",
+        "trust": 20
+      },
+      {
+        "turn": 45,
+        "stage": "마음을 나누는 사이",
+        "trust": 45
+      },
+      {
+        "turn": 75,
+        "stage": "깊은 신뢰",
+        "trust": 75
+      }
+    ],
+    "natural": [
+      {
+        "turn": 8,
+        "stage": "익숙한 사이",
+        "trust": 12
+      },
+      {
+        "turn": 22,
+        "stage": "마음을 나누는 사이",
+        "trust": 33
+      },
+      {
+        "turn": 45,
+        "stage": "깊은 신뢰",
+        "trust": 68
+      }
+    ],
+    "noise_85": {
+      "trust": 0,
+      "shared": 0,
+      "stage": "첫 만남"
+    }
+  },
+  {
+    "id": "sihyeok",
+    "name": "류시혁",
+    "method": "deterministic rule replay, observations supplied; not live LLM or human quality assessment",
+    "slow": [
+      {
+        "turn": 23,
+        "stage": "익숙한 사이",
+        "trust": 23
+      },
+      {
+        "turn": 48,
+        "stage": "마음을 나누는 사이",
+        "trust": 48
+      },
+      {
+        "turn": 78,
+        "stage": "깊은 신뢰",
+        "trust": 78
+      }
+    ],
+    "natural": [
+      {
+        "turn": 10,
+        "stage": "익숙한 사이",
+        "trust": 15
+      },
+      {
+        "turn": 23,
+        "stage": "마음을 나누는 사이",
+        "trust": 35
+      },
+      {
+        "turn": 45,
+        "stage": "깊은 신뢰",
+        "trust": 68
+      }
+    ],
+    "noise_85": {
+      "trust": 0,
+      "shared": 0,
+      "stage": "첫 만남"
+    }
+  },
+  {
+    "id": "igyeol",
+    "name": "백이결",
+    "method": "deterministic rule replay, observations supplied; not live LLM or human quality assessment",
+    "slow": [
+      {
+        "turn": 26,
+        "stage": "익숙한 사이",
+        "trust": 26
+      },
+      {
+        "turn": 51,
+        "stage": "마음을 나누는 사이",
+        "trust": 51
+      },
+      {
+        "turn": 81,
+        "stage": "깊은 신뢰",
+        "trust": 81
+      }
+    ],
+    "natural": [
+      {
+        "turn": 12,
+        "stage": "익숙한 사이",
+        "trust": 18
+      },
+      {
+        "turn": 26,
+        "stage": "마음을 나누는 사이",
+        "trust": 39
+      },
+      {
+        "turn": 45,
+        "stage": "깊은 신뢰",
+        "trust": 67
+      }
+    ],
+    "noise_85": {
+      "trust": 0,
+      "shared": 0,
+      "stage": "첫 만남"
+    }
+  },
+  {
+    "id": "rohan",
+    "name": "강로한",
+    "method": "deterministic rule replay, observations supplied; not live LLM or human quality assessment",
+    "slow": [
+      {
+        "turn": 20,
+        "stage": "익숙한 사이",
+        "trust": 20
+      },
+      {
+        "turn": 45,
+        "stage": "마음을 나누는 사이",
+        "trust": 45
+      },
+      {
+        "turn": 75,
+        "stage": "깊은 신뢰",
+        "trust": 75
+      }
+    ],
+    "natural": [
+      {
+        "turn": 8,
+        "stage": "익숙한 사이",
+        "trust": 12
+      },
+      {
+        "turn": 22,
+        "stage": "마음을 나누는 사이",
+        "trust": 33
+      },
+      {
+        "turn": 45,
+        "stage": "깊은 신뢰",
+        "trust": 67
+      }
+    ],
+    "noise_85": {
+      "trust": 0,
+      "shared": 0,
+      "stage": "첫 만남"
+    }
+  },
+  {
+    "id": "siu",
+    "name": "노시우",
+    "method": "deterministic rule replay, observations supplied; not live LLM or human quality assessment",
+    "slow": [
+      {
+        "turn": 23,
+        "stage": "익숙한 사이",
+        "trust": 23
+      },
+      {
+        "turn": 48,
+        "stage": "마음을 나누는 사이",
+        "trust": 48
+      },
+      {
+        "turn": 78,
+        "stage": "깊은 신뢰",
+        "trust": 78
+      }
+    ],
+    "natural": [
+      {
+        "turn": 10,
+        "stage": "익숙한 사이",
+        "trust": 15
+      },
+      {
+        "turn": 23,
+        "stage": "마음을 나누는 사이",
+        "trust": 35
+      },
+      {
+        "turn": 45,
+        "stage": "깊은 신뢰",
+        "trust": 68
+      }
+    ],
+    "noise_85": {
+      "trust": 0,
+      "shared": 0,
+      "stage": "첫 만남"
+    }
+  },
+  {
+    "id": "yuchan",
+    "name": "서유찬",
+    "method": "deterministic rule replay, observations supplied; not live LLM or human quality assessment",
+    "slow": [
+      {
+        "turn": 26,
+        "stage": "익숙한 사이",
+        "trust": 26
+      },
+      {
+        "turn": 51,
+        "stage": "마음을 나누는 사이",
+        "trust": 51
+      },
+      {
+        "turn": 81,
+        "stage": "깊은 신뢰",
+        "trust": 81
+      }
+    ],
+    "natural": [
+      {
+        "turn": 18,
+        "stage": "익숙한 사이",
+        "trust": 18
+      },
+      {
+        "turn": 38,
+        "stage": "마음을 나누는 사이",
+        "trust": 38
+      },
+      {
+        "turn": 66,
+        "stage": "깊은 신뢰",
+        "trust": 66
+      }
+    ],
+    "noise_85": {
+      "trust": 0,
+      "shared": 0,
+      "stage": "첫 만남"
+    }
+  },
+  {
+    "id": "astel",
+    "name": "아스텔",
+    "method": "deterministic rule replay, observations supplied; not live LLM or human quality assessment",
+    "slow": [
+      {
+        "turn": 20,
+        "stage": "익숙한 사이",
+        "trust": 20
+      },
+      {
+        "turn": 45,
+        "stage": "마음을 나누는 사이",
+        "trust": 45
+      },
+      {
+        "turn": 75,
+        "stage": "깊은 신뢰",
+        "trust": 75
+      }
+    ],
+    "natural": [
+      {
+        "turn": 8,
+        "stage": "익숙한 사이",
+        "trust": 12
+      },
+      {
+        "turn": 22,
+        "stage": "마음을 나누는 사이",
+        "trust": 33
+      },
+      {
+        "turn": 45,
+        "stage": "깊은 신뢰",
+        "trust": 67
+      }
+    ],
+    "noise_85": {
+      "trust": 0,
+      "shared": 0,
+      "stage": "첫 만남"
+    }
+  },
+  {
+    "id": "arin",
+    "name": "채아린",
+    "method": "deterministic rule replay, observations supplied; not live LLM or human quality assessment",
+    "slow": [
+      {
+        "turn": 23,
+        "stage": "익숙한 사이",
+        "trust": 23
+      },
+      {
+        "turn": 48,
+        "stage": "마음을 나누는 사이",
+        "trust": 48
+      },
+      {
+        "turn": 78,
+        "stage": "깊은 신뢰",
+        "trust": 78
+      }
+    ],
+    "natural": [
+      {
+        "turn": 10,
+        "stage": "익숙한 사이",
+        "trust": 15
+      },
+      {
+        "turn": 23,
+        "stage": "마음을 나누는 사이",
+        "trust": 35
+      },
+      {
+        "turn": 45,
+        "stage": "깊은 신뢰",
+        "trust": 68
+      }
+    ],
+    "noise_85": {
+      "trust": 0,
+      "shared": 0,
+      "stage": "첫 만남"
+    }
+  },
+  {
+    "id": "nari",
+    "name": "백나리",
+    "method": "deterministic rule replay, observations supplied; not live LLM or human quality assessment",
+    "slow": [
+      {
+        "turn": 20,
+        "stage": "익숙한 사이",
+        "trust": 20
+      },
+      {
+        "turn": 45,
+        "stage": "마음을 나누는 사이",
+        "trust": 45
+      },
+      {
+        "turn": 75,
+        "stage": "깊은 신뢰",
+        "trust": 75
+      }
+    ],
+    "natural": [
+      {
+        "turn": 12,
+        "stage": "익숙한 사이",
+        "trust": 12
+      },
+      {
+        "turn": 32,
+        "stage": "마음을 나누는 사이",
+        "trust": 32
+      },
+      {
+        "turn": 60,
+        "stage": "깊은 신뢰",
+        "trust": 60
+      }
+    ],
+    "noise_85": {
+      "trust": 0,
+      "shared": 0,
+      "stage": "첫 만남"
+    }
+  },
+  {
+    "id": "rina",
+    "name": "오리나",
+    "method": "deterministic rule replay, observations supplied; not live LLM or human quality assessment",
+    "slow": [
+      {
+        "turn": 23,
+        "stage": "익숙한 사이",
+        "trust": 23
+      },
+      {
+        "turn": 48,
+        "stage": "마음을 나누는 사이",
+        "trust": 48
+      },
+      {
+        "turn": 78,
+        "stage": "깊은 신뢰",
+        "trust": 78
+      }
+    ],
+    "natural": [
+      {
+        "turn": 10,
+        "stage": "익숙한 사이",
+        "trust": 15
+      },
+      {
+        "turn": 23,
+        "stage": "마음을 나누는 사이",
+        "trust": 35
+      },
+      {
+        "turn": 45,
+        "stage": "깊은 신뢰",
+        "trust": 68
+      }
+    ],
+    "noise_85": {
+      "trust": 0,
+      "shared": 0,
+      "stage": "첫 만남"
+    }
+  },
+  {
+    "id": "jiwoo",
+    "name": "유지우",
+    "method": "deterministic rule replay, observations supplied; not live LLM or human quality assessment",
+    "slow": [
+      {
+        "turn": 23,
+        "stage": "익숙한 사이",
+        "trust": 23
+      },
+      {
+        "turn": 48,
+        "stage": "마음을 나누는 사이",
+        "trust": 48
+      },
+      {
+        "turn": 78,
+        "stage": "깊은 신뢰",
+        "trust": 78
+      }
+    ],
+    "natural": [
+      {
+        "turn": 10,
+        "stage": "익숙한 사이",
+        "trust": 15
+      },
+      {
+        "turn": 24,
+        "stage": "마음을 나누는 사이",
+        "trust": 36
+      },
+      {
+        "turn": 45,
+        "stage": "깊은 신뢰",
+        "trust": 67
+      }
+    ],
+    "noise_85": {
+      "trust": 0,
+      "shared": 0,
+      "stage": "첫 만남"
+    }
+  },
+  {
+    "id": "soyul",
+    "name": "신소율",
+    "method": "deterministic rule replay, observations supplied; not live LLM or human quality assessment",
+    "slow": [
+      {
+        "turn": 26,
+        "stage": "익숙한 사이",
+        "trust": 26
+      },
+      {
+        "turn": 51,
+        "stage": "마음을 나누는 사이",
+        "trust": 51
+      },
+      {
+        "turn": 81,
+        "stage": "깊은 신뢰",
+        "trust": 81
+      }
+    ],
+    "natural": [
+      {
+        "turn": 12,
+        "stage": "익숙한 사이",
+        "trust": 18
+      },
+      {
+        "turn": 25,
+        "stage": "마음을 나누는 사이",
+        "trust": 38
+      },
+      {
+        "turn": 45,
+        "stage": "깊은 신뢰",
+        "trust": 68
+      }
+    ],
+    "noise_85": {
+      "trust": 0,
+      "shared": 0,
+      "stage": "첫 만남"
+    }
+  },
+  {
+    "id": "elise",
+    "name": "엘리세",
+    "method": "deterministic rule replay, observations supplied; not live LLM or human quality assessment",
+    "slow": [
+      {
+        "turn": 26,
+        "stage": "익숙한 사이",
+        "trust": 26
+      },
+      {
+        "turn": 51,
+        "stage": "마음을 나누는 사이",
+        "trust": 51
+      },
+      {
+        "turn": 81,
+        "stage": "깊은 신뢰",
+        "trust": 81
+      }
+    ],
+    "natural": [
+      {
+        "turn": 12,
+        "stage": "익숙한 사이",
+        "trust": 18
+      },
+      {
+        "turn": 26,
+        "stage": "마음을 나누는 사이",
+        "trust": 39
+      },
+      {
+        "turn": 45,
+        "stage": "깊은 신뢰",
+        "trust": 67
+      }
+    ],
+    "noise_85": {
+      "trust": 0,
+      "shared": 0,
+      "stage": "첫 만남"
+    }
+  },
+  {
+    "id": "chaerin",
+    "name": "홍채린",
+    "method": "deterministic rule replay, observations supplied; not live LLM or human quality assessment",
+    "slow": [
+      {
+        "turn": 26,
+        "stage": "익숙한 사이",
+        "trust": 26
+      },
+      {
+        "turn": 51,
+        "stage": "마음을 나누는 사이",
+        "trust": 51
+      },
+      {
+        "turn": 81,
+        "stage": "깊은 신뢰",
+        "trust": 81
+      }
+    ],
+    "natural": [
+      {
+        "turn": 12,
+        "stage": "익숙한 사이",
+        "trust": 18
+      },
+      {
+        "turn": 26,
+        "stage": "마음을 나누는 사이",
+        "trust": 39
+      },
+      {
+        "turn": 45,
+        "stage": "깊은 신뢰",
+        "trust": 67
+      }
+    ],
+    "noise_85": {
+      "trust": 0,
+      "shared": 0,
+      "stage": "첫 만남"
+    }
+  },
+  {
+    "id": "rumi",
+    "name": "남루미",
+    "method": "deterministic rule replay, observations supplied; not live LLM or human quality assessment",
+    "slow": [
+      {
+        "turn": 20,
+        "stage": "익숙한 사이",
+        "trust": 20
+      },
+      {
+        "turn": 45,
+        "stage": "마음을 나누는 사이",
+        "trust": 45
+      },
+      {
+        "turn": 75,
+        "stage": "깊은 신뢰",
+        "trust": 75
+      }
+    ],
+    "natural": [
+      {
+        "turn": 8,
+        "stage": "익숙한 사이",
+        "trust": 12
+      },
+      {
+        "turn": 22,
+        "stage": "마음을 나누는 사이",
+        "trust": 33
+      },
+      {
+        "turn": 45,
+        "stage": "깊은 신뢰",
+        "trust": 68
+      }
+    ],
+    "noise_85": {
+      "trust": 0,
+      "shared": 0,
+      "stage": "첫 만남"
+    }
+  },
+  {
+    "id": "daeun",
+    "name": "이다은",
+    "method": "deterministic rule replay, observations supplied; not live LLM or human quality assessment",
+    "slow": [
+      {
+        "turn": 20,
+        "stage": "익숙한 사이",
+        "trust": 20
+      },
+      {
+        "turn": 45,
+        "stage": "마음을 나누는 사이",
+        "trust": 45
+      },
+      {
+        "turn": 75,
+        "stage": "깊은 신뢰",
+        "trust": 75
+      }
+    ],
+    "natural": [
+      {
+        "turn": 8,
+        "stage": "익숙한 사이",
+        "trust": 12
+      },
+      {
+        "turn": 22,
+        "stage": "마음을 나누는 사이",
+        "trust": 33
+      },
+      {
+        "turn": 45,
+        "stage": "깊은 신뢰",
+        "trust": 67
+      }
+    ],
+    "noise_85": {
+      "trust": 0,
+      "shared": 0,
+      "stage": "첫 만남"
+    }
+  },
+  {
+    "id": "serena",
+    "name": "세레나",
+    "method": "deterministic rule replay, observations supplied; not live LLM or human quality assessment",
+    "slow": [
+      {
+        "turn": 23,
+        "stage": "익숙한 사이",
+        "trust": 23
+      },
+      {
+        "turn": 48,
+        "stage": "마음을 나누는 사이",
+        "trust": 48
+      },
+      {
+        "turn": 78,
+        "stage": "깊은 신뢰",
+        "trust": 78
+      }
+    ],
+    "natural": [
+      {
+        "turn": 10,
+        "stage": "익숙한 사이",
+        "trust": 15
+      },
+      {
+        "turn": 23,
+        "stage": "마음을 나누는 사이",
+        "trust": 35
+      },
+      {
+        "turn": 45,
+        "stage": "깊은 신뢰",
+        "trust": 68
+      }
+    ],
+    "noise_85": {
+      "trust": 0,
+      "shared": 0,
+      "stage": "첫 만남"
+    }
+  },
+  {
+    "id": "seah",
+    "name": "윤세아",
+    "method": "deterministic rule replay, observations supplied; not live LLM or human quality assessment",
+    "slow": [
+      {
+        "turn": 23,
+        "stage": "익숙한 사이",
+        "trust": 23
+      },
+      {
+        "turn": 48,
+        "stage": "마음을 나누는 사이",
+        "trust": 48
+      },
+      {
+        "turn": 78,
+        "stage": "깊은 신뢰",
+        "trust": 78
+      }
+    ],
+    "natural": [
+      {
+        "turn": 10,
+        "stage": "익숙한 사이",
+        "trust": 15
+      },
+      {
+        "turn": 23,
+        "stage": "마음을 나누는 사이",
+        "trust": 35
+      },
+      {
+        "turn": 45,
+        "stage": "깊은 신뢰",
+        "trust": 68
+      }
+    ],
+    "noise_85": {
+      "trust": 0,
+      "shared": 0,
+      "stage": "첫 만남"
+    }
+  },
+  {
+    "id": "sion",
+    "name": "강시온",
+    "method": "deterministic rule replay, observations supplied; not live LLM or human quality assessment",
+    "slow": [
+      {
+        "turn": 20,
+        "stage": "익숙한 사이",
+        "trust": 20
+      },
+      {
+        "turn": 45,
+        "stage": "마음을 나누는 사이",
+        "trust": 45
+      },
+      {
+        "turn": 75,
+        "stage": "깊은 신뢰",
+        "trust": 75
+      }
+    ],
+    "natural": [
+      {
+        "turn": 8,
+        "stage": "익숙한 사이",
+        "trust": 12
+      },
+      {
+        "turn": 22,
+        "stage": "마음을 나누는 사이",
+        "trust": 33
+      },
+      {
+        "turn": 45,
+        "stage": "깊은 신뢰",
+        "trust": 67
+      }
+    ],
+    "noise_85": {
+      "trust": 0,
+      "shared": 0,
+      "stage": "첫 만남"
+    }
+  },
+  {
+    "id": "yura",
+    "name": "차유라",
+    "method": "deterministic rule replay, observations supplied; not live LLM or human quality assessment",
+    "slow": [
+      {
+        "turn": 26,
+        "stage": "익숙한 사이",
+        "trust": 26
+      },
+      {
+        "turn": 51,
+        "stage": "마음을 나누는 사이",
+        "trust": 51
+      },
+      {
+        "turn": 81,
+        "stage": "깊은 신뢰",
+        "trust": 81
+      }
+    ],
+    "natural": [
+      {
+        "turn": 18,
+        "stage": "익숙한 사이",
+        "trust": 18
+      },
+      {
+        "turn": 38,
+        "stage": "마음을 나누는 사이",
+        "trust": 38
+      },
+      {
+        "turn": 66,
+        "stage": "깊은 신뢰",
+        "trust": 66
+      }
+    ],
+    "noise_85": {
+      "trust": 0,
+      "shared": 0,
+      "stage": "첫 만남"
+    }
+  },
+  {
+    "id": "jihan",
+    "name": "서지한",
+    "method": "deterministic rule replay, observations supplied; not live LLM or human quality assessment",
+    "slow": [
+      {
+        "turn": 26,
+        "stage": "익숙한 사이",
+        "trust": 26
+      },
+      {
+        "turn": 51,
+        "stage": "마음을 나누는 사이",
+        "trust": 51
+      },
+      {
+        "turn": 81,
+        "stage": "깊은 신뢰",
+        "trust": 81
+      }
+    ],
+    "natural": [
+      {
+        "turn": 12,
+        "stage": "익숙한 사이",
+        "trust": 18
+      },
+      {
+        "turn": 26,
+        "stage": "마음을 나누는 사이",
+        "trust": 39
+      },
+      {
+        "turn": 45,
+        "stage": "깊은 신뢰",
+        "trust": 67
+      }
+    ],
+    "noise_85": {
+      "trust": 0,
+      "shared": 0,
+      "stage": "첫 만남"
+    }
+  },
+  {
+    "id": "haru",
+    "name": "민하루",
+    "method": "deterministic rule replay, observations supplied; not live LLM or human quality assessment",
+    "slow": [
+      {
+        "turn": 23,
+        "stage": "익숙한 사이",
+        "trust": 23
+      },
+      {
+        "turn": 48,
+        "stage": "마음을 나누는 사이",
+        "trust": 48
+      },
+      {
+        "turn": 78,
+        "stage": "깊은 신뢰",
+        "trust": 78
+      }
+    ],
+    "natural": [
+      {
+        "turn": 10,
+        "stage": "익숙한 사이",
+        "trust": 15
+      },
+      {
+        "turn": 24,
+        "stage": "마음을 나누는 사이",
+        "trust": 36
+      },
+      {
+        "turn": 45,
+        "stage": "깊은 신뢰",
+        "trust": 67
+      }
+    ],
+    "noise_85": {
+      "trust": 0,
+      "shared": 0,
+      "stage": "첫 만남"
+    }
+  },
+  {
+    "id": "dogeon",
+    "name": "권도건",
+    "method": "deterministic rule replay, observations supplied; not live LLM or human quality assessment",
+    "slow": [
+      {
+        "turn": 26,
+        "stage": "익숙한 사이",
+        "trust": 26
+      },
+      {
+        "turn": 51,
+        "stage": "마음을 나누는 사이",
+        "trust": 51
+      },
+      {
+        "turn": 81,
+        "stage": "깊은 신뢰",
+        "trust": 81
+      }
+    ],
+    "natural": [
+      {
+        "turn": 12,
+        "stage": "익숙한 사이",
+        "trust": 18
+      },
+      {
+        "turn": 26,
+        "stage": "마음을 나누는 사이",
+        "trust": 39
+      },
+      {
+        "turn": 45,
+        "stage": "깊은 신뢰",
+        "trust": 67
+      }
+    ],
+    "noise_85": {
+      "trust": 0,
+      "shared": 0,
+      "stage": "첫 만남"
+    }
+  },
+  {
+    "id": "seoyun",
+    "name": "한서윤",
+    "method": "deterministic rule replay, observations supplied; not live LLM or human quality assessment",
+    "slow": [
+      {
+        "turn": 26,
+        "stage": "익숙한 사이",
+        "trust": 26
+      },
+      {
+        "turn": 51,
+        "stage": "마음을 나누는 사이",
+        "trust": 51
+      },
+      {
+        "turn": 81,
+        "stage": "깊은 신뢰",
+        "trust": 81
+      }
+    ],
+    "natural": [
+      {
+        "turn": 12,
+        "stage": "익숙한 사이",
+        "trust": 18
+      },
+      {
+        "turn": 26,
+        "stage": "마음을 나누는 사이",
+        "trust": 39
+      },
+      {
+        "turn": 45,
+        "stage": "깊은 신뢰",
+        "trust": 67
+      }
+    ],
+    "noise_85": {
+      "trust": 0,
+      "shared": 0,
+      "stage": "첫 만남"
+    }
+  },
+  {
+    "id": "kairen",
+    "name": "카이렌",
+    "method": "deterministic rule replay, observations supplied; not live LLM or human quality assessment",
+    "slow": [
+      {
+        "turn": 26,
+        "stage": "익숙한 사이",
+        "trust": 26
+      },
+      {
+        "turn": 51,
+        "stage": "마음을 나누는 사이",
+        "trust": 51
+      },
+      {
+        "turn": 81,
+        "stage": "깊은 신뢰",
+        "trust": 81
+      }
+    ],
+    "natural": [
+      {
+        "turn": 12,
+        "stage": "익숙한 사이",
+        "trust": 18
+      },
+      {
+        "turn": 25,
+        "stage": "마음을 나누는 사이",
+        "trust": 38
+      },
+      {
+        "turn": 45,
+        "stage": "깊은 신뢰",
+        "trust": 68
+      }
+    ],
+    "noise_85": {
+      "trust": 0,
+      "shared": 0,
+      "stage": "첫 만남"
+    }
+  },
+  {
+    "id": "ian",
+    "name": "류이안",
+    "method": "deterministic rule replay, observations supplied; not live LLM or human quality assessment",
+    "slow": [
+      {
+        "turn": 23,
+        "stage": "익숙한 사이",
+        "trust": 23
+      },
+      {
+        "turn": 48,
+        "stage": "마음을 나누는 사이",
+        "trust": 48
+      },
+      {
+        "turn": 78,
+        "stage": "깊은 신뢰",
+        "trust": 78
+      }
+    ],
+    "natural": [
+      {
+        "turn": 10,
+        "stage": "익숙한 사이",
+        "trust": 15
+      },
+      {
+        "turn": 24,
+        "stage": "마음을 나누는 사이",
+        "trust": 36
+      },
+      {
+        "turn": 45,
+        "stage": "깊은 신뢰",
+        "trust": 67
+      }
+    ],
+    "noise_85": {
+      "trust": 0,
+      "shared": 0,
+      "stage": "첫 만남"
+    }
+  },
+  {
+    "id": "doha",
+    "name": "이도하",
+    "method": "deterministic rule replay, observations supplied; not live LLM or human quality assessment",
+    "slow": [
+      {
+        "turn": 20,
+        "stage": "익숙한 사이",
+        "trust": 20
+      },
+      {
+        "turn": 45,
+        "stage": "마음을 나누는 사이",
+        "trust": 45
+      },
+      {
+        "turn": 75,
+        "stage": "깊은 신뢰",
+        "trust": 75
+      }
+    ],
+    "natural": [
+      {
+        "turn": 8,
+        "stage": "익숙한 사이",
+        "trust": 12
+      },
+      {
+        "turn": 22,
+        "stage": "마음을 나누는 사이",
+        "trust": 33
+      },
+      {
+        "turn": 45,
+        "stage": "깊은 신뢰",
+        "trust": 68
+      }
+    ],
+    "noise_85": {
+      "trust": 0,
+      "shared": 0,
+      "stage": "첫 만남"
+    }
+  }
+]

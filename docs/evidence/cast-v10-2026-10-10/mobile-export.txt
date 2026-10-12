@@ -1,0 +1,53 @@
+Expo Autolinking module resolution enabled
+Starting Metro Bundler
+
+| (node:79478) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+| (Use `node --trace-warnings ...` to show where the warning was created)
+| (node:79478) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+| (Use `node --trace-warnings ...` to show where the warning was created)
+Android Bundled 9533ms apps/mobile/index.ts (669 modules)
+iOS Bundled 14730ms apps/mobile/index.ts (671 modules)
+
+› Assets (31):
+../web/public/brand/talevi-icon-192.png (5.2KB)
+../web/public/characters/arin.png (2.8MB)
+../web/public/characters/astel.png (2.2MB)
+../web/public/characters/chaerin.png (2.4MB)
+../web/public/characters/daeun.png (2.5MB)
+../web/public/characters/dogeon.png (2.6MB)
+../web/public/characters/doha.png (2.2MB)
+../web/public/characters/doyun.png (2.3MB)
+../web/public/characters/elise.png (3MB)
+../web/public/characters/eunho.png (2.4MB)
+../web/public/characters/haru.png (2.3MB)
+../web/public/characters/ian.png (2.3MB)
+../web/public/characters/igyeol.png (2.5MB)
+../web/public/characters/jihan.png (2.6MB)
+../web/public/characters/jiwoo.png (2.6MB)
+../web/public/characters/kairen.png (2.6MB)
+../web/public/characters/nari.png (2.8MB)
+../web/public/characters/rina.png (2.1MB)
+../web/public/characters/rohan.png (2.2MB)
+../web/public/characters/rumi.png (2.7MB)
+../web/public/characters/seah.png (2.5MB)
+../web/public/characters/seoyun.png (2.2MB)
+../web/public/characters/serena.png (2.4MB)
+../web/public/characters/sihyeok.png (2.2MB)
+../web/public/characters/sion.png (2.5MB)
+../web/public/characters/siu.png (2.6MB)
+../web/public/characters/soyul.png (2.5MB)
+../web/public/characters/taeo.png (2.6MB)
+../web/public/characters/yuchan.png (2.5MB)
+../web/public/characters/yujun.png (2.5MB)
+../web/public/characters/yura.png (2.2MB)
+
+› android bundles (1):
+_expo/static/js/android/index-1fac475a36c5dc0199455415f118eaf5.hbc (3.2MB)
+
+› ios bundles (1):
+_expo/static/js/ios/index-c28cf2fff9caa4732815ba80b3965804.hbc (3.2MB)
+
+› Files (1):
+metadata.json (4.1KB)
+
+Exported: /tmp/talevi-quality-mobile-export

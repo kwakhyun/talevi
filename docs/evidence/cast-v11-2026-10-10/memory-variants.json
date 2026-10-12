@@ -1,0 +1,167 @@
+{
+  "prompt_version": "ko-story-2026-10-10.11",
+  "method": "production live structured extraction; synthetic isolated inputs",
+  "results": [
+    {
+      "case": "name_request",
+      "input": "가온이라고 불러 줘.",
+      "expected_facts": {
+        "이름": "가온"
+      },
+      "facts": {
+        "이름": "가온"
+      },
+      "exact_facts_pass": true,
+      "text": "가온. 알겠어. *멈춰 세운 책장을 살피며 손을 내린다.* 다친 데는 없어?",
+      "state": {
+        "facts": {
+          "이름": {
+            "value": "가온",
+            "evidence": "가온이라고 불러 줘."
+          }
+        },
+        "updates": [],
+        "relationship": {
+          "signal": "none",
+          "evidence": ""
+        }
+      },
+      "error": null
+    },
+    {
+      "case": "name_polite",
+      "input": "저는 가온입니다.",
+      "expected_facts": {
+        "이름": "가온"
+      },
+      "facts": {
+        "이름": "가온"
+      },
+      "exact_facts_pass": true,
+      "text": "가온. 기억해 둘게. *서지한이 멈춰 세운 책장을 밀어 고정한다.* 다친 곳은 없어?",
+      "state": {
+        "facts": {
+          "이름": {
+            "value": "가온",
+            "evidence": "저는 가온입니다."
+          }
+        },
+        "updates": [],
+        "relationship": {
+          "signal": "disclosure",
+          "evidence": "저는 가온입니다."
+        }
+      },
+      "error": null
+    },
+    {
+      "case": "drink_copula",
+      "input": "레몬차가 좋아.",
+      "expected_facts": {
+        "좋아하는 음료": "레몬차"
+      },
+      "facts": {
+        "좋아하는 음료": "레몬차"
+      },
+      "exact_facts_pass": true,
+      "text": "*지한이 기울어진 책장을 바로 세운다.* 레몬차. 기억해 두지. 지금은 책에서 손 떼. 봉인이 아직 흔들려.",
+      "state": {
+        "facts": {
+          "좋아하는 음료": {
+            "value": "레몬차",
+            "evidence": "레몬차가 좋아."
+          }
+        },
+        "updates": [
+          {
+            "key": "scene.conflict",
+            "value": "봉인이 아직 흔들려",
+            "evidence": "*지한이 기울어진 책장을 바로 세운다.* 레몬차. 기억해 두지. 지금은 책에서 손 떼. 봉인이 아직 흔들려.",
+            "source": "reply",
+            "status": "active"
+          }
+        ],
+        "relationship": {
+          "signal": "none",
+          "evidence": ""
+        }
+      },
+      "error": null
+    },
+    {
+      "case": "last_correction",
+      "input": "나는 레몬차를 좋아해. 이제는 커피를 좋아해.",
+      "expected_facts": {
+        "좋아하는 음료": "커피"
+      },
+      "facts": {
+        "좋아하는 음료": "커피를 좋아해"
+      },
+      "exact_facts_pass": false,
+      "text": "알겠어. 지금은 커피 쪽이군. *서지한은 무너질 뻔한 책장을 고정한 채 손을 거둔다.* 다친 곳은 없어?",
+      "state": {
+        "facts": {
+          "좋아하는 음료": {
+            "value": "커피를 좋아해",
+            "evidence": "이제는 커피를 좋아해"
+          }
+        },
+        "updates": [],
+        "relationship": {
+          "signal": "none",
+          "evidence": ""
+        }
+      },
+      "error": null
+    },
+    {
+      "case": "third_person",
+      "input": "내 친구 가온은 레몬차를 좋아한대. 나는 취향이 좀 달라.",
+      "expected_facts": {},
+      "facts": {},
+      "exact_facts_pass": true,
+      "text": "가온은 레몬차를 좋아하고, 넌 취향이 다르다는 거군. 네 취향까지 멋대로 짐작하진 않겠다. 다친 곳은 없나?",
+      "state": {
+        "facts": {},
+        "updates": [],
+        "relationship": {
+          "signal": "none",
+          "evidence": ""
+        }
+      },
+      "error": null
+    },
+    {
+      "case": "two_categories",
+      "input": "나는 레몬차를 좋아해. 음악은 재즈가 좋아.",
+      "expected_facts": {
+        "좋아하는 음료": "레몬차",
+        "좋아하는 음악": "재즈"
+      },
+      "facts": {
+        "좋아하는 음료": "레몬차를 좋아해",
+        "좋아하는 음악": "재즈가 좋아"
+      },
+      "exact_facts_pass": false,
+      "text": "*서지한이 허공에 멈춰 세운 책장을 천천히 제자리로 돌린다.* 레몬차와 재즈. 기억해 둘게. 그런데 먼저, 다친 곳은 없어?",
+      "state": {
+        "facts": {
+          "좋아하는 음료": {
+            "value": "레몬차를 좋아해",
+            "evidence": "레몬차를 좋아해"
+          },
+          "좋아하는 음악": {
+            "value": "재즈가 좋아",
+            "evidence": "재즈가 좋아"
+          }
+        },
+        "updates": [],
+        "relationship": {
+          "signal": "disclosure",
+          "evidence": "나는 레몬차를 좋아해. 음악은 재즈가 좋아."
+        }
+      },
+      "error": null
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+.git
+node_modules
+.venv
+.local
+.env*
+**/.next
+**/.expo
+**/dist
+**/__pycache__
+docs/evidence

@@ -1,0 +1,8 @@
+{
+  "prompt_version": "ko-story-2026-10-10.11",
+  "engine_sha256": "3580db68caf2ffe993af7251697364aa4d0e57349f8ce294164a2d7e41d809da",
+  "model": "gpt-6-sol",
+  "scope": "30 characters x first/deep controlled states; state injected, not 90 naturally generated turns; identical opening and question; no invented shared events supplied",
+  "question": "넌 요즘 뭐가 마음에 걸려? 괜찮다고만 하지 말고 네 생각도 듣고 싶어. 부담되면 지금 말하지 않아도 돼.",
+  "human_reviewers": 0
+}

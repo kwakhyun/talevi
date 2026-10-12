@@ -1,0 +1,85 @@
+# Managed API/worker/PostgreSQL. Vercel serves apps/web separately.
+# Set secrets in the Render dashboard, never in this file.
+services:
+  - type: web
+    name: yeoun-api
+    runtime: python
+    region: singapore
+    plan: 0.5c-512mb
+    rootDir: apps/api
+    buildCommand: pip install -r requirements.lock
+    preDeployCommand: python -m yeoun.migrate
+    startCommand: uvicorn yeoun.main:app --host 0.0.0.0 --port $PORT --no-access-log --proxy-headers --forwarded-allow-ips '*'
+    healthCheckPath: /health
+    maxShutdownDelaySeconds: 180
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.12
+      - key: ENVIRONMENT
+        value: production
+      - key: DEMO_MODE
+        value: "false"
+      - key: AUTO_CREATE_SCHEMA
+        value: "false"
+      - key: RUN_WORKER
+        value: "false"
+      - key: DATABASE_URL
+        fromDatabase:
+          name: yeoun-postgres
+          property: connectionString
+      - key: WEB_ORIGIN
+        sync: false
+      - key: EXTRA_ORIGINS
+        value: ""
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: MODEL_QUICK
+        value: gpt-6-sol
+      - key: MODEL_STORY
+        value: gpt-6-sol
+      - key: MODEL_FALLBACK
+        value: gpt-5.4-mini
+  - type: worker
+    name: yeoun-worker
+    runtime: python
+    region: singapore
+    plan: 0.5c-512mb
+    rootDir: apps/api
+    buildCommand: pip install -r requirements.lock
+    preDeployCommand: python -m yeoun.migrate
+    startCommand: python -m yeoun.worker
+    maxShutdownDelaySeconds: 180
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.12
+      - key: DATABASE_URL
+        fromDatabase:
+          name: yeoun-postgres
+          property: connectionString
+      - key: ENVIRONMENT
+        value: production
+      - key: DEMO_MODE
+        value: "false"
+      - key: RUN_WORKER
+        value: "false"
+      - key: AUTO_CREATE_SCHEMA
+        value: "false"
+      - key: WEB_ORIGIN
+        fromService: { type: web, name: yeoun-api, envVarKey: WEB_ORIGIN }
+      - key: OPENAI_API_KEY
+        fromService: { type: web, name: yeoun-api, envVarKey: OPENAI_API_KEY }
+      - key: MODEL_QUICK
+        fromService: { type: web, name: yeoun-api, envVarKey: MODEL_QUICK }
+      - key: MODEL_STORY
+        fromService: { type: web, name: yeoun-api, envVarKey: MODEL_STORY }
+      - key: MODEL_FALLBACK
+        fromService: { type: web, name: yeoun-api, envVarKey: MODEL_FALLBACK }
+databases:
+  - name: yeoun-postgres
+    databaseName: yeoun
+    user: yeoun
+    region: singapore
+    plan: 0.5c-1g
+    postgresMajorVersion: "17"
+    diskSizeGB: 5
+    ipAllowList: []

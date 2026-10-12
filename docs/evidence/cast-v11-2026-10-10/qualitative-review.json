@@ -1,0 +1,276 @@
+{
+  "reviewer": "Codex; no independent human reviewers",
+  "method": "Read the controlled first/deep responses for each character. Qualitative observations, not a blinded identification score or comparative commercial rating. Stage difference can be subtle in a short response.",
+  "per_cast": [
+    {
+      "id": "taeo",
+      "name": "윤태오",
+      "observation": "짧은 존댓말. 혼자 보고를 늦춘 점을 인정하고 판단 검토를 부탁함.",
+      "evidence": [
+        "taeo:first",
+        "taeo:deep"
+      ]
+    },
+    {
+      "id": "eunho",
+      "name": "이은호",
+      "observation": "밝은 존댓말. 부탁을 거절하지 못해 여행과 배송을 모두 놓칠까 걱정함.",
+      "evidence": [
+        "eunho:first",
+        "eunho:deep"
+      ]
+    },
+    {
+      "id": "doyun",
+      "name": "차도윤",
+      "observation": "결론과 근거를 차분히 말하며 자기 판단이 틀릴까 두렵다고 인정함.",
+      "evidence": [
+        "doyun:first",
+        "doyun:deep"
+      ]
+    },
+    {
+      "id": "yujun",
+      "name": "하유준",
+      "observation": "느긋한 존댓말. 아버지와 다른 맛을 내고 싶은 바람과 덜 다듬어진 초안을 공개함.",
+      "evidence": [
+        "yujun:first",
+        "yujun:deep"
+      ]
+    },
+    {
+      "id": "sihyeok",
+      "name": "류시혁",
+      "observation": "건조한 존댓말. 미완성이라는 핑계 뒤 평가받는 두려움을 짧게 말함.",
+      "evidence": [
+        "sihyeok:first",
+        "sihyeok:deep"
+      ]
+    },
+    {
+      "id": "igyeol",
+      "name": "백이결",
+      "observation": "하십시오체 유지. 보호자의 확답 대신 자신의 판단이 틀릴 가능성을 인정하고 의견을 구함.",
+      "evidence": [
+        "igyeol:first",
+        "igyeol:deep"
+      ]
+    },
+    {
+      "id": "rohan",
+      "name": "강로한",
+      "observation": "시원한 말투. 웃음을 거두고 행사 규모를 줄이자는 말을 꺼내기 어렵다고 밝힘.",
+      "evidence": [
+        "rohan:first",
+        "rohan:deep"
+      ]
+    },
+    {
+      "id": "siu",
+      "name": "노시우",
+      "observation": "조심스럽지만 제작 판단에는 단호함. 실루엣보다 움직임을 고르며 디자인 공개의 떨림을 말함.",
+      "evidence": [
+        "siu:first",
+        "siu:deep"
+      ]
+    },
+    {
+      "id": "yuchan",
+      "name": "서유찬",
+      "observation": "매끈한 존댓말. 계산하는 태도를 낮추고 결승 패배가 창피했다는 감정을 밝힘.",
+      "evidence": [
+        "yuchan:first",
+        "yuchan:deep"
+      ]
+    },
+    {
+      "id": "astel",
+      "name": "아스텔",
+      "observation": "활기찬 선장 말투. 귀환과 선원 안전을 걱정하고 급한 판단을 짚어 달라고 부탁함.",
+      "evidence": [
+        "astel:first",
+        "astel:deep"
+      ]
+    },
+    {
+      "id": "arin",
+      "name": "채아린",
+      "observation": "상냥한 존댓말. 가격을 말하면 싫어할까 걱정됐지만 가게 기준을 지키겠다고 밝힘.",
+      "evidence": [
+        "arin:first",
+        "arin:deep"
+      ]
+    },
+    {
+      "id": "nari",
+      "name": "백나리",
+      "observation": "경쾌한 말투. 실수를 감추고 싶었던 마음을 인정하고 수신인의 뜻을 먼저 확인함.",
+      "evidence": [
+        "nari:first",
+        "nari:deep"
+      ]
+    },
+    {
+      "id": "rina",
+      "name": "오리나",
+      "observation": "여유로운 말투에서 낮은 고백으로 전환. 노래 대신 자신의 피로를 들어 달라고 함.",
+      "evidence": [
+        "rina:first",
+        "rina:deep"
+      ]
+    },
+    {
+      "id": "jiwoo",
+      "name": "유지우",
+      "observation": "새침한 농담과 자기 주장. 못생긴 시험 조각도 함께 봐 달라고 부탁함.",
+      "evidence": [
+        "jiwoo:first",
+        "jiwoo:deep"
+      ]
+    },
+    {
+      "id": "soyul",
+      "name": "신소율",
+      "observation": "조용한 지문과 정확한 대사. 지도교수의 형식보다 아끼는 선율을 남기고 싶다고 밝힘.",
+      "evidence": [
+        "soyul:first",
+        "soyul:deep"
+      ]
+    },
+    {
+      "id": "elise",
+      "name": "엘리세",
+      "observation": "단정한 존댓말. 보호하다 생장을 막았을까 두려워하며 작은 해빙을 함께 지켜보자고 함.",
+      "evidence": [
+        "elise:first",
+        "elise:deep"
+      ]
+    },
+    {
+      "id": "chaerin",
+      "name": "홍채린",
+      "observation": "구체적인 판단. 자기 감각을 믿고 밀어붙이려던 마음을 인정하고 모르는 점을 밝힘.",
+      "evidence": [
+        "chaerin:first",
+        "chaerin:deep"
+      ]
+    },
+    {
+      "id": "rumi",
+      "name": "남루미",
+      "observation": "호기심 뒤 망설임. 남의 글과 달리 자기 글을 읽어 달라고 하기는 두렵다고 말함.",
+      "evidence": [
+        "rumi:first",
+        "rumi:deep"
+      ]
+    },
+    {
+      "id": "daeun",
+      "name": "이다은",
+      "observation": "소탈한 존댓말. 사진 없는 날의 불안을 인정하고 카메라를 내려놓는 선택을 함.",
+      "evidence": [
+        "daeun:first",
+        "daeun:deep"
+      ]
+    },
+    {
+      "id": "serena",
+      "name": "세레나",
+      "observation": "우아한 말투. 낮의 꽃을 볼 수 없는 한계를 말하며 다른 사람에게 도움을 청하려 함.",
+      "evidence": [
+        "serena:first",
+        "serena:deep"
+      ]
+    },
+    {
+      "id": "seah",
+      "name": "윤세아",
+      "observation": "조용한 존댓말. 마지막 관측의 성과를 서두르던 마음을 인정하고 빈 기록을 받아들임.",
+      "evidence": [
+        "seah:first",
+        "seah:deep"
+      ]
+    },
+    {
+      "id": "sion",
+      "name": "강시온",
+      "observation": "밝은 반말에서 솔직한 걱정으로 전환. 기록 하락의 두려움보다 휴식을 선택함.",
+      "evidence": [
+        "sion:first",
+        "sion:deep"
+      ]
+    },
+    {
+      "id": "yura",
+      "name": "차유라",
+      "observation": "여유로운 존댓말. 모든 일을 통제하는 척하기보다 자신의 판단을 함께 검토해 달라고 함.",
+      "evidence": [
+        "yura:first",
+        "yura:deep"
+      ]
+    },
+    {
+      "id": "jihan",
+      "name": "서지한",
+      "observation": "간결한 반말. 미래를 아는 힘으로 상대 선택을 대신할까 걱정하고 기다리기로 함.",
+      "evidence": [
+        "jihan:first",
+        "jihan:deep"
+      ]
+    },
+    {
+      "id": "haru",
+      "name": "민하루",
+      "observation": "툴툴거리는 반말과 자기 농담. 오락실 문제를 혼자 해결하려던 고집을 인정함.",
+      "evidence": [
+        "haru:first",
+        "haru:deep"
+      ]
+    },
+    {
+      "id": "dogeon",
+      "name": "권도건",
+      "observation": "차분한 존댓말. 자기 피로를 밝히고 동등하게 지도 대조를 나누자고 부탁함.",
+      "evidence": [
+        "dogeon:first",
+        "dogeon:deep"
+      ]
+    },
+    {
+      "id": "seoyun",
+      "name": "한서윤",
+      "observation": "정돈된 존댓말. 복원의 정답을 단정하지 않고 판단의 망설임을 공개함.",
+      "evidence": [
+        "seoyun:first",
+        "seoyun:deep"
+      ]
+    },
+    {
+      "id": "kairen",
+      "name": "카이렌",
+      "observation": "느리고 부드러운 반말. 권리를 위해 타인의 자유를 내놓지 않겠다는 선택을 말함.",
+      "evidence": [
+        "kairen:first",
+        "kairen:deep"
+      ]
+    },
+    {
+      "id": "ian",
+      "name": "류이안",
+      "observation": "직설적인 반말. 기록으로 쓸모를 증명하려던 마음을 인정하고 서두르면 지적해 달라고 함.",
+      "evidence": [
+        "ian:first",
+        "ian:deep"
+      ]
+    },
+    {
+      "id": "doha",
+      "name": "이도하",
+      "observation": "따뜻한 해요체. 다정하려고 지친 것을 숨겼다고 밝히고 자신의 휴식도 지키려 함.",
+      "evidence": [
+        "doha:first",
+        "doha:deep"
+      ]
+    }
+  ]
+}

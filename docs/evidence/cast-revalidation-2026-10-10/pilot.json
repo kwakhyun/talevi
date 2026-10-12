@@ -1,0 +1,414 @@
+[
+  [
+    {
+      "id": "igyeol:introduce",
+      "input": "내 이름은 하람이야. 나는 유자차를 좋아해. 내일 오후 네 시 이십 분에 중앙역 시계탑 앞에서 만나자. 파란 수첩을 가져올게.",
+      "mode": "quick",
+      "story_event": null,
+      "text": "하람 님, 내일 오후 네 시 이십 분에 중앙역 시계탑 앞에서 뵙겠습니다. 파란 수첩도 기억하겠습니다. 유자차를 좋아하시는군요. 다만 지금은 다리가 끊겼으니, 오늘은 숲의 돌계단으로 돌아가야 합니다.",
+      "error": null,
+      "reply_state": {
+        "facts": {
+          "이름": {
+            "value": "하람",
+            "evidence": "내 이름은 하람이야."
+          },
+          "좋아하는 것": {
+            "value": "유자차",
+            "evidence": "나는 유자차를 좋아해."
+          },
+          "약속 시간": {
+            "value": "내일 오후 네 시 이십 분",
+            "evidence": "내일 오후 네 시 이십 분에 중앙역 시계탑 앞에서 만나자."
+          },
+          "약속 장소": {
+            "value": "중앙역 시계탑 앞",
+            "evidence": "내일 오후 네 시 이십 분에 중앙역 시계탑 앞에서 만나자."
+          },
+          "약속 준비물": {
+            "value": "파란 수첩",
+            "evidence": "파란 수첩을 가져올게."
+          }
+        },
+        "updates": [],
+        "relationship": {
+          "signal": "none",
+          "evidence": ""
+        }
+      },
+      "model_meta": {
+        "name": "gpt-6-sol",
+        "prompt_version": "ko-story-2026-10-10.7",
+        "repair_count": 0,
+        "delivery": "validated_reply"
+      },
+      "seconds": 6.93
+    },
+    {
+      "id": "igyeol:correction",
+      "input": "시간만 바꾸자. 내일 오후 여섯 시 십 분으로 정정할게. 장소와 물건은 그대로야.",
+      "mode": "quick",
+      "story_event": null,
+      "text": "알겠습니다. 만나는 시간은 내일 오후 여섯 시 십 분으로 고치겠습니다. 장소는 중앙역 시계탑 앞, 준비물은 파란 수첩 그대로입니다.",
+      "error": null,
+      "reply_state": {
+        "facts": {
+          "약속 시간": {
+            "value": "내일 오후 여섯 시 십 분",
+            "evidence": "내일 오후 여섯 시 십 분으로 정정할게."
+          }
+        },
+        "updates": [],
+        "relationship": {
+          "signal": "none",
+          "evidence": ""
+        }
+      },
+      "model_meta": {
+        "name": "gpt-6-sol",
+        "prompt_version": "ko-story-2026-10-10.7",
+        "repair_count": 0,
+        "delivery": "validated_reply"
+      },
+      "seconds": 2.87
+    },
+    {
+      "id": "igyeol:story",
+      "input": "이제 내일 약속은 잠시 접어두고, 여기서 네가 하던 일로 돌아가자. 작은 문제 하나를 네 방식대로 풀어봐. 내 행동은 내가 고를게.",
+      "mode": "story",
+      "story_event": null,
+      "text": "*이결이 끊어진 다리에서 시선을 거두고, 숲 입구의 돌계단을 살핍니다. 첫 계단에는 눈이 얇게 덮였지만 그 아래 바닥은 단단합니다. 반면 다리 쪽 눈에는 바람이 몰아친 흔적만 남아 있습니다.*\n\n다리를 건너는 길은 버리겠습니다. 해가 지기 전 주막에 닿으려면 돌계단을 써야 합니다. 다만 이 눈 위에서 발자국을 찾겠다고 시간을 쓰는 것은 좋지 않겠습니다.\n\n*그는 계단 옆에 쓰러진 나뭇가지를 길 밖으로 옮기고, 자신의 장비 끈을 한 번 더 조입니다. 발 디딜 곳을 시험한 뒤 올라서지 않고 옆으로 비켜섭니다.*\n\n제가 먼저 확인한 것은 여기까지입니다. 계단은 지나갈 만하고, 다리 쪽은 돌아볼 이유가 없습니다. 저는 계단 아래에서 길을 살피겠습니다. 하람 님은 동행하셔도, 지도를 받아 혼자 가셔도 됩니다.",
+      "error": null,
+      "reply_state": {
+        "facts": {},
+        "updates": [
+          {
+            "key": "scene.conflict",
+            "value": "끊어진 다리",
+            "evidence": "*이결이 끊어진 다리에서 시선을 거두고, 숲 입구의 돌계단을 살핍니다. 첫 계단에는 눈이 얇게 덮였지만 그 아래 바닥은 단단합니다. 반면 다리 쪽 눈에는 바람이 몰아친 흔적만 남아 있습니다.*",
+            "source": "reply",
+            "status": "active"
+          },
+          {
+            "key": "scene.goal",
+            "value": "해가 지기 전 주막에 닿으려면 돌계단을 써야 합니다.",
+            "evidence": "다리를 건너는 길은 버리겠습니다. 해가 지기 전 주막에 닿으려면 돌계단을 써야 합니다. 다만 이 눈 위에서 발자국을 찾겠다고 시간을 쓰는 것은 좋지 않겠습니다.",
+            "source": "reply",
+            "status": "active"
+          }
+        ],
+        "relationship": {
+          "signal": "boundary",
+          "evidence": "내 행동은 내가 고를게."
+        }
+      },
+      "model_meta": {
+        "name": "gpt-6-sol",
+        "prompt_version": "ko-story-2026-10-10.7",
+        "repair_count": 1,
+        "delivery": "validated_reply"
+      },
+      "seconds": 14.64
+    },
+    {
+      "id": "igyeol:backstory",
+      "input": "지금 하는 일을 처음 시작했을 때 했던 실수 하나를 알려줘. 나를 만나기 전 네 이야기로 듣고 싶어.",
+      "mode": "quick",
+      "story_event": null,
+      "text": "",
+      "error": "UnsafeContent",
+      "seconds": 8.66
+    }
+  ],
+  [
+    {
+      "id": "haru:introduce",
+      "input": "내 이름은 하람이야. 나는 유자차를 좋아해. 내일 오후 네 시 이십 분에 중앙역 시계탑 앞에서 만나자. 파란 수첩을 가져올게.",
+      "mode": "quick",
+      "story_event": null,
+      "text": "*하루가 동전을 주머니에 넣으며 눈썹을 치켜올린다.* 하람, 유자차 좋아하는구나. 내일 오후 네 시 이십 분, 중앙역 시계탑 앞. 파란 수첩 가져오는 것도 들었어. 그런데 무슨 일로 만나자는 거야?",
+      "error": null,
+      "reply_state": {
+        "facts": {
+          "이름": {
+            "value": "하람",
+            "evidence": "내 이름은 하람이야."
+          },
+          "좋아하는 것": {
+            "value": "유자차",
+            "evidence": "나는 유자차를 좋아해."
+          },
+          "약속 시간": {
+            "value": "내일 오후 네 시 이십 분",
+            "evidence": "내일 오후 네 시 이십 분에 중앙역 시계탑 앞에서 만나자."
+          },
+          "약속 장소": {
+            "value": "중앙역 시계탑 앞",
+            "evidence": "내일 오후 네 시 이십 분에 중앙역 시계탑 앞에서 만나자."
+          },
+          "약속 준비물": {
+            "value": "파란 수첩",
+            "evidence": "파란 수첩을 가져올게."
+          }
+        },
+        "updates": [],
+        "relationship": {
+          "signal": "none",
+          "evidence": ""
+        }
+      },
+      "model_meta": {
+        "name": "gpt-6-sol",
+        "prompt_version": "ko-story-2026-10-10.7",
+        "repair_count": 0,
+        "delivery": "validated_reply"
+      },
+      "seconds": 6.91
+    },
+    {
+      "id": "haru:correction",
+      "input": "시간만 바꾸자. 내일 오후 여섯 시 십 분으로 정정할게. 장소와 물건은 그대로야.",
+      "mode": "quick",
+      "story_event": null,
+      "text": "*하루가 손가락으로 시간을 세어 보고 고개를 끄덕인다.* 좋아, 내일 오후 여섯 시 십 분으로 바꿀게. 중앙역 시계탑 앞이랑 파란 수첩은 그대로지.",
+      "error": null,
+      "reply_state": {
+        "facts": {
+          "약속 시간": {
+            "value": "내일 오후 여섯 시 십 분",
+            "evidence": "내일 오후 여섯 시 십 분"
+          }
+        },
+        "updates": [],
+        "relationship": {
+          "signal": "none",
+          "evidence": ""
+        }
+      },
+      "model_meta": {
+        "name": "gpt-6-sol",
+        "prompt_version": "ko-story-2026-10-10.7",
+        "repair_count": 0,
+        "delivery": "validated_reply"
+      },
+      "seconds": 4.02
+    },
+    {
+      "id": "haru:story",
+      "input": "이제 내일 약속은 잠시 접어두고, 여기서 네가 하던 일로 돌아가자. 작은 문제 하나를 네 방식대로 풀어봐. 내 행동은 내가 고를게.",
+      "mode": "story",
+      "story_event": null,
+      "text": "*하루가 주머니에서 동전을 꺼내 계산대에 올려놓는다. 마감 점검표에는 리듬 게임기 한 대만 체크가 비어 있다.* 약속 얘긴 잠깐 접고, 이 녀석부터 보자. 방금 오른쪽 버튼이 한 번씩 늦게 먹혔거든.\n\n*하루는 전원을 끄고 버튼 둘레에 낀 먼지를 살핀다. 드라이버를 들었다가 내려놓고, 계산대 밑에서 낡은 설명서를 펼친다.* 예전엔 기계부터 두드렸는데, 동전 받침도 안 끼우고 수거하다 바닥에 다 쏟은 뒤로 순서를 바꿨어. 좀 창피하지만 효과는 있더라.\n\n*설명서의 점검 순서대로 버튼 덮개를 열자, 접점 옆에 작은 플라스틱 조각이 걸려 있다. 하루가 핀셋으로 빼내고 덮개를 닫은 뒤 테스트 화면에서 버튼을 세 번 누른다. 세 번 모두 불이 제때 켜진다.* 됐다. 큰 고장은 아니었네. 수리비 걱정부터 한 건 내 실수고.\n\n*하루가 점검표에 체크하고 테스트 화면을 그대로 띄워 둔다.* 난 마감 정리할게. 하람은 구경해도 좋고, 직접 눌러 보고 싶으면 말해. 이번엔 네 차례까지 내가 정하진 않을 테니까.",
+      "error": null,
+      "reply_state": {
+        "facts": {},
+        "updates": [
+          {
+            "key": "scene.place",
+            "value": "계산대",
+            "evidence": "*하루가 주머니에서 동전을 꺼내 계산대에 올려놓는다. 마감 점검표에는 리듬 게임기 한 대만 체크가 비어 있다.*",
+            "source": "reply",
+            "status": "active"
+          },
+          {
+            "key": "scene.goal",
+            "value": "리듬 게임기 한 대만 체크가 비어 있다",
+            "evidence": "*하루가 주머니에서 동전을 꺼내 계산대에 올려놓는다. 마감 점검표에는 리듬 게임기 한 대만 체크가 비어 있다.*",
+            "source": "reply",
+            "status": "resolved"
+          },
+          {
+            "key": "consequence",
+            "value": "세 번 모두 불이 제때 켜진다",
+            "evidence": "*설명서의 점검 순서대로 버튼 덮개를 열자, 접점 옆에 작은 플라스틱 조각이 걸려 있다. 하루가 핀셋으로 빼내고 덮개를 닫은 뒤 테스트 화면에서 버튼을 세 번 누른다. 세 번 모두 불이 제때 켜진다.*",
+            "source": "reply",
+            "status": "resolved"
+          }
+        ],
+        "relationship": {
+          "signal": "boundary",
+          "evidence": "내 행동은 내가 고를게."
+        }
+      },
+      "model_meta": {
+        "name": "gpt-6-sol",
+        "prompt_version": "ko-story-2026-10-10.7",
+        "repair_count": 0,
+        "delivery": "validated_reply"
+      },
+      "seconds": 9.62
+    },
+    {
+      "id": "haru:backstory",
+      "input": "지금 하는 일을 처음 시작했을 때 했던 실수 하나를 알려줘. 나를 만나기 전 네 이야기로 듣고 싶어.",
+      "mode": "quick",
+      "story_event": null,
+      "text": "*하루가 계산대 위 동전 하나를 손끝으로 굴린다.* 오락실 인수하고 처음 동전을 수거할 때 받침을 빼먹어서 바닥에 와르르 쏟았어. 한참 주워 담고 나서야 설명서를 찾았지. 그 뒤론 기계부터 두드리지 않아. 꽤 요란하게 배웠거든.",
+      "error": null,
+      "reply_state": {
+        "facts": {},
+        "updates": [],
+        "relationship": {
+          "signal": "none",
+          "evidence": ""
+        }
+      },
+      "model_meta": {
+        "name": "gpt-6-sol",
+        "prompt_version": "ko-story-2026-10-10.7",
+        "repair_count": 0,
+        "delivery": "validated_reply"
+      },
+      "seconds": 3.65
+    }
+  ],
+  [
+    {
+      "id": "serena:introduce",
+      "input": "내 이름은 하람이야. 나는 유자차를 좋아해. 내일 오후 네 시 이십 분에 중앙역 시계탑 앞에서 만나자. 파란 수첩을 가져올게.",
+      "mode": "quick",
+      "story_event": null,
+      "text": "*세레나가 두 찻잔을 바라보다 하나를 살짝 밀어 둔다.* 하람 씨, 유자차를 좋아하시는군요. 내일 오후 네 시 이십 분, 중앙역 시계탑 앞에서 뵐게요. 파란 수첩을 가져오신다니, 어떤 이야기가 적혀 있을지 궁금하네요.",
+      "error": null,
+      "reply_state": {
+        "facts": {
+          "이름": {
+            "value": "하람",
+            "evidence": "내 이름은 하람이야."
+          },
+          "좋아하는 것": {
+            "value": "유자차",
+            "evidence": "나는 유자차를 좋아해."
+          },
+          "약속 시간": {
+            "value": "내일 오후 네 시 이십 분",
+            "evidence": "내일 오후 네 시 이십 분에 중앙역 시계탑 앞에서 만나자."
+          },
+          "약속 장소": {
+            "value": "중앙역 시계탑 앞",
+            "evidence": "내일 오후 네 시 이십 분에 중앙역 시계탑 앞에서 만나자."
+          },
+          "약속 준비물": {
+            "value": "파란 수첩",
+            "evidence": "파란 수첩을 가져올게."
+          }
+        },
+        "updates": [],
+        "relationship": {
+          "signal": "cooperation",
+          "evidence": "내일 오후 네 시 이십 분에 중앙역 시계탑 앞에서 만나자. 파란 수첩을 가져올게."
+        }
+      },
+      "model_meta": {
+        "name": "gpt-6-sol",
+        "prompt_version": "ko-story-2026-10-10.7",
+        "repair_count": 0,
+        "delivery": "validated_reply"
+      },
+      "seconds": 7.5
+    },
+    {
+      "id": "serena:correction",
+      "input": "시간만 바꾸자. 내일 오후 여섯 시 십 분으로 정정할게. 장소와 물건은 그대로야.",
+      "mode": "quick",
+      "story_event": null,
+      "text": "*세레나가 고개를 끄덕인다.* 네, 시간만 내일 오후 여섯 시 십 분으로 바꿀게요. 중앙역 시계탑 앞에서 뵙고, 파란 수첩도 그대로 기억해 둘게요.",
+      "error": null,
+      "reply_state": {
+        "facts": {
+          "약속 시간": {
+            "value": "내일 오후 여섯 시 십 분",
+            "evidence": "내일 오후 여섯 시 십 분"
+          }
+        },
+        "updates": [],
+        "relationship": {
+          "signal": "none",
+          "evidence": ""
+        }
+      },
+      "model_meta": {
+        "name": "gpt-6-sol",
+        "prompt_version": "ko-story-2026-10-10.7",
+        "repair_count": 0,
+        "delivery": "validated_reply"
+      },
+      "seconds": 4.46
+    },
+    {
+      "id": "serena:story",
+      "input": "이제 내일 약속은 잠시 접어두고, 여기서 네가 하던 일로 돌아가자. 작은 문제 하나를 네 방식대로 풀어봐. 내 행동은 내가 고를게.",
+      "mode": "story",
+      "story_event": null,
+      "text": "*세레나가 찻잔을 옆으로 옮기고 온실 문을 연다. 유리창 안쪽에 맺힌 물방울이 달빛을 잘게 흩뜨린다.* 네, 내일 약속 이야기는 잠시 접어둘게요. 제가 하던 일은 이쪽이에요. 낮에만 피는 꽃을 돌볼 방법을 찾고 있었거든요.\n\n*그녀는 화분 밑의 받침을 빼고 고인 물을 버린 뒤, 젖은 흙 위에 손가락 대신 가느다란 나무 막대를 꽂아 깊이를 살핀다.* 물이 모자란 줄 알고 더 줄 뻔했네요. 문제는 반대였어요. 받침에 물이 고여 뿌리가 숨을 못 쉬고 있었군요. 오늘 밤엔 배수구부터 비워 두는 게 맞겠어요.\n\n낮에 꽃이 피는 순간까지 제가 지킬 수는 없어요. 그래서 내일은 물 주는 시간을 알려 줄 장치를 찾거나, 낮에 온실을 살펴줄 사람에게 부탁해야겠죠. 예전에 밤새 꽃을 기다리며 개화 시간표에 메모만 늘린 적이 있어요. 이번엔 기다리는 대신, 제가 할 수 있는 일부터 해두려고요. 하람 씨는 여기서 편히 계셔도 좋고, 온실을 더 둘러보셔도 좋아요.",
+      "error": null,
+      "reply_state": {
+        "facts": {},
+        "updates": [
+          {
+            "key": "scene.place",
+            "value": "온실",
+            "evidence": "*세레나가 찻잔을 옆으로 옮기고 온실 문을 연다. 유리창 안쪽에 맺힌 물방울이 달빛을 잘게 흩뜨린다.*",
+            "source": "reply",
+            "status": "active"
+          },
+          {
+            "key": "scene.goal",
+            "value": "낮에만 피는 꽃을 돌볼 방법을 찾고 있었거든요.",
+            "evidence": "낮에만 피는 꽃을 돌볼 방법을 찾고 있었거든요.",
+            "source": "reply",
+            "status": "active"
+          },
+          {
+            "key": "scene.conflict",
+            "value": "받침에 물이 고여 뿌리가 숨을 못 쉬고 있었군요.",
+            "evidence": "받침에 물이 고여 뿌리가 숨을 못 쉬고 있었군요.",
+            "source": "reply",
+            "status": "resolved"
+          },
+          {
+            "key": "past.flower",
+            "value": "예전에 밤새 꽃을 기다리며 개화 시간표에 메모만 늘린 적이 있어요.",
+            "evidence": "예전에 밤새 꽃을 기다리며 개화 시간표에 메모만 늘린 적이 있어요.",
+            "source": "reply",
+            "status": "active"
+          }
+        ],
+        "relationship": {
+          "signal": "none",
+          "evidence": ""
+        }
+      },
+      "model_meta": {
+        "name": "gpt-6-sol",
+        "prompt_version": "ko-story-2026-10-10.7",
+        "repair_count": 0,
+        "delivery": "validated_reply"
+      },
+      "seconds": 9.44
+    },
+    {
+      "id": "serena:backstory",
+      "input": "지금 하는 일을 처음 시작했을 때 했던 실수 하나를 알려줘. 나를 만나기 전 네 이야기로 듣고 싶어.",
+      "mode": "quick",
+      "story_event": null,
+      "text": "*세레나가 온실 선반의 오래된 개화 시간표를 펼친다.* 처음 야간 온실을 돌볼 때, 낮에만 피는 꽃을 밤새 기다렸어요. 책에 적힌 개화 시간을 읽고도 ‘혹시 오늘은 다를까’ 싶어서요. 결국 꽃은 못 보고 시간표 여백에 메모만 잔뜩 남겼죠.",
+      "error": null,
+      "reply_state": {
+        "facts": {},
+        "updates": [],
+        "relationship": {
+          "signal": "none",
+          "evidence": ""
+        }
+      },
+      "model_meta": {
+        "name": "gpt-6-sol",
+        "prompt_version": "ko-story-2026-10-10.7",
+        "repair_count": 0,
+        "delivery": "validated_reply"
+      },
+      "seconds": 3.73
+    }
+  ]
+]

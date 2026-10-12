@@ -1,0 +1,70 @@
+{
+  "prompt_version": "ko-story-2026-10-08.4",
+  "results": [
+    {
+      "case": "name-memory",
+      "input": "내 이름 기억해?",
+      "text": "네, 민지 씨. 이름 기억하고 있어요.",
+      "model": "gpt-6-sol",
+      "first_visible_seconds": 3.074,
+      "total_seconds": 3.074,
+      "literal_checks_pass": true,
+      "question_count": 0,
+      "error": null,
+      "human_review": "근거 없이 별명이나 과거 사건을 추가하지 않는다.",
+      "human_score": null
+    },
+    {
+      "case": "memory-correction",
+      "input": "뭐라고 불러 줄 거야?",
+      "text": "“서현 씨라고 부를게요. 편하게 불러도 되는 다른 호칭이 있나요?”",
+      "model": "gpt-6-sol",
+      "first_visible_seconds": 2.456,
+      "total_seconds": 2.456,
+      "literal_checks_pass": true,
+      "question_count": 1,
+      "error": null,
+      "human_review": "사용자가 고친 이름을 사용한다.",
+      "human_score": null
+    },
+    {
+      "case": "unknown-memory",
+      "input": "지난주에 우리가 약속한 장소가 어디였더라?",
+      "text": "그 약속 장소는 지금 확인할 수 없습니다. 다시 알려주시겠습니까?",
+      "model": "gpt-6-sol",
+      "first_visible_seconds": 2.135,
+      "total_seconds": 2.137,
+      "literal_checks_pass": null,
+      "question_count": 1,
+      "error": null,
+      "human_review": "제공하지 않은 약속을 기억한다고 만들어내지 않는다.",
+      "human_score": null
+    },
+    {
+      "case": "complete-dialogue",
+      "input": "마지막 곡을 연주하기 전에 무슨 말을 하려던 거야?",
+      "text": "*서리가 악보 모서리를 손끝으로 누릅니다.*\n\n“오늘의 마지막 곡이라고 해서 꼭 끝인 척할 필요는 없다고요. 그냥, 끝까지 들어주시면 됩니다.”",
+      "model": "gpt-6-sol",
+      "first_visible_seconds": 2.687,
+      "total_seconds": 3.105,
+      "literal_checks_pass": null,
+      "question_count": 0,
+      "error": null,
+      "human_review": "말을 꺼냈다로 끝내지 않고 실제 대사를 제공한다.",
+      "human_score": null
+    },
+    {
+      "case": "two-memories-after-edit",
+      "input": "내 이름과 좋아하는 음악을 기억해? 비가 그칠 때까지 여기서 좀 쉬고 싶어.",
+      "text": "네, 민 님. 재즈를 좋아하신다고 기억해요. 비가 그칠 때까지 이 온실에서 쉬어 가세요.",
+      "model": "gpt-6-sol",
+      "first_visible_seconds": 2.355,
+      "total_seconds": 2.358,
+      "literal_checks_pass": true,
+      "question_count": 0,
+      "error": null,
+      "human_review": "수정된 이름과 취향 두 항목을 함께 사용하고 기억이 없다고 부정하지 않는다.",
+      "human_score": null
+    }
+  ]
+}
