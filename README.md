@@ -8,7 +8,7 @@
 
 Next.js · React Native / Expo · FastAPI · PostgreSQL · OpenAI
 
-[로컬 시연 영상](docs/demo/README.md) | [기술 설계와 문제 해결](docs/portfolio/ENGINEERING.md) | [최신 자동 검증](docs/portfolio/LATEST-VALIDATION.md) | [과거 유료 모델 평가 원문](docs/MODEL-EVALUATION-ARCHIVE.md) | [공개 범위와 권리](RIGHTS.md)
+[프로젝트 요약](docs/portfolio/RESUME.md) | [기술 설계와 문제 해결](docs/portfolio/ENGINEERING.md) | [최신 자동 검증](docs/portfolio/LATEST-VALIDATION.md) | [과거 유료 모델 평가 원문](docs/MODEL-EVALUATION-ARCHIVE.md) | [공개 범위와 권리](RIGHTS.md)
 
 현재 **로컬에서 실행하는 개발 프로젝트**이며 공개 서비스 배포와 실제 결제 거래 검증은 보류했습니다. 개발과 이미지 제작에 AI 도구를 사용했습니다. 아래에서 구현 코드, 자동 회귀 검사와 과거 실제 모델 평가를 구분해 확인할 수 있습니다.
 
@@ -22,14 +22,6 @@ Next.js · React Native / Expo · FastAPI · PostgreSQL · OpenAI
 | 이름만 다르고 반응은 비슷한 캐릭터 | 30명별 말의 리듬, 감정 대응, 개인 과거와 관계 단계별 연기 지침을 프롬프트에 조합 | [연기 지침](apps/api/yeoun/personas.py), [실제 대화 평가](docs/portfolio/VALIDATION.md) |
 
 2026-10-15 자동 검사는 **144개 통과**했습니다(API 107, 웹 11, React Native 26). 고정 응답과 모의 모델을 사용한 상태 및 오류 처리 검사입니다. 2026-10-10 실제 모델 평가의 **완료 응답 1,256건**은 별도 보존 기록이며, 최신 답변 품질이나 경쟁 서비스 대비 우위를 나타내는 수치는 아닙니다.
-
-## 로컬 시연 영상
-
-[![테일비 로컬 시연 영상 보기](docs/demo/poster.jpg)](docs/demo/talevi-local-demo.mp4)
-
-[MP4 영상 보기](docs/demo/talevi-local-demo.mp4) | [시연 구성과 촬영 기록](docs/demo/README.md)
-
-**2분 43초의 데스크톱 웹 시연입니다.** 대사와 모델의 상태 제안은 2026-10-10 실제 유료 평가의 네 턴을 재생합니다. 기억 수정과 잠금, 체크포인트 분기는 현재 앱과 전용 PostgreSQL에서 실제로 처리했습니다. 새 모델 생성이나 응답 속도를 측정한 영상은 아닙니다. [상태 비교 결과](docs/demo/state-verification.json)
 
 ## 어떤 대화를 만들고 있나요?
 
@@ -191,4 +183,4 @@ npm run dev
 
 ## 소스 공개 정책
 
-전체 소스와 포트폴리오 자료는 [kwakhyun/talevi](https://github.com/kwakhyun/talevi) 한곳에서 관리합니다. 서비스 소개, 시연 영상, 기술 설명과 [과거 유료 검증 자료](docs/MODEL-EVALUATION-ARCHIVE.md)를 이 저장소에서 함께 확인할 수 있습니다. [권리 안내](RIGHTS.md)를 적용하는 소스 공개 포트폴리오이며 오픈소스 재사용 라이선스를 부여한 것은 아닙니다. 공개 서비스 호스팅은 계속 보류합니다.
+전체 소스와 포트폴리오 자료는 [kwakhyun/talevi](https://github.com/kwakhyun/talevi) 한곳에서 관리합니다. 서비스 화면, 기술 설명과 [과거 유료 검증 자료](docs/MODEL-EVALUATION-ARCHIVE.md)를 이 저장소에서 함께 확인할 수 있습니다. [권리 안내](RIGHTS.md)를 적용하는 소스 공개 포트폴리오이며 오픈소스 재사용 라이선스를 부여한 것은 아닙니다. 공개 서비스 호스팅은 계속 보류합니다.
