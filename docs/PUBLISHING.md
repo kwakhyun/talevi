@@ -1,39 +1,29 @@
-# 저장소 공개 범위와 포트폴리오 운영
+# 공개 저장소와 포트폴리오 운영
 
-결정일: 2026-10-12.
+변경일: 2026-10-15. 전체 구현과 채용 검토 자료를 **공개 `kwakhyun/talevi`**에 통합한다. 기본 브랜치는 `main`이며, 공개 서비스 배포와 상용 결제 개통은 계속 보류한다. 저장소 공개와 서비스 호스팅은 별개의 결정이다.
 
-전체 구현은 **비공개 `kwakhyun/talevi`**, 채용 지원 자료는 **공개 `kwakhyun/talevi-portfolio`**로 관리한다. 두 저장소 모두 기본 브랜치는 `main`이며 Git 이력을 공유하지 않는다. 애플리케이션의 공개 배포는 계속 보류한다.
+## 하나의 원본
 
-## 이 구성을 선택한 이유
+소스, 캐릭터와 프롬프트, 로컬 시연 영상, 기술 설명, 자동 검사와 과거 유료 모델 평가 원문을 같은 저장소에서 관리한다. 지원서에는 [원본 저장소](https://github.com/kwakhyun/talevi)를 공유한다.
 
-전체 소스를 공개하면 검토가 쉽지만 코드, 캐릭터 프롬프트와 자산을 누구나 내려받을 수 있다. 반대로 모든 자료를 비공개로 두면 채용 담당자가 링크만으로 프로젝트를 파악하기 어렵다. 공개 소개와 비공개 구현을 나누면 제품 화면, 설계 판단, 검증 근거를 먼저 보여 주면서 핵심 구현의 일반 공개를 피할 수 있다.
+기존 [talevi-portfolio](https://github.com/kwakhyun/talevi-portfolio)는 원본으로 이동했다는 README를 남기고 아카이브한다. 과거 소개 자료와 평가 요약을 삭제하지 않으며, 기존 지원서 링크도 유지한다. 별도 소개 문서를 다시 내보내는 `export_portfolio.py`는 종료 안내만 표시한다.
 
-공개 저장소에 라이선스가 없다고 복제를 기술적으로 막을 수 있는 것은 아니다. GitHub에서는 공개 저장소를 열람하고 포크할 수 있다. 나중에 비공개로 바꿔도 이미 만들어진 포크와 로컬 사본은 남는다. [GitHub 라이선스 안내](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository), [공개 범위 변경 안내](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/managing-repository-settings/setting-repository-visibility).
+## 검증 자료 보존
 
-## 저장할 자료
+[유료 모델 평가 색인](MODEL-EVALUATION-ARCHIVE.md)은 초기 비교부터 최종 v11까지 연결한다. 최종 v11의 1,256건은 완료된 평가 응답 수이며, 모든 시기의 유료 호출 총합이나 청구 건수가 아니다. 초안 보완, 압축, moderation, 실패와 재시도는 응답 수와 구분한다.
 
-| 비공개 구현 저장소 | 공개 소개 저장소 |
-| --- | --- |
-| 웹, 앱, API 전체 소스와 테스트 | 서비스 소개 README |
-| 캐릭터 원본 자산과 프롬프트 | 검토한 실제 화면 스크린샷 7장과 로고 |
-| 합성 대화 원문과 평가 도구 | 설계 판단과 해결한 문제 |
-| 마이그레이션과 배포 구성 | 개인정보와 대화 원문을 제외한 평가 요약 |
-| 상세 운영/구현 문서 | 권리 안내와 게시 파일 해시 |
+공개 준비 중 기존 증거 126개를 모두 유지했다. 그중 123개는 원본과 바이트 단위로 같고, 로그 3개는 로컬 경로만 치환했다. 원본 로그의 오류와 중단 기록을 남겼으며, [파일별 전후 해시](publication-evidence-preservation.json)와 [커밋 대응](HISTORY-REWRITE-2026-10-15.md)을 제공한다. 새 모델 호출은 하지 않았다.
 
-어느 저장소에도 비밀 환경 파일, 토큰, 실제 로컬 DB, 설치된 의존성, 빌드 산출물은 넣지 않는다. 공개 요약은 2026-10-10의 결과이며 2026-10-12에 평가를 새로 수행했다고 표현하지 않는다.
+## 제외할 자료와 이력 관리
 
-## 공개 자료 갱신
+비밀 환경 파일, 토큰, 실제 사용자 DB, 로컬 백업과 설치된 의존성은 추적하지 않는다. 공개 전 정리하지 않은 Git bundle과 Actions 원본 로그는 Git에서 제외된 로컬 백업에만 보관한다.
 
-`docs/portfolio`의 문서와 `docs/screenshots`의 선별된 화면을 수정한 뒤 다음을 실행한다.
+이력 정리 전 체크아웃이 있다면 새로 clone하는 것을 권한다. 이전 브랜치를 새 `main`에 merge하거나 오래된 bundle을 공개 원격으로 push하면 제거한 경로가 다시 들어갈 수 있다. 새 평가도 현재 원본을 덮어쓰지 않고 별도 출력 경로에 기록한 뒤 공개 여부를 검토한다.
 
-```sh
-.venv/bin/python scripts/export_portfolio.py
-```
+공개 준비 시 Gitleaks로 원격에 게시할 이력을 검사하고, 모든 Git 객체에서 로컬 경로와 현재 환경의 비밀값 일치를 별도로 검사했다. 이는 모든 민감정보의 부재를 보증하는 감사가 아니다. GitHub의 캐시와 이미 복제한 사본까지 이력 재작성으로 삭제되지는 않는다. [GitHub 이력 정리 안내](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/removing-sensitive-data-from-a-repository)
 
-명시된 파일만 `.local/talevi-portfolio`로 복사한다. 이 디렉터리는 비공개 저장소의 Git 대상에서도 제외하며, 별도 공개 저장소의 작업 폴더다. 예상하지 못한 파일이 있으면 내보내기를 중단한다. 자동 푸시는 하지 않으므로 실제 공개할 변경을 검토하고 별도 커밋/푸시한다.
+## 권리 안내
 
-## 채용 검토
+[RIGHTS.md](../RIGHTS.md)를 적용하는 **소스 공개 포트폴리오**다. 공개 전환만으로 MIT 등 오픈소스 라이선스를 부여하지 않는다. 채용 검토용 실행과 테스트를 허용하지만 서비스 재배포나 재판매를 허용하는 것은 아니다. 제3자 패키지의 라이선스와 AI 생성 자산의 권리 범위를 별도로 존중한다.
 
-지원서에는 공개 포트폴리오 URL을 사용한다. 코드 검토가 필요하면 대상과 범위를 확인한 후 비공개 접근 또는 화면 공유를 제공한다. 이번 작업에서는 외부 검토자를 초대하지 않았다. 개인 소유 저장소의 협업 권한이 읽기 전용이라고 가정하지 말고, 초대 시 실제 권한을 확인한다. 접근을 허용한 사람의 복제까지 비공개 설정이 막아 주지는 않는다.
-
-오픈소스 라이선스는 추가하지 않고 [RIGHTS.md](../RIGHTS.md)로 사용 범위를 안내한다. 이 안내는 제3자 라이선스, AI 자산의 권리 범위 또는 GitHub 약관을 대체하지 않는다.
+공개 저장소의 열람과 포크를 기술적으로 막을 수는 없으며, 나중에 비공개로 바꿔도 이미 내려받은 사본을 회수할 수 없다. [GitHub 라이선스 안내](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository)

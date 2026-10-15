@@ -1,0 +1,51 @@
+{
+  "scope": "Metadata of five pre-rewrite CI runs; paid model evaluation records are separate and preserved in docs/evidence.",
+  "raw_logs": "Private local backup; not published.",
+  "workflow_runs": [
+    {
+      "id": 38740556187,
+      "name": "Validate",
+      "conclusion": "success",
+      "created_at": "2026-10-15T13:11:07Z",
+      "source_commit_after_cleanup": "edbb6836071e501dfc119f15c19a887c6c1f12d2",
+      "log_file_count": 22,
+      "archived_zip_sha256": "d9f6f342fa3380e83efb92574083606eaa530d50d1ea549f463f2cd779d585d7"
+    },
+    {
+      "id": 38735864136,
+      "name": "Validate",
+      "conclusion": "success",
+      "created_at": "2026-10-15T12:35:54Z",
+      "source_commit_after_cleanup": "912611f03cb2cd8b700127cea673138ec9afc28a",
+      "log_file_count": 22,
+      "archived_zip_sha256": "098648a8ac57f41081928cb09b10bd28642a2d03cbf66e64b8179a1a86a1f06d"
+    },
+    {
+      "id": 38715427217,
+      "name": "Validate",
+      "conclusion": "success",
+      "created_at": "2026-10-15T09:46:35Z",
+      "source_commit_after_cleanup": "29adfcfad8c56a9b376ef0f603952468650fb3dc",
+      "log_file_count": 2,
+      "archived_zip_sha256": "c3a92c708d9a69f8de140d71042535acde54c788f78bde2020fb741cc6af0df4"
+    },
+    {
+      "id": 38220565463,
+      "name": "Validate",
+      "conclusion": "success",
+      "created_at": "2026-10-12T07:56:18Z",
+      "source_commit_after_cleanup": "0c76ac9a636144ec68fa6e0b513628ce4a84d2d8",
+      "log_file_count": 2,
+      "archived_zip_sha256": "0f678fa7acc2577bfa5d48acae53e405751315bef6e8f02c28f922cea6398ce3"
+    },
+    {
+      "id": 38220458829,
+      "name": "Validate",
+      "conclusion": "failure",
+      "created_at": "2026-10-12T07:55:12Z",
+      "source_commit_after_cleanup": "37de1dde5aa76793929ed81ad14f2be98c11b71e",
+      "log_file_count": 2,
+      "archived_zip_sha256": "63fa1dc8c05eb89eda1caa3e87b58f668491aee520fc6e559d9d2081b4c75185"
+    }
+  ]
+}

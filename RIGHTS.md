@@ -6,6 +6,6 @@ Copyright (c) 2026 kwakhyun, to the extent rights subsist. All rights reserved.
 
 공개 포트폴리오는 서비스 소개와 채용 검토를 위한 자료입니다. 별도 허락 없이 이 프로젝트 전체나 일부를 자신의 제작물로 제시하거나 서비스에 재배포, 재판매할 권한을 부여하지 않습니다. 추가 사용을 원하면 권리자와 먼저 협의해 주세요.
 
-이 안내는 관련 법률상 허용되는 이용이나 GitHub 이용약관에 따른 권리를 제한하지 않습니다. 특히 공개 저장소는 열람과 포크가 가능하며, 이 문서는 복제를 기술적으로 차단하지 않습니다. 구현 소스와 원본 프롬프트는 별도 비공개 저장소에서 관리합니다.
+이 안내는 관련 법률상 허용되는 이용이나 GitHub 이용약관에 따른 권리를 제한하지 않습니다. 특히 공개 저장소는 열람과 포크가 가능하며, 이 문서는 복제를 기술적으로 차단하지 않습니다. 구현 소스와 원본 프롬프트도 이 공개 저장소에 포함합니다. 채용 검토와 기술 평가를 위한 열람, 로컬 실행 및 테스트는 허용합니다. 이를 서비스 재배포나 재판매의 허락으로 해석하지 않습니다.
 
 참고: [GitHub 저장소 라이선스 안내](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository).

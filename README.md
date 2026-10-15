@@ -8,13 +8,13 @@
 
 Next.js · React Native / Expo · FastAPI · PostgreSQL · OpenAI
 
-[로컬 시연 영상](docs/demo/README.md) | [기술 설계와 문제 해결](docs/portfolio/ENGINEERING.md) | [최신 자동 검증](docs/portfolio/LATEST-VALIDATION.md) | [기존 30명 모델 평가](docs/portfolio/VALIDATION.md) | [공개 범위와 권리](RIGHTS.md)
+[로컬 시연 영상](docs/demo/README.md) | [기술 설계와 문제 해결](docs/portfolio/ENGINEERING.md) | [최신 자동 검증](docs/portfolio/LATEST-VALIDATION.md) | [과거 유료 모델 평가 원문](docs/MODEL-EVALUATION-ARCHIVE.md) | [공개 범위와 권리](RIGHTS.md)
 
 2026-10-15 업데이트: 읽기 위치와 다음 초안을 보존하고, 연결 중단과 미확정 전송을 같은 요청으로 복구합니다. [상용 서비스 비교와 수정 결과](docs/CHAT-REVIEW-2026-10-15.md)에 상황 이미지와 이야기 분기 등 기능 개선의 우선순위도 정리했습니다.
 
 답변 재생성, 메시지 편집, 이야기 분기도 구현했습니다. 선택한 턴의 기억과 관계, 이야기 상태를 복원한 새 대화로 이어가며 원본을 보존합니다. 최신 자동 검사는 **144개 모두 통과**했습니다. API 107개, 웹 SSE/초기 연결 11개, React Native 비동기 시나리오 26개이며 자동 검증의 유료 AI 호출은 0회입니다. [분기 동작 방식](docs/CHAT-BRANCHING.md)과 [검증 범위 및 한계](docs/portfolio/LATEST-VALIDATION.md)를 참고하세요.
 
-> 로컬에서 실제 모델로 동작하는 개발 프로젝트입니다. 공개 서비스 배포와 상용 결제 개통은 보류한 상태입니다. 이 저장소는 전체 구현을 보관하는 비공개 저장소입니다. 채용 지원에는 [공개 포트폴리오](https://github.com/kwakhyun/talevi-portfolio)를 공유할 수 있습니다.
+> 로컬에서 실제 모델로 동작하는 개발 프로젝트입니다. 공개 서비스 배포와 상용 결제 개통은 보류한 상태입니다. 이 저장소에 전체 소스, 시연 영상, 기술 설명과 과거 유료 모델 평가 원문을 공개했습니다. 채용 지원에는 이 저장소 주소를 공유하면 됩니다.
 
 ## 로컬 시연 영상
 
@@ -112,7 +112,7 @@ flowchart LR
 
 **2026-10-15 최신 자동 검증**에서는 고정 응답과 모의 모델로 상태 복원, 전송 복구와 실패 처리를 검사했습니다. 실제 PostgreSQL을 사용하는 API 107개, 웹 11개, React Native 26개가 통과했습니다. TypeScript, Ruff, Next.js 빌드, Expo iOS/Android export, 빈 DB의 전체 마이그레이션도 통과했습니다. Expo export는 네이티브 실기기 검증이 아닙니다. [실행 환경과 재현 방법](docs/portfolio/LATEST-VALIDATION.md)
 
-아래는 **2026-10-10에 수행한 실제 모델 평가의 보존 기록**입니다. 이번에 30명 전체를 실제 모델로 다시 평가한 결과가 아닙니다. 합성 입력 검사이며 실제 이용자의 만족도나 경쟁 서비스 대비 승률을 나타내지 않습니다.
+아래는 **2026-10-10에 유료 API로 수행한 실제 모델 평가의 보존 기록**입니다. 이번에 30명 전체를 실제 모델로 다시 평가한 결과가 아닙니다. 합성 입력 검사이며 실제 이용자의 만족도나 경쟁 서비스 대비 승률을 나타내지 않습니다.
 
 | 검사 | 결과 |
 | --- | --- |
@@ -125,6 +125,8 @@ flowchart LR
 평가 중 압축 요청의 시간 초과가 한 번 발생해 저장된 결과를 보존하고 재개했습니다. 완료 응답 수를 전체 API 호출의 무장애율로 해석하지 않습니다. 관계 단계 검사는 상태를 직접 넣은 비교이며, 30턴 동안 자연스럽게 깊은 관계에 도달했다는 뜻도 아닙니다.
 
 당시 엔진 응답 시간 중앙값은 짧은 대화 **3.74초**, 이야기 모드 **10.27초**였습니다. HTTP 대기와 브라우저 렌더링을 포함하지 않으며 최신 빌드의 속도를 다시 측정한 수치도 아닙니다. 완성본 검수가 지연을 늘리는 만큼, 품질을 유지하며 대기 시간을 줄이는 것이 다음 과제입니다. 측정 범위와 캐릭터별 결과는 [기존 모델 평가 문서](docs/portfolio/VALIDATION.md)에 정리했습니다.
+
+초기 모델 비교, 100개 합성 메시지의 기억 실험, 개편 당시 24회 검사와 v11 이전 실패/재검증 기록도 삭제하지 않았습니다. [전체 유료 평가 자료 색인](docs/MODEL-EVALUATION-ARCHIVE.md)에서 원문을 볼 수 있습니다. 공개 준비 중 증거 126개 중 123개는 바이트 단위로 보존했고, 로그 3개의 로컬 경로만 가렸습니다. [보존 검증과 이력 정리](docs/HISTORY-REWRITE-2026-10-15.md)
 
 ## 프로젝트 범위와 다음 과제
 
@@ -143,7 +145,7 @@ flowchart LR
 | `docs` | 조사, 설계, 검증 보고서와 합성 평가 증거 |
 | `deployment`, `compose.yml`, `render.yaml` | 운영 구성을 위한 배포 파일 |
 
-[전체 아키텍처](docs/ARCHITECTURE.md) · [실행과 운영](docs/RUNBOOK.md) · [30명 개선 보고서](docs/QUALITY-IMPROVEMENTS-2026-10-10.md) · [캐릭터별 연기 지침](docs/CHARACTER-PERFORMANCE.md) · [9개 서비스 조사](docs/RESEARCH.md) · [공개/비공개 운영 방침](docs/PUBLISHING.md)
+[전체 아키텍처](docs/ARCHITECTURE.md) · [실행과 운영](docs/RUNBOOK.md) · [30명 개선 보고서](docs/QUALITY-IMPROVEMENTS-2026-10-10.md) · [캐릭터별 연기 지침](docs/CHARACTER-PERFORMANCE.md) · [9개 서비스 조사](docs/RESEARCH.md) · [공개 저장소 운영 방침](docs/PUBLISHING.md)
 
 ## 로컬 실행
 
@@ -182,4 +184,4 @@ npm run dev
 
 ## 소스 공개 정책
 
-전체 소스는 비공개로 유지하고 [공개 소개 저장소](https://github.com/kwakhyun/talevi-portfolio)에는 선별한 문서와 스크린샷만 게시합니다. 공개 저장소는 이 저장소의 포크가 아닌 별도 이력을 사용합니다. [권리 안내](RIGHTS.md)를 적용하며 오픈소스 재사용 라이선스는 부여하지 않았습니다.
+전체 소스와 포트폴리오 자료를 [kwakhyun/talevi](https://github.com/kwakhyun/talevi)에 통합했습니다. 기존 [소개 저장소](https://github.com/kwakhyun/talevi-portfolio)는 이전 안내를 남기고 아카이브합니다. [권리 안내](RIGHTS.md)를 적용하는 소스 공개 포트폴리오이며 오픈소스 재사용 라이선스를 부여한 것은 아닙니다. 공개 서비스 호스팅은 계속 보류합니다.

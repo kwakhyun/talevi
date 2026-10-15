@@ -1,7 +1,7 @@
 {
   "validation_date": "2026-10-15",
   "timezone": "Asia/Seoul",
-  "source_commit": "2f512767a1461d58d8cf84675df8a254a7aecc33",
+  "source_commit": "912611f03cb2cd8b700127cea673138ec9afc28a",
   "environment": {
     "platform": "macOS",
     "node": "22.21.0",
@@ -83,5 +83,7 @@
       "bytes": 2188,
       "sha256": "b9db3aaa31f32f066396e10c03478f8a4259ad7afb7a848d77c0845db4d77858"
     }
-  }
+  },
+  "source_commit_before_history_cleanup": "2f512767a1461d58d8cf84675df8a254a7aecc33",
+  "history_cleanup_note": "Only local paths in three historical evaluation logs changed; application source and test code are byte-identical."
 }
