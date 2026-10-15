@@ -1,0 +1,184 @@
+{
+  "verification_date": "2026-10-15",
+  "timezone": "Asia/Seoul",
+  "verification_method": "read-only repeatable-read PostgreSQL transaction; no API or model calls",
+  "scope": "local recorded-response demo; not a live model quality or latency evaluation",
+  "result": "passed",
+  "database_modified": false,
+  "server_modified": false,
+  "source_evidence": {
+    "path": "docs/evidence/cast-v11-2026-10-10/extended.jsonl",
+    "recorded_date": "2026-10-10",
+    "sha256": "643127becfe3646212542ea23eebc55d1dc52bb58fb0f160646c8eb0c6cedf9d"
+  },
+  "replay_audit": {
+    "path": ".local/video-capture/replay-audit.jsonl",
+    "sha256_at_verification": "5e7dcf658a4b70403d1e0b3330b66ba8a05c033c0400a0d8afdef52c8cd70f6b",
+    "capture_cases_started": 4,
+    "capture_cases_delivered": 4,
+    "self_checks_excluded": true,
+    "paid_provider_calls_during_replay": 0,
+    "display_chunk_delay_ms": 30,
+    "timing_is_model_latency": false
+  },
+  "case_checks": [
+    {
+      "case": "haru:long_01",
+      "input_exact_match": true,
+      "stored_reply_exact_match": true,
+      "sse_reply_exact_match": true,
+      "completed_turn": true,
+      "single_done_event": true,
+      "facts_committed_to_checkpoint": true,
+      "replay_metadata_present": true,
+      "source_line": 33,
+      "text_sha256": "53c41b99c49507fcb414edc492678fe977064fede726eefe5e666e3878f1ecb8",
+      "reply_state_sha256": "1e83211351b747a6d7123d03b605787e2e2e6ecb935f34325270020a1c45a35b"
+    },
+    {
+      "case": "haru:long_02",
+      "input_exact_match": true,
+      "stored_reply_exact_match": true,
+      "sse_reply_exact_match": true,
+      "completed_turn": true,
+      "single_done_event": true,
+      "facts_committed_to_checkpoint": true,
+      "replay_metadata_present": true,
+      "source_line": 71,
+      "text_sha256": "d60adcabd4318a75bfce37b09721a1f5ae9798bf4f7cd9c08352632a93f30a0a",
+      "reply_state_sha256": "4fcf11065be0d380d70dfb78fa241e9f42ab2f8942793c4caa6ded5a34d450b6"
+    },
+    {
+      "case": "haru:long_03",
+      "input_exact_match": true,
+      "stored_reply_exact_match": true,
+      "sse_reply_exact_match": true,
+      "completed_turn": true,
+      "single_done_event": true,
+      "facts_committed_to_checkpoint": true,
+      "replay_metadata_present": true,
+      "source_line": 101,
+      "text_sha256": "e6fed9a029bbb328b60de21b223cfbbc430cffb839236309033a033a7e474b09",
+      "reply_state_sha256": "17fc7a2ce4773b4f576417c9c4c1d1cae68271eb1f18fc67ac1a47cfdaf61e8a"
+    },
+    {
+      "case": "haru:long_04",
+      "input_exact_match": true,
+      "stored_reply_exact_match": true,
+      "sse_reply_exact_match": true,
+      "completed_turn": true,
+      "single_done_event": true,
+      "facts_committed_to_checkpoint": true,
+      "replay_metadata_present": true,
+      "source_line": 133,
+      "text_sha256": "48cf87d18ca234a11bb774fadb2eefea97c340891eec5acba8069be214a65aa4",
+      "reply_state_sha256": "d414a75fa6e518040e6107b040c8e7d74508e6372610ea389847b2b4f764b13a"
+    }
+  ],
+  "conversations": {
+    "A_source_after_manual_memory_edit": {
+      "character": "민하루",
+      "message_count": 9,
+      "completed_replay_turns": 4,
+      "memories": [
+        {
+          "key": "약속 시간",
+          "value": "내일 오후 여섯 시 십 분",
+          "locked": false,
+          "deleted": false
+        },
+        {
+          "key": "약속 장소",
+          "value": "중앙역 시계탑 앞",
+          "locked": false,
+          "deleted": false
+        },
+        {
+          "key": "약속 준비물",
+          "value": "파란 수첩",
+          "locked": false,
+          "deleted": false
+        },
+        {
+          "key": "이름",
+          "value": "가을",
+          "locked": true,
+          "deleted": false
+        },
+        {
+          "key": "좋아하는 음료",
+          "value": "유자차",
+          "locked": false,
+          "deleted": false
+        }
+      ],
+      "relationship": {
+        "trust": 1,
+        "shared": 1,
+        "stage": "첫 만남",
+        "meaningful_turns": 1
+      },
+      "narrative": {
+        "chapter": 1,
+        "beat": 4,
+        "current_goal": "이 게임기 버튼이 가끔 씹혀서 살펴보던 중이야"
+      },
+      "active_turn": false
+    },
+    "B_branch_after_first_reply": {
+      "character": "민하루",
+      "parent": "A",
+      "anchor": "first completed reply (haru:long_01)",
+      "message_count": 3,
+      "new_model_turns": 0,
+      "branch_credit_cost": 0,
+      "memories": [
+        {
+          "key": "이름",
+          "value": "하람",
+          "locked": false,
+          "deleted": false
+        },
+        {
+          "key": "좋아하는 음료",
+          "value": "유자차",
+          "locked": false,
+          "deleted": false
+        }
+      ],
+      "relationship": {
+        "trust": 0,
+        "shared": 0,
+        "stage": "첫 만남",
+        "meaningful_turns": 0
+      },
+      "narrative": {
+        "chapter": 1,
+        "beat": 1,
+        "later_work_goal_present": false
+      },
+      "active_turn": false
+    }
+  },
+  "checkpoint_comparison": {
+    "version": 2,
+    "memory_values_locks_deletions_sources_timestamps_match": true,
+    "relationship_matches": true,
+    "narrative_matches_after_reference_remapping": true,
+    "settings_match": true,
+    "message_prefix_and_order_match": true,
+    "message_text_and_timestamps_match": true,
+    "context_masks_match": true,
+    "message_ids_distinct_and_references_remapped": true,
+    "copied_checkpoint_boundary_matches_branch": true,
+    "future_messages_absent": true,
+    "later_promises_absent": true,
+    "later_manual_name_edit_absent": true,
+    "source_current_expected_values_present": true
+  },
+  "limitations": [
+    "Original preservation is checked against the expected current source values and archived transcript; no pre-branch database snapshot was taken.",
+    "Archived text and reply_state were replayed; API, worker, PostgreSQL transactions, SSE and checkpoint restoration used real application code.",
+    "No live model inference or latency claim is supported by this capture."
+  ]
+}

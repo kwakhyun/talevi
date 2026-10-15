@@ -1,0 +1,178 @@
+{
+  "schema_version": 1,
+  "verified_on": "2026-10-15",
+  "artifact": "docs/demo/talevi-local-demo.mp4",
+  "sha256": "833a76c1f003a5df3ec5d2cd9b0a8148151dc378ac439e626ba326ed46c75136",
+  "size_bytes": 6451784,
+  "duration_seconds": 163.021029,
+  "video": {
+    "codec_name": "h264",
+    "profile": "High",
+    "width": 1920,
+    "height": 1080,
+    "pix_fmt": "yuv420p",
+    "r_frame_rate": "30/1",
+    "avg_frame_rate": "30/1",
+    "nb_frames": "4890",
+    "duration": "163.000000",
+    "start_time": "0.021029"
+  },
+  "audio": {
+    "codec_name": "aac",
+    "profile": "LC",
+    "sample_rate": "48000",
+    "channels": 2,
+    "channel_layout": "stereo",
+    "duration": "163.000000",
+    "start_time": "0.000000"
+  },
+  "faststart": {
+    "passed": true,
+    "top_level_atoms": [
+      {
+        "type": "ftyp",
+        "offset_bytes": 0,
+        "size_bytes": 32
+      },
+      {
+        "type": "moov",
+        "offset_bytes": 32,
+        "size_bytes": 180912
+      },
+      {
+        "type": "free",
+        "offset_bytes": 180944,
+        "size_bytes": 8
+      },
+      {
+        "type": "mdat",
+        "offset_bytes": 180952,
+        "size_bytes": 6270832
+      }
+    ]
+  },
+  "subtitles": {
+    "artifact": "docs/demo/talevi-local-demo.ko.srt",
+    "sha256": "eedbb8ae9be1f3764f46f1effc83e3d614422b7882f6b0b934ec0d74f3eae36c",
+    "count": 24,
+    "first_start_seconds": 0.0,
+    "last_end_seconds": 161.624,
+    "checks": {
+      "contiguous_indexes": true,
+      "positive_duration": true,
+      "within_video": true,
+      "ordered_non_overlapping": true,
+      "nonempty_text": true
+    },
+    "passed": true
+  },
+  "scope_note": "Mechanical metadata, decoding, audio-level and subtitle-timing checks only. No claim of complete human listening or visual content review.",
+  "full_decode": {
+    "passed": true,
+    "tool": "ffmpeg",
+    "arguments": [
+      "-v",
+      "error",
+      "-xerror",
+      "-i",
+      "docs/demo/talevi-local-demo.mp4",
+      "-map",
+      "0:v:0",
+      "-map",
+      "0:a:0",
+      "-f",
+      "null",
+      "-"
+    ],
+    "exit_code": 0,
+    "error_output_empty": true,
+    "scope": "Entire video and audio streams decoded to a null output; source file unchanged."
+  },
+  "audio_measurement": {
+    "method": "Mechanical FFmpeg astats, silencedetect and loudnorm input measurements; no complete human listening claimed. Analysis output discarded, original media unchanged.",
+    "sample_peak_dbfs": -4.560278,
+    "true_peak_dbtp": -4.56,
+    "rms_level_dbfs": -20.539834,
+    "integrated_loudness_lufs": -17.73,
+    "loudness_range_lu": 3.4,
+    "minimum_sample_value": -0.591543,
+    "maximum_sample_value": 0.510225,
+    "decoded_samples_per_channel": 7824384,
+    "nan_samples": 0,
+    "infinite_samples": 0,
+    "non_silent_track": true,
+    "digital_full_scale_clipping_detected": false,
+    "silence_detection": {
+      "threshold_dbfs": -45,
+      "minimum_duration_seconds": 0.5,
+      "interval_count": 8,
+      "total_seconds": 13.977583,
+      "maximum_interval_seconds": 2.209646,
+      "intervals": [
+        {
+          "start_seconds": 9.541062,
+          "end_seconds": 11.036396,
+          "duration_seconds": 1.495333
+        },
+        {
+          "start_seconds": 25.079667,
+          "end_seconds": 27.031458,
+          "duration_seconds": 1.951792
+        },
+        {
+          "start_seconds": 47.206854,
+          "end_seconds": 49.049792,
+          "duration_seconds": 1.842937
+        },
+        {
+          "start_seconds": 67.618104,
+          "end_seconds": 69.061042,
+          "duration_seconds": 1.442937
+        },
+        {
+          "start_seconds": 87.265958,
+          "end_seconds": 89.0685,
+          "duration_seconds": 1.802542
+        },
+        {
+          "start_seconds": 115.319458,
+          "end_seconds": 117.07925,
+          "duration_seconds": 1.759792
+        },
+        {
+          "start_seconds": 136.899104,
+          "end_seconds": 139.10875,
+          "duration_seconds": 2.209646
+        },
+        {
+          "start_seconds": 161.535396,
+          "end_seconds": 163.008,
+          "duration_seconds": 1.472604
+        }
+      ]
+    }
+  },
+  "checks_passed": true,
+  "visual_spot_review": {
+    "reviewed_seconds": [
+      4,
+      37,
+      57,
+      102,
+      126,
+      150
+    ],
+    "result": "Korean captions, replay notice, restored memory, architecture and validation cards fit the frame; no credentials or private conversations visible in these reviewed frames.",
+    "scope": "Selected-frame review, not a claim of complete frame-by-frame review."
+  },
+  "browser_playback": {
+    "browser": "Codex in-app browser",
+    "duration_seconds": 163.021029,
+    "observed_playback_seconds": 19.634904,
+    "video_width": 1920,
+    "video_height": 1080,
+    "ready_state": 4,
+    "media_error": null,
+    "paused_after_check": true
+  }
+}

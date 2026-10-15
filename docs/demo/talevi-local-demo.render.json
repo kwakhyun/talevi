@@ -1,0 +1,13 @@
+{
+  "output": "talevi-local-demo.mp4",
+  "duration_seconds": 163.021029,
+  "size_mb": 6.45,
+  "width": 1920,
+  "height": 1080,
+  "fps": 30,
+  "video_codec": "h264",
+  "audio_codec": "aac",
+  "crf": 22,
+  "font": "AppleSDGothicNeo.ttc",
+  "scenes": 8
+}

@@ -1,0 +1,87 @@
+{
+  "validation_date": "2026-10-15",
+  "timezone": "Asia/Seoul",
+  "source_commit": "2f512767a1461d58d8cf84675df8a254a7aecc33",
+  "environment": {
+    "platform": "macOS",
+    "node": "22.21.0",
+    "npm": "10.9.4",
+    "python": "3.11.4",
+    "postgresql": "18.4",
+    "database": "dedicated test database; separate disposable migration database"
+  },
+  "paid_ai_calls": 0,
+  "model_responses": "deterministic fixtures and mocked provider clients; external HTTP blocked",
+  "tests": {
+    "api": 107,
+    "web_sse_and_startup": 11,
+    "mobile_async_mock_native": 26,
+    "total": 144
+  },
+  "checks": {
+    "typecheck": "passed",
+    "ruff_F_I": "passed",
+    "nextjs_production_build": "passed",
+    "expo_ios_export": "passed",
+    "expo_android_export": "passed",
+    "empty_database_migrations": "passed",
+    "alembic_model_diff": "none",
+    "alembic_head": "93acde81f204"
+  },
+  "old_live_model_evaluation": {
+    "date": "2026-10-10",
+    "completed_responses": 1256,
+    "rerun_in_this_validation": false,
+    "source": "evaluation-summary.json"
+  },
+  "not_validated": [
+    "public cloud operation",
+    "native device installation",
+    "live payments",
+    "load at launch scale",
+    "independent user satisfaction",
+    "matched competitor comparison"
+  ],
+  "logs": {
+    "api-pytest.log": {
+      "path": ".local/portfolio-validation-2026-10-15/api-pytest.log",
+      "bytes": 181,
+      "sha256": "dc80344d065f72495392b99eab40c6bce1a4e0de82d2a307e2d23e18ac18745e"
+    },
+    "web-sse.log": {
+      "path": ".local/portfolio-validation-2026-10-15/web-sse.log",
+      "bytes": 2208,
+      "sha256": "bd2ca4ffd2502f7386dbb2e510afc87744f43e0cd39026faec920ded81d055f2"
+    },
+    "mobile-tests.log": {
+      "path": ".local/portfolio-validation-2026-10-15/mobile-tests.log",
+      "bytes": 167,
+      "sha256": "d139ec636ec8f1df9d114c9c981ce65bd8ce2ad8d9de8fc897b10ec93c800e73"
+    },
+    "typecheck.log": {
+      "path": ".local/portfolio-validation-2026-10-15/typecheck.log",
+      "bytes": 167,
+      "sha256": "13073c416230faa8f10e2427e973470220f3df840e7f42f2ebc418c55911e2cb"
+    },
+    "ruff.log": {
+      "path": ".local/portfolio-validation-2026-10-15/ruff.log",
+      "bytes": 19,
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    "web-build.log": {
+      "path": ".local/portfolio-validation-2026-10-15/web-build.log",
+      "bytes": 778,
+      "sha256": "79f4c820cd379e6a387d367d621cc099e8b3191d0bd39242c828d13035d65488"
+    },
+    "expo-export.log": {
+      "path": ".local/portfolio-validation-2026-10-15/expo-export.log",
+      "bytes": 1999,
+      "sha256": "bd00ea992f16365741baee8124aba22f0edbeee086014661c5c18f148ca44dbd"
+    },
+    "migrations.log": {
+      "path": ".local/portfolio-validation-2026-10-15/migrations.log",
+      "bytes": 2188,
+      "sha256": "b9db3aaa31f32f066396e10c03478f8a4259ad7afb7a848d77c0845db4d77858"
+    }
+  }
+}
