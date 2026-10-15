@@ -24,7 +24,7 @@ const contracts = moduleUrl(
 const source = compile(
   await readFile(new URL("../apps/web/lib/api.ts", import.meta.url), "utf8"),
 );
-const { followTurn } = await import(
+const { followTurn, waitForApi } = await import(
   moduleUrl(source.replace('"@yeoun/contracts"', JSON.stringify(contracts)))
 );
 const event = (id, type, data = {}) =>
@@ -186,4 +186,58 @@ test("late response after cancellation never delivers events", async (t) => {
     followTurn("closed", () => assert.fail("stale event"), abort.signal),
     (e) => e.name === "AbortError",
   );
+});
+
+test("cold-start readiness retries HTML and gateway errors using GET only", async (t) => {
+  fastTimers(t);
+  let calls = 0;
+  t.mock.method(globalThis, "fetch", async (url, init) => {
+    assert.equal(url, "/api/health");
+    assert.equal(init.method, undefined);
+    calls++;
+    if (calls === 1)
+      return new Response("Starting", {
+        headers: { "content-type": "text/html" },
+      });
+    if (calls === 2) return new Response("", { status: 502 });
+    return Response.json({ ok: true, mode: "live" });
+  });
+  assert.equal((await waitForApi(new AbortController().signal)).mode, "live");
+  assert.equal(calls, 3);
+});
+
+test("cold-start readiness stops on authorization failure", async (t) => {
+  const mock = t.mock.method(
+    globalThis,
+    "fetch",
+    async () => new Response("", { status: 403 }),
+  );
+  await assert.rejects(waitForApi(new AbortController().signal), {
+    status: 403,
+  });
+  assert.equal(mock.mock.callCount(), 1);
+});
+
+test("cold-start readiness aborts on unmount without further requests", async (t) => {
+  const controller = new AbortController();
+  const mock = t.mock.method(globalThis, "fetch", async () => {
+    controller.abort();
+    throw controller.signal.reason;
+  });
+  await assert.rejects(waitForApi(controller.signal), { name: "AbortError" });
+  assert.equal(mock.mock.callCount(), 1);
+});
+
+test("cold-start readiness has a finite deadline", async (t) => {
+  fastTimers(t);
+  const now = Date.now();
+  let ticks = 0;
+  t.mock.method(Date, "now", () => now + ticks++ * 10000);
+  const mock = t.mock.method(
+    globalThis,
+    "fetch",
+    async () => new Response("", { status: 503 }),
+  );
+  await assert.rejects(waitForApi(new AbortController().signal), /연결이 지연/);
+  assert.ok(mock.mock.callCount() > 0 && mock.mock.callCount() < 10);
 });

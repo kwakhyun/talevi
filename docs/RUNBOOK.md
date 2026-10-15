@@ -70,11 +70,11 @@ OpenAI 키는 저장소 루트 `.env.local`의 `OPENAI_API_KEY`에서 API가 읽
 
 ## 선택한 관리형 배포와 현재 상태
 
-사용자는 Vercel 웹 + 관리형 API/PostgreSQL 구성을 선택한 뒤, 공개 배포를 보류하고 로컬 완성을 요청했다. Vercel의 `khyun/yeoun` 프로젝트를 생성하고 로컬에 연결했으나 소스를 배포하거나 도메인을 공개하지 않았다. Render에는 리소스를 생성하지 않았다. 2026-10-12에는 전체 소스를 비공개 GitHub 저장소 `kwakhyun/talevi`에, 소개 자료를 공개 `kwakhyun/talevi-portfolio`에 보관하는 구조를 선택했다. 이는 서비스 배포와 별개이며 [저장소 운영 방침](PUBLISHING.md)에 범위를 정리했다.
+2026-10-15에 Vercel Hobby + Render Free + Neon Free 구성을 준비했다. API와 이벤트 기반 워커는 Render 무료 웹 서비스 한 개에서 실행한다. 별도 유료 워커와 Render PostgreSQL 구성은 제거했다. 자세한 설정, 과금 방지 조건과 검증 결과는 [무료 배포 안내](FREE-HOSTING.md)를 따른다.
 
-`render.yaml`은 싱가포르의 API, 독립 워커, PostgreSQL을 정의한다. DB 외부 접근은 차단하고 서비스 사이의 내부 주소를 사용한다. `WEB_ORIGIN`과 OpenAI 키는 Render 보안 입력으로 제공한다. API와 워커의 pre-deploy는 advisory lock으로 직렬화된 Alembic을 실행한다. Vercel의 `API_INTERNAL_URL`에는 실제 API HTTPS 주소를 설정하고 재빌드한다. `.vercelignore`는 비밀 파일과 로컬 DB를 제외한다. 해당 클라우드 설정은 아직 실제 배포 검증을 거치지 않았다.
+Vercel의 기존 `khyun/yeoun` 프로젝트는 Hobby이며, Render는 Hobby/카드 미등록 상태다. 실제 웹/API 배포와 Neon DB 생성은 하지 않았다. 계정 연결 단계에서 사용자가 포트폴리오용 로컬 녹화본과 공개 배포의 가치를 재검토하도록 요청했다. 현재 권고는 영상, 공개 소개 저장소와 검증 근거를 먼저 준비하는 것이다.
 
-근거: [Render Blueprint](https://render.com/docs/blueprint-spec), [백그라운드 워커](https://render.com/docs/background-workers), [Vercel 배포](https://vercel.com/docs/deployments).
+전체 소스는 비공개 `kwakhyun/talevi`, 공개 소개는 `kwakhyun/talevi-portfolio`로 분리되어 있다. [저장소 운영 방침](PUBLISHING.md)을 참고한다.
 
 ## 운영 배포 구성
 

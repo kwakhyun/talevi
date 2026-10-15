@@ -47,7 +47,7 @@ import {
   type BranchResult,
   ApiError,
 } from "@yeoun/contracts";
-import { api, followTurn } from "@/lib/api";
+import { api, followTurn, waitForApi } from "@/lib/api";
 import Modal from "./Modal";
 import Image from "next/image";
 import BrandIcon from "./BrandIcon";
@@ -284,6 +284,7 @@ export default function Talevi() {
     ),
     [showLatest, setShowLatest] = useState(false);
   const controller = useRef<AbortController | null>(null),
+    catalogController = useRef<AbortController | null>(null),
     messageScroll = useRef<HTMLDivElement>(null),
     input = useRef<HTMLTextAreaElement>(null),
     sendLock = useRef(false),
@@ -303,13 +304,23 @@ export default function Talevi() {
     return () => clearTimeout(t);
   }, [notice]);
   const loadCatalog = useCallback(async () => {
+    catalogController.current?.abort();
+    const controller = new AbortController();
+    catalogController.current = controller;
+    setLoading(true);
+    setError("");
     try {
-      setCharacters(await api<Character[]>("/v1/characters"));
-      setError("");
+      const health = await waitForApi(controller.signal);
+      const catalog = await api<Character[]>("/v1/characters", {
+        signal: controller.signal,
+      });
+      controller.signal.throwIfAborted();
+      setDemo(health.mode === "demo");
+      setCharacters(catalog);
     } catch (e) {
-      setError((e as Error).message);
+      if (!controller.signal.aborted) setError((e as Error).message);
     } finally {
-      setLoading(false);
+      if (!controller.signal.aborted) setLoading(false);
     }
   }, []);
   const loadMe = useCallback(async () => {
@@ -323,15 +334,16 @@ export default function Talevi() {
     }
   }, []);
   useEffect(() => {
-    void loadCatalog();
-    void loadMe();
-    api<{ mode: string }>("/health")
-      .then((h) => setDemo(h.mode === "demo"))
-      .catch(() => {});
+    let disposed = false;
+    void loadCatalog().then(() => {
+      if (!disposed) void loadMe();
+    });
     try {
       setSaved(JSON.parse(localStorage.getItem("yeoun-bookmarks") || "[]"));
     } catch {}
     return () => {
+      disposed = true;
+      catalogController.current?.abort();
       viewEpoch.current += 1;
       controller.current?.abort();
     };
@@ -1417,6 +1429,9 @@ export default function Talevi() {
                   <div className="empty">
                     <span className="spinner" />
                     <p>새로운 인연을 불러오고 있어요.</p>
+                    <small>
+                      오랜만에 접속했다면 연결까지 1분 정도 걸릴 수 있어요.
+                    </small>
                   </div>
                 )}
               </section>
@@ -2076,7 +2091,12 @@ export default function Talevi() {
             </button>
           )}
           {!characters.length && (
-            <button onClick={loadCatalog}>다시 불러오기</button>
+            <button
+              disabled={loading}
+              onClick={() => void loadCatalog().then(loadMe)}
+            >
+              다시 불러오기
+            </button>
           )}
           <button onClick={() => setError("")} aria-label="오류 닫기">
             <X size={17} />

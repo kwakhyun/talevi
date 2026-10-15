@@ -2,7 +2,7 @@ import asyncio
 import logging
 import time
 
-from sqlalchemy import delete, or_, select, update
+from sqlalchemy import case, delete, func, or_, select, update
 
 from .billing import adjust_credits
 from .branching import save_checkpoint
@@ -315,30 +315,123 @@ async def recover():
         await finish(turn_id, error="interrupted", stale_only=True)
 
 
+async def claim_turn():
+    async with SessionLocal() as db:
+        row = (
+            await db.execute(
+                select(Turn)
+                .where(Turn.status == "pending")
+                .order_by(Turn.created)
+                .limit(1)
+                .with_for_update(skip_locked=True)
+            )
+        ).scalar_one_or_none()
+        turn_id = None
+        if row:
+            result = await db.execute(
+                update(Turn)
+                .where(Turn.id == row.id, Turn.status == "pending")
+                .values(status="generating", started=time.time())
+                .returning(Turn.id)
+            )
+            turn_id = result.scalar_one_or_none()
+        await db.commit()
+        return turn_id
+
+
+async def recovery_delay():
+    """Schedule a lease check only while durable unfinished work exists."""
+    async with SessionLocal() as db:
+        deadline = await db.scalar(
+            select(
+                func.min(
+                    case(
+                        (Turn.status == "generating", Turn.started + 180),
+                        else_=Turn.created + 600,
+                    )
+                )
+            ).where(Turn.status.in_(("pending", "generating")))
+        )
+    return max(0.1, deadline - time.time() + 0.1) if deadline else None
+
+
+class OnDemandWorker:
+    """Single-process embedded queue: no database polling when there is no work.
+
+    Each consumer has its own signal so enqueues cannot be lost while another
+    consumer clears its event. PostgreSQL still owns claims, leases and refunds.
+    Run one API process on Render Free; separate deployments use worker_loop.
+    """
+
+    def __init__(self, concurrency=4):
+        self.signals = [asyncio.Event() for _ in range(concurrency)]
+        self.recovery_signal = asyncio.Event()
+        self.tasks = []
+
+    def wake(self):
+        for signal in self.signals:
+            signal.set()
+        self.recovery_signal.set()
+
+    async def start(self):
+        # Recover the durable queue once after a restart, even without a client.
+        await recover()
+        self.tasks = [
+            asyncio.create_task(self.consume(signal)) for signal in self.signals
+        ] + [asyncio.create_task(self.recover_leases())]
+        self.wake()
+
+    async def stop(self):
+        for task in self.tasks:
+            task.cancel()
+        await asyncio.gather(*self.tasks, return_exceptions=True)
+        self.tasks = []
+
+    async def consume(self, signal):
+        retry_delay = 2
+        while True:
+            await signal.wait()
+            signal.clear()  # Clear before querying; a concurrent enqueue stays set.
+            try:
+                while turn_id := await claim_turn():
+                    self.recovery_signal.set()
+                    await process_turn(turn_id)
+                    self.recovery_signal.set()
+                retry_delay = 2
+            except asyncio.CancelledError:
+                raise
+            except Exception as exc:
+                log.error("embedded_worker_failed type=%s", type(exc).__name__)
+                await asyncio.sleep(retry_delay)
+                retry_delay = min(60, retry_delay * 2)
+                signal.set()
+
+    async def recover_leases(self):
+        delay = None
+        retry_delay = 2
+        while True:
+            try:
+                await asyncio.wait_for(self.recovery_signal.wait(), timeout=delay)
+            except TimeoutError:
+                pass
+            self.recovery_signal.clear()
+            try:
+                await recover()
+                delay = await recovery_delay()
+                retry_delay = 2
+            except asyncio.CancelledError:
+                raise
+            except Exception as exc:
+                log.error("lease_recovery_failed type=%s", type(exc).__name__)
+                delay = retry_delay
+                retry_delay = min(60, retry_delay * 2)
+
+
 async def worker_loop():
     while True:
         try:
             await recover()
-            async with SessionLocal() as db:
-                row = (
-                    await db.execute(
-                        select(Turn)
-                        .where(Turn.status == "pending")
-                        .order_by(Turn.created)
-                        .limit(1)
-                        .with_for_update(skip_locked=True)
-                    )
-                ).scalar_one_or_none()
-                turn_id = None
-                if row:
-                    result = await db.execute(
-                        update(Turn)
-                        .where(Turn.id == row.id, Turn.status == "pending")
-                        .values(status="generating", started=time.time())
-                        .returning(Turn.id)
-                    )
-                    turn_id = result.scalar_one_or_none()
-                await db.commit()
+            turn_id = await claim_turn()
             if turn_id:
                 await process_turn(turn_id)
             else:

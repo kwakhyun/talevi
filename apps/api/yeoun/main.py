@@ -1,6 +1,5 @@
 import asyncio
 import base64
-import contextlib
 import json
 import logging
 import time
@@ -66,7 +65,7 @@ from .security import (
     rate_limit,
     verify_password,
 )
-from .worker import worker_loop
+from .worker import OnDemandWorker
 
 cfg = settings()
 logging.basicConfig(level=logging.INFO)
@@ -93,16 +92,16 @@ async def lifespan(app):
                 existing.payload = data
                 existing.published = True
         await db.commit()
-    tasks = (
-        [asyncio.create_task(worker_loop()) for _ in range(4)] if cfg.run_worker else []
-    )
-    yield
-    for task in tasks:
-        task.cancel()
-    for task in tasks:
-        with contextlib.suppress(asyncio.CancelledError):
-            await task
-    await engine.dispose()
+    app.state.worker = OnDemandWorker() if cfg.run_worker else None
+    try:
+        if app.state.worker:
+            await app.state.worker.start()
+        yield
+    finally:
+        if app.state.worker:
+            await app.state.worker.stop()
+        app.state.worker = None
+        await engine.dispose()
 
 
 app = FastAPI(title="Talevi API", version="0.2.0", lifespan=lifespan)
@@ -197,14 +196,27 @@ def memory_json(m):
 
 
 @app.get("/health")
-async def health(db=Depends(database)):
-    await db.execute(text("SELECT 1"))
+async def health():
+    # Hosting liveness probes must not prevent Neon from scaling to zero.
     return {
         "ok": True,
         "mode": "demo" if cfg.demo_mode else "live",
         "ai_configured": bool(cfg.openai_api_key),
         "payments_configured": bool(cfg.toss_secret_key and cfg.toss_client_key),
     }
+
+
+@app.get("/ready")
+async def ready(db=Depends(database)):
+    # Explicit deployment diagnostics only; never configure as a periodic probe.
+    await db.execute(text("SELECT 1"))
+    return {"ok": True}
+
+
+def wake_worker(request):
+    worker = getattr(request.app.state, "worker", None)
+    if worker:
+        worker.wake()
 
 
 @app.post("/v1/auth/guest")
@@ -482,11 +494,14 @@ async def submit_turn(cid: str, body: TurnIn, request: Request, db=Depends(datab
     if existing:
         if existing.fingerprint != fingerprint:
             raise HTTPException(409, "같은 전송 번호로 다른 내용을 보낼 수 없어요.")
+        if existing.status in ("pending", "generating"):
+            wake_worker(request)
         return {"id": existing.id, "status": existing.status, "cost": existing.cost}
     if c.active_turn:
         raise HTTPException(409, "이전 답변을 기다려 주세요.")
     t = await queue_turn(db, u, c, body, fingerprint)
     await db.commit()
+    wake_worker(request)
     return {"id": t.id, "status": t.status, "cost": t.cost}
 
 
@@ -507,6 +522,8 @@ async def create_branch(
     )
     previous = await existing_branch(db, u, body, fingerprint)
     if previous:
+        if previous.turn_id:
+            wake_worker(request)
         return await branch_result(db, previous)
     if (
         await db.scalars(
@@ -556,6 +573,8 @@ async def create_branch(
     )
     db.add(receipt)
     await db.commit()
+    if turn:
+        wake_worker(request)
     return await branch_result(db, receipt)
 
 
@@ -571,6 +590,8 @@ async def events(
         cursor = max(after, int(request.headers.get("last-event-id", "0")))
     except ValueError:
         raise HTTPException(400, "잘못된 이벤트 위치예요.")
+    if t.status in ("pending", "generating"):
+        wake_worker(request)
 
     async def generate():
         pos = cursor
