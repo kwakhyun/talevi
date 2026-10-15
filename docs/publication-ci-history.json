@@ -1,6 +1,6 @@
 {
   "scope": "Metadata of five pre-rewrite CI runs; paid model evaluation records are separate and preserved in docs/evidence.",
-  "raw_logs": "Private local backup; not published.",
+  "raw_logs": "Backed up privately and inspected; remote CI records retained. They reference pre-rewrite commit IDs.",
   "workflow_runs": [
     {
       "id": 38740556187,
@@ -47,5 +47,6 @@
       "log_file_count": 2,
       "archived_zip_sha256": "63fa1dc8c05eb89eda1caa3e87b58f668491aee520fc6e559d9d2081b4c75185"
     }
-  ]
+  ],
+  "personal_local_paths_or_current_secret_matches": 0
 }
