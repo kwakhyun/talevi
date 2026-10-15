@@ -10,6 +10,7 @@ import {
   ArrowUpRight,
   ArrowRight,
   ArrowLeft,
+  ArrowDown,
   ChevronRight,
   ChevronLeft,
   Leaf,
@@ -31,6 +32,7 @@ import {
   Wind,
   MapPin,
   LockKeyhole,
+  GitBranch,
 } from "lucide-react";
 import {
   ko,
@@ -39,6 +41,10 @@ import {
   type ConversationSummary,
   type User,
   type Memory,
+  type Message,
+  type BranchAction,
+  type BranchRequest,
+  type BranchResult,
   ApiError,
 } from "@yeoun/contracts";
 import { api, followTurn } from "@/lib/api";
@@ -60,6 +66,123 @@ type WalletData = {
   demo: boolean;
   available: boolean;
   client_key: string;
+};
+type PendingTurn = {
+  client_id: string;
+  content: string;
+  mode: "quick" | "story";
+  story_event: string | null;
+};
+const pendingTurnKey = (cid: string) => `talevi-pending:v1:${cid}`;
+function readPendingTurn(cid: string): PendingTurn | null {
+  try {
+    const raw = localStorage.getItem(pendingTurnKey(cid));
+    if (!raw) return null;
+    const record = JSON.parse(raw),
+      body = record?.body;
+    if (
+      record?.version !== 1 ||
+      !body ||
+      typeof body.client_id !== "string" ||
+      !/^[a-zA-Z0-9_-]{16,64}$/.test(body.client_id) ||
+      typeof body.content !== "string" ||
+      !body.content.trim() ||
+      body.content.length > 3000 ||
+      !["quick", "story"].includes(body.mode) ||
+      ![null, "discovery", "change_scene", "quiet"].includes(body.story_event)
+    ) {
+      localStorage.removeItem(pendingTurnKey(cid));
+      return null;
+    }
+    return {
+      client_id: body.client_id,
+      content: body.content,
+      mode: body.mode,
+      story_event: body.story_event,
+    };
+  } catch {
+    return null;
+  }
+}
+function savePendingTurn(cid: string, body: PendingTurn) {
+  try {
+    localStorage.setItem(
+      pendingTurnKey(cid),
+      JSON.stringify({ version: 1, body }),
+    );
+  } catch {
+    throw new Error(
+      "전송 상태를 저장하지 못했어요. 브라우저 저장 공간을 확인해 주세요.",
+    );
+  }
+}
+function clearPendingTurn(cid: string, clientId: string) {
+  try {
+    if (readPendingTurn(cid)?.client_id === clientId)
+      localStorage.removeItem(pendingTurnKey(cid));
+  } catch {
+    // Keeping a receipt is safe: its idempotency key will recover the same turn.
+  }
+}
+type PendingBranch = { body: BranchRequest; result?: BranchResult };
+const pendingBranchKey = (cid: string) => `talevi-branch:v1:${cid}`;
+function readPendingBranch(cid: string): PendingBranch | null {
+  try {
+    const raw = localStorage.getItem(pendingBranchKey(cid));
+    if (!raw) return null;
+    const record = JSON.parse(raw),
+      body = record?.body,
+      result = record?.result;
+    if (
+      record?.version !== 1 ||
+      !body ||
+      typeof body.client_id !== "string" ||
+      !/^[a-zA-Z0-9_-]{16,64}$/.test(body.client_id) ||
+      typeof body.message_id !== "string" ||
+      !body.message_id ||
+      !["branch", "regenerate", "edit"].includes(body.action) ||
+      (body.action === "edit" &&
+        (typeof body.content !== "string" ||
+          !body.content.trim() ||
+          body.content.length > 3000)) ||
+      (result !== undefined &&
+        (typeof result.conversation_id !== "string" ||
+          !(result.turn_id === null || typeof result.turn_id === "string") ||
+          typeof result.status !== "string" ||
+          typeof result.cost !== "number"))
+    ) {
+      localStorage.removeItem(pendingBranchKey(cid));
+      return null;
+    }
+    return { body, ...(result ? { result } : {}) };
+  } catch {
+    return null;
+  }
+}
+function savePendingBranch(cid: string, record: PendingBranch) {
+  try {
+    localStorage.setItem(
+      pendingBranchKey(cid),
+      JSON.stringify({ version: 1, ...record }),
+    );
+  } catch {
+    throw new Error(
+      "이야기 전환 상태를 저장하지 못했어요. 브라우저 저장 공간을 확인해 주세요.",
+    );
+  }
+}
+function clearPendingBranch(cid: string, clientId: string) {
+  try {
+    if (readPendingBranch(cid)?.body.client_id === clientId)
+      localStorage.removeItem(pendingBranchKey(cid));
+  } catch {
+    // Retaining the request is safe: retry recovers the same branch.
+  }
+}
+const branchLabels: Record<BranchAction, string> = {
+  branch: "여기서 다른 이야기",
+  regenerate: "다른 답변 받기",
+  edit: "내 메시지 수정",
 };
 const genres = ["전체", "힐링", "로맨스", "일상", "판타지", "미스터리"];
 function Portrait({
@@ -142,16 +265,34 @@ export default function Talevi() {
     [memoryKey, setMemoryKey] = useState(""),
     [showMemoryForm, setShowMemoryForm] = useState(false);
   const [feedback, setFeedback] = useState<string | null>(null),
-    [pendingRetry, setPendingRetry] = useState<{
-      client_id: string;
-      content: string;
-      mode: "quick" | "story";
-      story_event: string | null;
-    } | null>(null);
+    [pendingRetry, setPendingRetry] = useState<PendingTurn | null>(null);
+  const [branchDialog, setBranchDialog] = useState<{
+      message: Message;
+      action: BranchAction;
+    } | null>(null),
+    [branchContent, setBranchContent] = useState(""),
+    [pendingBranch, setPendingBranch] = useState<PendingBranch | null>(null),
+    [branching, setBranching] = useState(false);
+  const [replyPhase, setReplyPhase] = useState<"thinking" | "writing">(
+      "thinking",
+    ),
+    [connection, setConnection] = useState<"connected" | "reconnecting">(
+      "connected",
+    ),
+    [resumeTurn, setResumeTurn] = useState<{ cid: string; tid: string } | null>(
+      null,
+    ),
+    [showLatest, setShowLatest] = useState(false);
   const controller = useRef<AbortController | null>(null),
-    bottom = useRef<HTMLDivElement>(null),
+    messageScroll = useRef<HTMLDivElement>(null),
     input = useRef<HTMLTextAreaElement>(null),
-    sendLock = useRef(false);
+    sendLock = useRef(false),
+    viewEpoch = useRef(0),
+    activeChatId = useRef<string | null>(null),
+    draftRef = useRef(""),
+    draftRevision = useRef(0),
+    draftEdits = useRef(new Map<string, number>()),
+    nearBottom = useRef(true);
   const current = characters.find((c) => c.id === chat?.character_id);
   const notify = (s: string) => {
     setNotice(s);
@@ -190,11 +331,25 @@ export default function Talevi() {
     try {
       setSaved(JSON.parse(localStorage.getItem("yeoun-bookmarks") || "[]"));
     } catch {}
-    return () => controller.current?.abort();
+    return () => {
+      viewEpoch.current += 1;
+      controller.current?.abort();
+    };
   }, [loadCatalog, loadMe]);
   useEffect(() => {
-    bottom.current?.scrollIntoView({ behavior: "smooth", block: "end" });
-  }, [chat?.messages.length, stream]);
+    const node = messageScroll.current;
+    if (!node) return;
+    if (nearBottom.current) node.scrollTop = node.scrollHeight;
+    else setShowLatest(true);
+  }, [chat?.id, chat?.messages.length, stream, sending]);
+  const jumpToLatest = () => {
+    nearBottom.current = true;
+    setShowLatest(false);
+    const node = messageScroll.current;
+    if (node) node.scrollTop = node.scrollHeight;
+  };
+  const isChatView = (cid: string, epoch: number) =>
+    viewEpoch.current === epoch && activeChatId.current === cid;
   const ensureUser = async () => {
     if (user) return user;
     const r = await api<{ user: User }>("/v1/auth/guest", {
@@ -213,47 +368,130 @@ export default function Talevi() {
       return next;
     });
   };
-  const refreshChat = async (id: string) => {
+  const refreshChat = async (id: string, epoch = viewEpoch.current) => {
     const c = await api<Conversation>(`/v1/conversations/${id}`);
-    setChat(c);
-    await loadMe();
+    if (isChatView(id, epoch)) setChat(c);
+    void loadMe();
     return c;
   };
-  const listen = async (cid: string, tid: string) => {
+  const turnIsSaved = (c: Conversation, tid: string) =>
+    c.messages.some(
+      (message) =>
+        message.turn_id === tid &&
+        (message.role === "assistant" || message.status === "failed"),
+    );
+  const listen = async (
+    cid: string,
+    tid: string,
+    epoch = viewEpoch.current,
+  ) => {
+    if (!isChatView(cid, epoch)) return;
     controller.current?.abort();
     const ctrl = new AbortController();
     controller.current = ctrl;
+    const isCurrent = () =>
+      isChatView(cid, epoch) &&
+      controller.current === ctrl &&
+      !ctrl.signal.aborted;
+    sendLock.current = true;
     setSending(true);
+    setResumeTurn({ cid, tid });
+    setReplyPhase("thinking");
+    setConnection("connected");
     setStream("");
     try {
       await followTurn(
         tid,
         (item) => {
-          if (item.event === "delta")
+          if (!isCurrent()) return;
+          if (item.event === "delta") {
+            setReplyPhase("writing");
             setStream((s) => s + String(item.data.text));
+          }
+          if (
+            item.event === "phase" &&
+            (item.data.name === "thinking" || item.data.name === "writing")
+          )
+            setReplyPhase(item.data.name);
           if (item.event === "failed") {
             setError(String(item.data.message));
             setStream("");
           }
         },
         ctrl.signal,
+        (state) => {
+          if (isCurrent()) setConnection(state);
+        },
       );
-      if (!ctrl.signal.aborted) await refreshChat(cid);
+      if (!isCurrent()) return;
+      const latest = await refreshChat(cid, epoch);
+      if (isCurrent() && turnIsSaved(latest, tid)) setResumeTurn(null);
     } catch (e) {
-      if (!ctrl.signal.aborted) setError((e as Error).message);
+      if (!isCurrent()) return;
+      // The server may have saved the answer while the event connection was lost.
+      try {
+        const latest = await refreshChat(cid, epoch);
+        if (!isCurrent()) return;
+        if (turnIsSaved(latest, tid)) {
+          setResumeTurn(null);
+          setError("");
+          return;
+        }
+      } catch {
+        if (!isCurrent()) return;
+      }
+      setError((e as Error).message);
     } finally {
-      if (!ctrl.signal.aborted) {
+      if (isCurrent()) {
         setSending(false);
         setStream("");
         sendLock.current = false;
       }
     }
   };
+  const reconnectReply = async () => {
+    if (!resumeTurn || sendLock.current) return;
+    const { cid, tid } = resumeTurn;
+    const epoch = viewEpoch.current;
+    if (!isChatView(cid, epoch)) return;
+    sendLock.current = true;
+    setSending(true);
+    setConnection("reconnecting");
+    setError("");
+    try {
+      const latest = await refreshChat(cid, epoch);
+      if (!isChatView(cid, epoch)) return;
+      if (turnIsSaved(latest, tid) && !latest.active_turn) {
+        setResumeTurn(null);
+        return;
+      }
+      await listen(cid, latest.active_turn || tid, epoch);
+    } catch (e) {
+      if (isChatView(cid, epoch)) setError((e as Error).message);
+    } finally {
+      if (isChatView(cid, epoch)) {
+        setSending(false);
+        sendLock.current = false;
+      }
+    }
+  };
   const openChat = async (c: Character, id?: string) => {
+    const epoch = ++viewEpoch.current;
+    activeChatId.current = null;
+    controller.current?.abort();
+    sendLock.current = false;
+    setSending(false);
+    setStream("");
+    setResumeTurn(null);
+    setPendingRetry(null);
+    setPendingBranch(null);
+    setBranchDialog(null);
+    setBranching(false);
     setError("");
     setBusy(true);
     try {
       await ensureUser();
+      if (epoch !== viewEpoch.current) return;
       const known = id || convs.find((x) => x.character_id === c.id)?.id;
       const cid =
         known ||
@@ -263,22 +501,40 @@ export default function Talevi() {
             body: JSON.stringify({ character_id: c.id }),
           })
         ).id;
-      const data = await refreshChat(cid);
+      if (epoch !== viewEpoch.current) return;
+      activeChatId.current = cid;
+      nearBottom.current = true;
+      setShowLatest(false);
+      const data = await refreshChat(cid, epoch);
+      if (!isChatView(cid, epoch)) return;
+      setPendingRetry(readPendingTurn(cid));
+      setPendingBranch(readPendingBranch(cid));
       setDetail(null);
-      setDraft(localStorage.getItem("yeoun-draft:" + cid) || "");
-      setPendingRetry(null);
+      draftRef.current = localStorage.getItem("yeoun-draft:" + cid) || "";
+      draftRevision.current += 1;
+      setDraft(draftRef.current);
       setShowPanel(false);
-      if (data.active_turn) void listen(cid, data.active_turn);
+      if (data.active_turn) void listen(cid, data.active_turn, epoch);
     } catch (e) {
-      setError((e as Error).message);
+      if (epoch === viewEpoch.current) setError((e as Error).message);
     } finally {
-      setBusy(false);
+      if (epoch === viewEpoch.current) setBusy(false);
     }
   };
   const closeChat = () => {
+    viewEpoch.current += 1;
+    activeChatId.current = null;
     controller.current?.abort();
     setChat(null);
     setSending(false);
+    setStream("");
+    setResumeTurn(null);
+    setPendingRetry(null);
+    setPendingBranch(null);
+    setBranchDialog(null);
+    setBranching(false);
+    setShowLatest(false);
+    setBusy(false);
     sendLock.current = false;
     setError("");
     void loadMe();
@@ -288,9 +544,36 @@ export default function Talevi() {
     storyEvent: string | null = null,
     retry = false,
   ) => {
-    if (!chat || !text.trim() || sendLock.current) return;
+    if (
+      !chat ||
+      !text.trim() ||
+      sendLock.current ||
+      busy ||
+      branching ||
+      pendingBranch ||
+      resumeTurn ||
+      sending ||
+      (pendingRetry && !retry)
+    )
+      return;
+    const cid = chat.id,
+      epoch = viewEpoch.current;
+    if (!isChatView(cid, epoch)) return;
+    const unfinishedBranch = readPendingBranch(cid);
+    if (unfinishedBranch) {
+      setPendingBranch(unfinishedBranch);
+      setError("이야기 전환 결과를 먼저 확인해 주세요.");
+      return;
+    }
+    const submittedRevision = draftRevision.current;
+    const submittedDraft = draftRef.current;
+    const submittedEdits = draftEdits.current.get(cid) || 0;
     sendLock.current = true;
+    nearBottom.current = true;
+    setShowLatest(false);
     setSending(true);
+    setReplyPhase("thinking");
+    setConnection("connected");
     setError("");
     const body =
       retry && pendingRetry
@@ -303,25 +586,190 @@ export default function Talevi() {
           };
     setPendingRetry(body);
     try {
-      const turn = await api<{ id: string }>(
-        `/v1/conversations/${chat.id}/turns`,
-        { method: "POST", body: JSON.stringify(body) },
-      );
-      setDraft("");
-      localStorage.removeItem("yeoun-draft:" + chat.id);
+      const stored = readPendingTurn(cid);
+      if (stored && stored.client_id !== body.client_id) {
+        setPendingRetry(stored);
+        throw new Error("이전 메시지의 전송 결과를 먼저 확인해 주세요.");
+      }
+      savePendingTurn(cid, body);
+      const turn = await api<{ id: string }>(`/v1/conversations/${cid}/turns`, {
+        method: "POST",
+        body: JSON.stringify(body),
+      });
+      clearPendingTurn(cid, body.client_id);
+      // A confirmed send owns this stored draft even after navigation, but never
+      // a draft the user edited while the request was waiting.
+      const unchangedSubmittedDraft =
+        submittedDraft.trim() === body.content.trim() &&
+        (draftEdits.current.get(cid) || 0) === submittedEdits;
+      if (
+        unchangedSubmittedDraft &&
+        localStorage.getItem("yeoun-draft:" + cid) === submittedDraft
+      )
+        localStorage.removeItem("yeoun-draft:" + cid);
+      if (!isChatView(cid, epoch)) return;
+      if (
+        unchangedSubmittedDraft &&
+        draftRevision.current === submittedRevision &&
+        draftRef.current === submittedDraft
+      ) {
+        draftRef.current = "";
+        setDraft("");
+      }
       setPendingRetry(null);
-      await refreshChat(chat.id);
-      await listen(chat.id, turn.id);
+      setResumeTurn({ cid, tid: turn.id });
+      const latest = await refreshChat(cid, epoch);
+      if (!isChatView(cid, epoch)) return;
+      if (turnIsSaved(latest, turn.id)) {
+        setResumeTurn(null);
+        setStream("");
+        setSending(false);
+        sendLock.current = false;
+      } else {
+        await listen(cid, turn.id, epoch);
+      }
     } catch (e) {
+      const rejected =
+        e instanceof ApiError &&
+        [400, 401, 403, 404, 402, 422].includes(e.status);
+      if (rejected) clearPendingTurn(cid, body.client_id);
+      if (!isChatView(cid, epoch)) return;
       setError((e as Error).message);
+      if (rejected) setPendingRetry(null);
       if (e instanceof ApiError && e.status === 402) void openWallet();
       setSending(false);
       sendLock.current = false;
     }
   };
   const updateDraft = (s: string) => {
+    draftRef.current = s;
+    draftRevision.current += 1;
     setDraft(s);
-    if (chat) localStorage.setItem("yeoun-draft:" + chat.id, s);
+    if (chat) {
+      draftEdits.current.set(
+        chat.id,
+        (draftEdits.current.get(chat.id) || 0) + 1,
+      );
+      localStorage.setItem("yeoun-draft:" + chat.id, s);
+    }
+  };
+  const chooseBranchAction = (message: Message, action: BranchAction) => {
+    if (
+      !message.actions?.[action] ||
+      busy ||
+      sending ||
+      branching ||
+      sendLock.current ||
+      resumeTurn ||
+      pendingRetry ||
+      pendingBranch
+    )
+      return;
+    if (
+      action !== "branch" &&
+      !(typeof message.action_cost === "number" && message.action_cost > 0)
+    )
+      return;
+    setError("");
+    setBranchContent(action === "edit" ? message.content : "");
+    setBranchDialog({ message, action });
+  };
+  const runBranchAction = async (record: PendingBranch) => {
+    if (
+      !chat ||
+      busy ||
+      sending ||
+      branching ||
+      sendLock.current ||
+      resumeTurn ||
+      pendingRetry
+    )
+      return;
+    const cid = chat.id,
+      epoch = viewEpoch.current,
+      { body } = record;
+    if (!isChatView(cid, epoch)) return;
+    sendLock.current = true;
+    setBranching(true);
+    setError("");
+    let resultKnown = !!record.result;
+    try {
+      const unfinishedTurn = readPendingTurn(cid);
+      if (unfinishedTurn) {
+        setPendingRetry(unfinishedTurn);
+        throw new Error("이전 메시지의 전송 결과를 먼저 확인해 주세요.");
+      }
+      const stored = readPendingBranch(cid);
+      if (stored && stored.body.client_id !== body.client_id) {
+        setPendingBranch(stored);
+        throw new Error("이전 이야기 전환 결과를 먼저 확인해 주세요.");
+      }
+      const pending = stored || record;
+      savePendingBranch(cid, pending);
+      setPendingBranch(pending);
+      setBranchDialog(null);
+      const result =
+        pending.result ||
+        (await api<BranchResult>(`/v1/conversations/${cid}/branches`, {
+          method: "POST",
+          body: JSON.stringify(body),
+        }));
+      resultKnown = true;
+      // Persist the receipt even after navigating away. Reopening the source
+      // recovers this exact branch without charging for another generation.
+      const receipt = { body, result };
+      if (readPendingBranch(cid)?.body.client_id === body.client_id)
+        savePendingBranch(cid, receipt);
+      if (!isChatView(cid, epoch)) return;
+      setPendingBranch(receipt);
+      const next = await api<Conversation>(
+        `/v1/conversations/${result.conversation_id}`,
+      );
+      if (!isChatView(cid, epoch)) return;
+      const nextDraft = localStorage.getItem("yeoun-draft:" + next.id) || "";
+      const nextEpoch = ++viewEpoch.current;
+      activeChatId.current = next.id;
+      controller.current?.abort();
+      controller.current = null;
+      clearPendingBranch(cid, body.client_id);
+      setChat(next);
+      setPendingBranch(readPendingBranch(next.id));
+      setPendingRetry(readPendingTurn(next.id));
+      setResumeTurn(null);
+      setStream("");
+      setBranchDialog(null);
+      setBranching(false);
+      setShowPanel(false);
+      nearBottom.current = true;
+      setShowLatest(false);
+      draftRef.current = nextDraft;
+      draftRevision.current += 1;
+      setDraft(nextDraft);
+      sendLock.current = false;
+      void loadMe();
+      notify(
+        body.action === "branch"
+          ? "새 갈래의 이야기를 열었어요."
+          : "새 갈래에서 이야기를 이어가요.",
+      );
+      const tid = next.active_turn || result.turn_id;
+      if (tid && !turnIsSaved(next, tid)) void listen(next.id, tid, nextEpoch);
+    } catch (e) {
+      const rejected =
+        !resultKnown &&
+        e instanceof ApiError &&
+        [400, 401, 402, 403, 404, 409, 422].includes(e.status);
+      if (rejected) clearPendingBranch(cid, body.client_id);
+      if (!isChatView(cid, epoch)) return;
+      if (rejected) setPendingBranch(null);
+      setError((e as Error).message);
+      if (e instanceof ApiError && e.status === 402) void openWallet();
+    } finally {
+      if (isChatView(cid, epoch)) {
+        setBranching(false);
+        sendLock.current = false;
+      }
+    }
   };
   const openWallet = async () => {
     setModal("wallet");
@@ -380,17 +828,26 @@ export default function Talevi() {
     const cid = sessionStorage.getItem("yeoun-return-chat");
     if (cid) {
       sessionStorage.removeItem("yeoun-return-chat");
-      api<Conversation>(`/v1/conversations/${cid}`)
+      const epoch = ++viewEpoch.current;
+      activeChatId.current = cid;
+      nearBottom.current = true;
+      refreshChat(cid, epoch)
         .then((c) => {
-          setChat(c);
-          setDraft(localStorage.getItem("yeoun-draft:" + cid) || "");
-          if (c.active_turn) void listen(cid, c.active_turn);
+          if (!isChatView(cid, epoch)) return;
+          setPendingRetry(readPendingTurn(cid));
+          setPendingBranch(readPendingBranch(cid));
+          draftRef.current = localStorage.getItem("yeoun-draft:" + cid) || "";
+          draftRevision.current += 1;
+          setDraft(draftRef.current);
+          if (c.active_turn) void listen(cid, c.active_turn, epoch);
         })
         .catch(() => {});
     }
   }, [characters.length]);
   const saveMemory = async () => {
     if (!chat || !memoryValue.trim()) return;
+    const cid = chat.id,
+      epoch = viewEpoch.current;
     setBusy(true);
     try {
       if (memoryEdit)
@@ -403,37 +860,47 @@ export default function Talevi() {
           method: "POST",
           body: JSON.stringify({ key: memoryKey, value: memoryValue }),
         });
-      await refreshChat(chat.id);
+      await refreshChat(cid, epoch);
+      if (!isChatView(cid, epoch)) return;
       setShowMemoryForm(false);
       setMemoryEdit(null);
       setMemoryValue("");
       setMemoryKey("");
       notify("기억 노트에 저장했어요.");
     } catch (e) {
-      setError((e as Error).message);
+      if (isChatView(cid, epoch)) setError((e as Error).message);
     } finally {
-      setBusy(false);
+      if (isChatView(cid, epoch)) setBusy(false);
     }
   };
   const deleteMemory = async (m: Memory) => {
+    if (!chat) return;
+    const cid = chat.id,
+      epoch = viewEpoch.current;
     try {
       await api(`/v1/memories/${m.id}`, { method: "DELETE" });
-      if (chat) await refreshChat(chat.id);
+      await refreshChat(cid, epoch);
+      if (!isChatView(cid, epoch)) return;
       notify("기억을 지웠어요. 이후 답변에 사용하지 않아요.");
     } catch (e) {
-      setError((e as Error).message);
+      if (isChatView(cid, epoch)) setError((e as Error).message);
     }
   };
   const settingsChange = async (next: Conversation["settings"]) => {
     if (!chat) return;
+    const cid = chat.id,
+      epoch = viewEpoch.current;
     try {
-      await api(`/v1/conversations/${chat.id}/settings`, {
+      await api(`/v1/conversations/${cid}/settings`, {
         method: "PATCH",
         body: JSON.stringify(next),
       });
-      setChat({ ...chat, settings: next });
+      if (isChatView(cid, epoch))
+        setChat((current) =>
+          current?.id === cid ? { ...current, settings: next } : current,
+        );
     } catch (e) {
-      setError((e as Error).message);
+      if (isChatView(cid, epoch)) setError((e as Error).message);
     }
   };
   const auth = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -448,7 +915,7 @@ export default function Talevi() {
       });
       await loadMe();
       await loadCatalog();
-      setChat(null);
+      closeChat();
       setModal(null);
       notify(
         authMode === "register"
@@ -514,6 +981,13 @@ export default function Talevi() {
   );
   const featured = spotlights[featureIndex % Math.max(spotlights.length, 1)];
   const fantasyPick = characters.find((c) => c.id === "kairen");
+  const chatUnavailable =
+    busy ||
+    sending ||
+    branching ||
+    !!resumeTurn ||
+    !!pendingRetry ||
+    !!pendingBranch;
   return (
     <div className={`app-shell ${chat ? "in-chat" : ""}`}>
       <aside className="sidebar">
@@ -904,7 +1378,15 @@ export default function Talevi() {
                               {char.name}
                               <span>{c.relationship.stage}</span>
                             </h3>
-                            <p>{char.role}</p>
+                            <p>
+                              {char.role}
+                              {c.branch && (
+                                <span className="branch-list-label">
+                                  <GitBranch size={11} />
+                                  {branchLabels[c.branch.action]}
+                                </span>
+                              )}
+                            </p>
                           </div>
                           <span className="conversation-date">
                             {new Date(c.updated * 1000).toLocaleDateString(
@@ -987,7 +1469,32 @@ export default function Talevi() {
                   예시 답변으로 체험 중이에요. 실제 AI 연결은 준비 중입니다.
                 </div>
               )}
-              <div className="message-scroll">
+              {chat.branch && (
+                <div className="branch-banner">
+                  <span>
+                    <GitBranch size={14} />
+                    {branchLabels[chat.branch.action]}
+                  </span>
+                  <button
+                    disabled={branching}
+                    onClick={() =>
+                      void openChat(current, chat.branch!.parent_id)
+                    }
+                  >
+                    <ArrowLeft size={13} /> 이전 이야기
+                  </button>
+                </div>
+              )}
+              <div
+                className="message-scroll"
+                ref={messageScroll}
+                onScroll={(event) => {
+                  const node = event.currentTarget;
+                  nearBottom.current =
+                    node.scrollHeight - node.scrollTop - node.clientHeight < 96;
+                  setShowLatest(!nearBottom.current);
+                }}
+              >
                 <div className="scene-intro">
                   <span className="eyebrow">우리의 첫 장면</span>
                   <h3>{current.role}</h3>
@@ -1008,15 +1515,50 @@ export default function Talevi() {
                     {m.status === "failed" && (
                       <small>전송한 대화의 답변을 완료하지 못했어요.</small>
                     )}
-                    {m.role === "assistant" && (
+                    {(m.role === "assistant" || m.actions?.edit) && (
                       <div className="message-actions">
-                        <button
-                          aria-label="답변 의견 남기기"
-                          onClick={() => setFeedback(m.id)}
-                        >
-                          <Flag size={13} />
-                          <span>의견 남기기</span>
-                        </button>
+                        {m.actions?.regenerate &&
+                          typeof m.action_cost === "number" &&
+                          m.action_cost > 0 && (
+                            <button
+                              disabled={chatUnavailable}
+                              onClick={() =>
+                                chooseBranchAction(m, "regenerate")
+                              }
+                            >
+                              <RefreshCw size={13} />
+                              <span>다른 답변 · {m.action_cost} 빛</span>
+                            </button>
+                          )}
+                        {m.actions?.branch && (
+                          <button
+                            disabled={chatUnavailable}
+                            onClick={() => chooseBranchAction(m, "branch")}
+                          >
+                            <GitBranch size={13} />
+                            <span>여기서 분기</span>
+                          </button>
+                        )}
+                        {m.actions?.edit &&
+                          typeof m.action_cost === "number" &&
+                          m.action_cost > 0 && (
+                            <button
+                              disabled={chatUnavailable}
+                              onClick={() => chooseBranchAction(m, "edit")}
+                            >
+                              <Pencil size={13} />
+                              <span>수정해서 이어가기</span>
+                            </button>
+                          )}
+                        {m.role === "assistant" && (
+                          <button
+                            aria-label="답변 의견 남기기"
+                            onClick={() => setFeedback(m.id)}
+                          >
+                            <Flag size={13} />
+                            <span>의견 남기기</span>
+                          </button>
+                        )}
                       </div>
                     )}
                   </div>
@@ -1032,19 +1574,99 @@ export default function Talevi() {
                           <i />
                           <i />
                           <i />
-                          <small>답장을 생각하고 있어요</small>
+                          <small>
+                            {connection === "reconnecting"
+                              ? "연결을 복구하고 있어요"
+                              : replyPhase === "writing"
+                                ? "답장을 쓰고 있어요"
+                                : "답장을 생각하고 있어요"}
+                          </small>
                         </span>
                       )}
                     </div>
                   </div>
                 )}
-                <div ref={bottom} />
+              </div>
+              <div
+                className="chat-progress"
+                aria-live="polite"
+                aria-atomic="true"
+              >
+                {showLatest && (
+                  <button
+                    className="latest-message-button"
+                    onClick={jumpToLatest}
+                  >
+                    <ArrowDown size={14} /> 최신 대화 보기
+                  </button>
+                )}
+                {sending && stream && connection === "reconnecting" && (
+                  <span className="connection-note">
+                    연결을 복구하고 있어요. 저장된 답변부터 이어 받아요.
+                  </span>
+                )}
+                {branching && (
+                  <span className="connection-note">
+                    선택한 장면에서 새 이야기를 열고 있어요…
+                  </span>
+                )}
+                {pendingBranch && !branching && (
+                  <div className="reply-recovery">
+                    <span>
+                      {pendingBranch.result
+                        ? "만들어진 새 이야기를 다시 열 수 있어요."
+                        : "이야기 전환 결과를 확인해 주세요. 같은 요청으로 이어가요."}
+                    </span>
+                    <button
+                      disabled={
+                        busy || sending || !!resumeTurn || !!pendingRetry
+                      }
+                      onClick={() => void runBranchAction(pendingBranch)}
+                    >
+                      <RefreshCw size={14} /> 이야기 전환 확인
+                    </button>
+                  </div>
+                )}
+                {pendingRetry && !sending && !resumeTurn && !error && (
+                  <div className="reply-recovery">
+                    <span>
+                      전송 결과를 확인하지 못했어요. 같은 메시지로 다시 확인해
+                      주세요.
+                    </span>
+                    <button
+                      onClick={() =>
+                        void send(
+                          pendingRetry.content,
+                          pendingRetry.story_event,
+                          true,
+                        )
+                      }
+                    >
+                      <RefreshCw size={14} /> 같은 메시지 재시도
+                    </button>
+                  </div>
+                )}
+                {resumeTurn && !sending && (
+                  <div className="reply-recovery">
+                    <span>
+                      저장된 답변에 다시 연결할 수 있어요. 빛은 추가로 사용하지
+                      않아요.
+                    </span>
+                    <button onClick={() => void reconnectReply()}>
+                      <RefreshCw size={14} /> 답변 다시 연결
+                    </button>
+                  </div>
+                )}
               </div>
               <div className="composer-wrap">
                 {chat.messages.length === 1 && !sending && (
                   <div className="starters">
                     {current.starters.map((s) => (
-                      <button key={s} onClick={() => send(s)}>
+                      <button
+                        key={s}
+                        disabled={chatUnavailable}
+                        onClick={() => send(s)}
+                      >
                         {s}
                         <ArrowUpRight size={13} />
                       </button>
@@ -1057,7 +1679,7 @@ export default function Talevi() {
                     다음 장면
                   </span>
                   <button
-                    disabled={sending}
+                    disabled={chatUnavailable}
                     onClick={() =>
                       send("주변에 새로운 단서가 있는지 살펴본다.", "discovery")
                     }
@@ -1065,7 +1687,7 @@ export default function Talevi() {
                     새로운 발견
                   </button>
                   <button
-                    disabled={sending}
+                    disabled={chatUnavailable}
                     onClick={() =>
                       send("함께 다른 장소로 걸어갈까?", "change_scene")
                     }
@@ -1073,7 +1695,7 @@ export default function Talevi() {
                     장소 바꾸기
                   </button>
                   <button
-                    disabled={sending}
+                    disabled={chatUnavailable}
                     onClick={() => send("잠깐 같이 쉬고 싶어.", "quiet")}
                   >
                     잠시 쉬어가기
@@ -1110,7 +1732,7 @@ export default function Talevi() {
                       <select
                         aria-label="대화 모드"
                         value={mode}
-                        disabled={sending}
+                        disabled={chatUnavailable}
                         onChange={(e) =>
                           setMode(e.target.value as "quick" | "story")
                         }
@@ -1127,7 +1749,7 @@ export default function Talevi() {
                     <button
                       className="send-button"
                       type="submit"
-                      disabled={sending || !draft.trim()}
+                      disabled={chatUnavailable || !draft.trim()}
                       aria-label="메시지 보내기"
                     >
                       <Send size={18} />
@@ -1180,7 +1802,7 @@ export default function Talevi() {
                       <button
                         className="icon-button"
                         aria-label="기억 추가"
-                        disabled={sending}
+                        disabled={chatUnavailable}
                         onClick={() => {
                           setShowMemoryForm(true);
                           setMemoryEdit(null);
@@ -1221,7 +1843,7 @@ export default function Talevi() {
                               : "대화에서 기억했어요"}
                           </small>
                           <button
-                            disabled={sending}
+                            disabled={chatUnavailable}
                             aria-label={`${m.key} 수정`}
                             onClick={() => {
                               setMemoryEdit(m);
@@ -1232,7 +1854,7 @@ export default function Talevi() {
                             <Pencil size={13} />
                           </button>
                           <button
-                            disabled={sending}
+                            disabled={chatUnavailable}
                             aria-label={`${m.key} 삭제`}
                             onClick={() => deleteMemory(m)}
                           >
@@ -1262,19 +1884,22 @@ export default function Talevi() {
                         ))}
                         <button
                           className="text-button"
-                          disabled={sending}
+                          disabled={chatUnavailable}
                           onClick={async () => {
+                            const cid = chat.id,
+                              epoch = viewEpoch.current;
                             try {
-                              await api(
-                                `/v1/conversations/${chat.id}/episodes`,
-                                { method: "DELETE" },
-                              );
-                              await refreshChat(chat.id);
+                              await api(`/v1/conversations/${cid}/episodes`, {
+                                method: "DELETE",
+                              });
+                              await refreshChat(cid, epoch);
+                              if (!isChatView(cid, epoch)) return;
                               notify(
                                 "이전 장면을 지웠어요. 별도로 저장한 기억 노트는 남아 있어요.",
                               );
                             } catch (e) {
-                              notify((e as Error).message);
+                              if (isChatView(cid, epoch))
+                                notify((e as Error).message);
                             }
                           }}
                         >
@@ -1382,7 +2007,7 @@ export default function Talevi() {
                       <input
                         type="checkbox"
                         checked={chat.settings.memory_enabled}
-                        disabled={sending}
+                        disabled={chatUnavailable}
                         onChange={(e) =>
                           settingsChange({
                             ...chat.settings,
@@ -1394,7 +2019,7 @@ export default function Talevi() {
                     <label className="field">
                       관계의 속도
                       <select
-                        disabled={sending}
+                        disabled={chatUnavailable}
                         value={chat.settings.pace}
                         onChange={(e) =>
                           settingsChange({
@@ -1410,7 +2035,7 @@ export default function Talevi() {
                     <label className="field">
                       답변 분량
                       <select
-                        disabled={sending}
+                        disabled={chatUnavailable}
                         value={chat.settings.length}
                         onChange={(e) =>
                           settingsChange({
@@ -1441,7 +2066,7 @@ export default function Talevi() {
           <span>{error}</span>
           {pendingRetry && chat && (
             <button
-              disabled={sending}
+              disabled={sending || !!resumeTurn}
               onClick={() =>
                 send(pendingRetry.content, pendingRetry.story_event, true)
               }
@@ -1747,6 +2372,93 @@ export default function Talevi() {
               기억 저장하기
             </button>
           </div>
+        </Modal>
+      )}
+      {branchDialog && chat && (
+        <Modal
+          error={error}
+          title={branchLabels[branchDialog.action]}
+          onClose={() => setBranchDialog(null)}
+        >
+          <form
+            className="form-stack branch-form"
+            onSubmit={(event) => {
+              event.preventDefault();
+              if (chatUnavailable) return;
+              void runBranchAction({
+                body: {
+                  client_id: crypto.randomUUID(),
+                  message_id: branchDialog.message.id,
+                  action: branchDialog.action,
+                  ...(branchDialog.action === "edit"
+                    ? { content: branchContent.trim() }
+                    : {}),
+                },
+              });
+            }}
+          >
+            <p className="modal-description">
+              {branchDialog.action === "branch"
+                ? "이 답변까지의 기억, 관계와 이야기 상태로 새 이야기를 시작해요."
+                : branchDialog.action === "regenerate"
+                  ? "이 답변 직전의 기억, 관계와 이야기 상태로 돌아가, 같은 메시지에 다른 답변을 받아요."
+                  : "이 메시지를 보내기 직전의 기억, 관계와 이야기 상태로 돌아가, 수정한 내용으로 새 답변을 받아요."}{" "}
+              선택한 시점 이후의 대화는 새 갈래에 포함되지 않아요. 원본 대화는
+              그대로 남아요. 나중에 고치거나 지운 기억도 당시 상태로 돌아와요.
+            </p>
+            {branchDialog.action === "edit" ? (
+              <label className="field">
+                수정할 메시지
+                <textarea
+                  value={branchContent}
+                  required
+                  maxLength={3000}
+                  onChange={(event) => setBranchContent(event.target.value)}
+                />
+                <small>{branchContent.length}/3000</small>
+              </label>
+            ) : (
+              <blockquote className="branch-preview">
+                {branchDialog.message.content.slice(0, 280)}
+                {branchDialog.message.content.length > 280 ? "…" : ""}
+              </blockquote>
+            )}
+            <div className="branch-cost">
+              <span>
+                <Sparkles size={15} />
+                {branchDialog.action === "branch"
+                  ? "분기는 무료예요"
+                  : `새 답변 ${branchDialog.message.action_cost} 빛`}
+              </span>
+              {branchDialog.action !== "branch" && (
+                <small>원래 대화 모드로 답변을 생성해요.</small>
+              )}
+            </div>
+            <div className="branch-dialog-actions">
+              <button
+                type="button"
+                className="secondary"
+                onClick={() => setBranchDialog(null)}
+              >
+                돌아가기
+              </button>
+              <button
+                className="primary"
+                disabled={
+                  chatUnavailable ||
+                  (branchDialog.action === "edit" &&
+                    (!branchContent.trim() ||
+                      branchContent.trim() ===
+                        branchDialog.message.content.trim()))
+                }
+              >
+                <GitBranch size={16} />
+                {branchDialog.action === "branch"
+                  ? "새 갈래 시작하기"
+                  : "새 갈래에서 답변 받기"}
+              </button>
+            </div>
+          </form>
         </Modal>
       )}
       {feedback && (

@@ -29,6 +29,26 @@ export type Message = {
   status: string;
   created: number;
   turn_id: string | null;
+  actions?: { branch: boolean; regenerate: boolean; edit: boolean };
+  action_cost?: number;
+};
+export type BranchAction = "branch" | "regenerate" | "edit";
+export type BranchOrigin = {
+  parent_id: string;
+  message_id: string;
+  action: BranchAction;
+};
+export type BranchRequest = {
+  client_id: string;
+  message_id: string;
+  action: BranchAction;
+  content?: string;
+};
+export type BranchResult = {
+  conversation_id: string;
+  turn_id: string | null;
+  status: string;
+  cost: number;
 };
 export type Memory = {
   id: string;
@@ -81,10 +101,11 @@ export type Conversation = {
     }[];
   };
   active_turn: string | null;
+  branch?: BranchOrigin | null;
 };
 export type ConversationSummary = Pick<
   Conversation,
-  "id" | "character_id" | "relationship"
+  "id" | "character_id" | "relationship" | "branch"
 > & { updated: number };
 export type StreamItem = {
   id: number;

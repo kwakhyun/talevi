@@ -3,10 +3,12 @@ import uuid
 
 from sqlalchemy import (
     JSON,
+    BigInteger,
     Boolean,
     CheckConstraint,
     Float,
     ForeignKey,
+    Identity,
     Integer,
     String,
     Text,
@@ -82,6 +84,7 @@ class Conversation(Base):
     narrative: Mapped[dict] = mapped_column(
         JSON, default=lambda: {"chapter": 1, "beat": 0, "last_event": None}
     )
+    branch: Mapped[dict | None] = mapped_column(JSON, nullable=True)
     active_turn: Mapped[str | None] = mapped_column(String(36))
     updated: Mapped[float] = mapped_column(Float, default=now, index=True)
 
@@ -113,6 +116,10 @@ class Turn(Base):
 class Message(Base):
     __tablename__ = "messages"
     id: Mapped[str] = mapped_column(String(36), primary_key=True, default=uid)
+    # Immutable insertion boundary; timestamps may be preserved or backdated in clones.
+    ordinal: Mapped[int] = mapped_column(
+        BigInteger, Identity(), unique=True, index=True
+    )
     conversation_id: Mapped[str] = mapped_column(
         ForeignKey("conversations.id", ondelete="CASCADE"), index=True
     )
@@ -210,3 +217,36 @@ class StorePurchase(Base):
     credits: Mapped[int] = mapped_column(Integer)
     status: Mapped[str] = mapped_column(String(20))
     updated: Mapped[float] = mapped_column(Float, default=now)
+
+
+class ConversationCheckpoint(Base):
+    __tablename__ = "conversation_checkpoints"
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=uid)
+    conversation_id: Mapped[str] = mapped_column(
+        ForeignKey("conversations.id", ondelete="CASCADE"), index=True
+    )
+    message_id: Mapped[str] = mapped_column(
+        ForeignKey("messages.id", ondelete="CASCADE"), index=True
+    )
+    phase: Mapped[str] = mapped_column(String(8))
+    snapshot: Mapped[dict] = mapped_column(JSON)
+    replay: Mapped[dict | None] = mapped_column(JSON, nullable=True)
+    __table_args__ = (UniqueConstraint("message_id", "phase"),)
+
+
+class BranchRequest(Base):
+    __tablename__ = "branch_requests"
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=uid)
+    user_id: Mapped[str] = mapped_column(
+        ForeignKey("users.id", ondelete="CASCADE"), index=True
+    )
+    client_id: Mapped[str] = mapped_column(String(64))
+    fingerprint: Mapped[str] = mapped_column(String(64))
+    conversation_id: Mapped[str] = mapped_column(
+        ForeignKey("conversations.id", ondelete="CASCADE")
+    )
+    turn_id: Mapped[str | None] = mapped_column(
+        ForeignKey("turns.id", ondelete="CASCADE"), nullable=True
+    )
+    cost: Mapped[int] = mapped_column(Integer)
+    __table_args__ = (UniqueConstraint("user_id", "client_id"),)

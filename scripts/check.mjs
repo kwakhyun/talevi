@@ -1,6 +1,8 @@
 import { spawnSync } from "node:child_process";
 const checks = [
   ["npm", ["run", "typecheck"]],
+  ["npm", ["run", "test:chat-stream"]],
+  ["npm", ["run", "test:mobile-chat"]],
   ["npm", ["run", "build"]],
   [".venv/bin/ruff", ["check", "apps/api", "--select", "F,I"]],
   ["../../.venv/bin/python", ["-m", "pytest", "-q"], "apps/api"],

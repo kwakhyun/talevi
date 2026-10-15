@@ -45,6 +45,8 @@ npx expo start
 
 ```sh
 npm run typecheck
+npm run test:chat-stream
+npm run test:mobile-chat
 npm run build
 cd apps/api
 ../../.venv/bin/python -m pytest -q
@@ -52,6 +54,8 @@ cd apps/api
 ```
 
 테스트는 `yeoun_test` 전용 DB를 매번 초기화한다. `TEST_DATABASE_URL`을 운영 DB로 설정하지 않는다. 테스트 코드에도 DB 이름 검사를 넣었다.
+
+API 테스트는 실제 모델 키를 비우고 외부 HTTP 전송을 차단한다. 기본 회귀 검사에 유료 모델 호출은 필요 없다. [재생성, 편집, 분기 검증](CHAT-BRANCHING.md)은 30명 전체의 상태 복원을 고정 응답으로 검사한다. 2026-10-15 기준 로컬 스키마 head는 `93acde81f204`다. 상태 기록이 없는 이전 메시지는 복원 기능을 제공하지 않으며 업데이트 이후 새 턴부터 사용한다.
 
 ```sh
 cd apps/mobile

@@ -7,12 +7,31 @@ os.environ["DEMO_MODE"] = "true"
 os.environ["RUN_WORKER"] = "false"
 os.environ["AUTO_CREATE_SCHEMA"] = "false"
 os.environ["ENVIRONMENT"] = "test"
+os.environ["OPENAI_API_KEY"] = ""
+import httpx
+import pytest
 import pytest_asyncio
 from httpx import ASGITransport, AsyncClient
 from yeoun.catalog import CHARACTERS
 from yeoun.db import SessionLocal, engine
 from yeoun.main import app
 from yeoun.models import Base, Character
+
+
+@pytest.fixture(autouse=True)
+def no_external_http(monkeypatch):
+    """The test suite cannot spend credits, even if a demo/mocking guard regresses."""
+
+    def blocked(*args, **kwargs):
+        pytest.fail(
+            "External HTTP is disabled in tests; use ASGITransport or MockTransport."
+        )
+
+    async def async_blocked(*args, **kwargs):
+        blocked()
+
+    monkeypatch.setattr(httpx.HTTPTransport, "handle_request", blocked)
+    monkeypatch.setattr(httpx.AsyncHTTPTransport, "handle_async_request", async_blocked)
 
 
 @pytest_asyncio.fixture(autouse=True)

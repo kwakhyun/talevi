@@ -26,16 +26,32 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { fetch as streamFetch } from "expo/fetch";
 import {
   createApi,
+  ApiError,
   parseSseBlock,
   type Character,
   type Conversation,
   type ConversationSummary,
+  type Message,
+  type BranchAction,
+  type BranchRequest,
+  type BranchResult,
   type User,
   ko,
 } from "@yeoun/contracts";
 const base = process.env.EXPO_PUBLIC_API_URL || "http://127.0.0.1:8000";
 const assetBase = process.env.EXPO_PUBLIC_ASSET_URL || "http://127.0.0.1:3000";
 const api = createApi(base, () => SecureStore.getItemAsync("yeoun-token"));
+type PendingMessage = {
+  client_id: string;
+  content: string;
+  mode: "quick" | "story";
+  story_event: string | null;
+};
+const actionLabels: Record<BranchAction, string> = {
+  branch: "여기서 새 이야기",
+  regenerate: "다른 답장 보기",
+  edit: "내 메시지 수정",
+};
 const posters: Record<string, number> = {
   taeo: require("../web/public/characters/taeo.png"),
   eunho: require("../web/public/characters/eunho.png"),
@@ -121,15 +137,36 @@ function Experience() {
     [memoryValue, setMemoryValue] = useState("");
   const ctrl = useRef<AbortController | null>(null),
     chatRef = useRef<Conversation | null>(null),
+    chatGeneration = useRef(0),
+    activeConversation = useRef<string | null>(null),
+    reloadSequence = useRef(0),
     scroll = useRef<React.ElementRef<typeof ScrollView>>(null),
+    nearBottom = useRef(true),
+    draftRef = useRef(""),
+    draftHydrated = useRef(false),
+    draftRevision = useRef(0),
+    draftWrites = useRef(Promise.resolve()),
+    pendingWrites = useRef(Promise.resolve()),
     lock = useRef(false),
     draftTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const pending = useRef<{
-    client_id: string;
-    content: string;
-    mode: "quick" | "story";
-    story_event: string | null;
+  const [showLatest, setShowLatest] = useState(false),
+    [replyPhase, setReplyPhase] = useState<
+      "thinking" | "writing" | "reconnecting" | "paused" | null
+    >(null),
+    [resumeTurn, setResumeTurn] = useState<{
+      conversationId: string;
+      turnId: string;
+    } | null>(null);
+  const pending = useRef<PendingMessage | null>(null);
+  const pendingAction = useRef<BranchRequest | null>(null);
+  const [actionDialog, setActionDialog] = useState<{
+    conversationId: string;
+    generation: number;
+    message: Message;
+    action: BranchAction;
   } | null>(null);
+  const [actionContent, setActionContent] = useState("");
+  const [actionSending, setActionSending] = useState(false);
   const [storePackages, setStorePackages] = useState<PurchasesPackage[]>([]),
     [purchasing, setPurchasing] = useState(false),
     [paymentNotice, setPaymentNotice] = useState("");
@@ -167,6 +204,21 @@ function Experience() {
     }
   }
   const char = chars.find((c) => c.id === chat?.character_id);
+  const chatBusy =
+    sending ||
+    actionSending ||
+    resumeTurn !== null ||
+    pending.current !== null ||
+    pendingAction.current !== null ||
+    !!chat?.active_turn;
+  const phaseLabel =
+    replyPhase === "reconnecting"
+      ? "연결을 다시 확인하고 있어요…"
+      : replyPhase === "paused"
+        ? "저장된 답변을 다시 불러와 주세요."
+        : replyPhase === "writing"
+          ? "답장을 쓰고 있어요…"
+          : "답장을 생각하고 있어요…";
   async function refreshUser() {
     const u = await api<User>("/v1/me");
     setUser(u);
@@ -176,7 +228,8 @@ function Experience() {
   async function ensure() {
     try {
       return await refreshUser();
-    } catch {
+    } catch (e) {
+      if (!(e instanceof ApiError) || e.status !== 401) throw e;
       const res = await api<{ user: User; token: string }>("/v1/auth/guest", {
         method: "POST",
         body: JSON.stringify({ native: true }),
@@ -186,12 +239,142 @@ function Experience() {
       return res.user;
     }
   }
-  async function reload(cid: string) {
+  function isCurrentChat(cid: string, generation: number) {
+    return (
+      chatGeneration.current === generation &&
+      activeConversation.current === cid
+    );
+  }
+  async function reload(cid: string, generation = chatGeneration.current) {
+    if (!isCurrentChat(cid, generation)) return null;
+    const sequence = ++reloadSequence.current;
     const c = await api<Conversation>(`/v1/conversations/${cid}`);
+    if (!isCurrentChat(cid, generation) || sequence !== reloadSequence.current)
+      return null;
     setChat(c);
     chatRef.current = c;
-    await refreshUser();
+    void refreshUser().catch(() => {});
     return c;
+  }
+  function persistDraft(cid: string, value: string | null) {
+    draftWrites.current = draftWrites.current
+      .catch(() => {})
+      .then(() =>
+        value === null
+          ? AsyncStorage.removeItem("draft:" + cid)
+          : AsyncStorage.setItem("draft:" + cid, value),
+      );
+    // Storage failures must not interrupt a message that has already been sent.
+    void draftWrites.current.catch(() => {});
+  }
+  function savePending(cid: string, body: PendingMessage) {
+    pendingWrites.current = pendingWrites.current
+      .catch(() => {})
+      .then(() =>
+        AsyncStorage.setItem("pending-turn:" + cid, JSON.stringify(body)),
+      );
+    return pendingWrites.current;
+  }
+  function clearPending(cid: string, clientId: string) {
+    pendingWrites.current = pendingWrites.current
+      .catch(() => {})
+      .then(async () => {
+        const stored = await AsyncStorage.getItem("pending-turn:" + cid);
+        if (stored && JSON.parse(stored).client_id === clientId)
+          await AsyncStorage.removeItem("pending-turn:" + cid);
+      });
+    return pendingWrites.current;
+  }
+  async function loadPending(cid: string): Promise<PendingMessage | null> {
+    await pendingWrites.current.catch(() => {});
+    const stored = await AsyncStorage.getItem("pending-turn:" + cid);
+    if (!stored) return null;
+    const value = JSON.parse(stored) as PendingMessage;
+    if (
+      typeof value.client_id !== "string" ||
+      typeof value.content !== "string" ||
+      !["quick", "story"].includes(value.mode) ||
+      !(value.story_event === null || typeof value.story_event === "string")
+    )
+      throw new Error(
+        "이전 전송 정보를 불러오지 못했어요. 앱을 다시 열어 주세요.",
+      );
+    return value;
+  }
+  function savePendingAction(cid: string, body: BranchRequest) {
+    pendingWrites.current = pendingWrites.current
+      .catch(() => {})
+      .then(() =>
+        AsyncStorage.setItem("pending-action:" + cid, JSON.stringify(body)),
+      );
+    return pendingWrites.current;
+  }
+  function clearPendingAction(cid: string, clientId: string) {
+    pendingWrites.current = pendingWrites.current
+      .catch(() => {})
+      .then(async () => {
+        const stored = await AsyncStorage.getItem("pending-action:" + cid);
+        if (stored && JSON.parse(stored).client_id === clientId)
+          await AsyncStorage.removeItem("pending-action:" + cid);
+      });
+    return pendingWrites.current;
+  }
+  async function loadPendingAction(cid: string): Promise<BranchRequest | null> {
+    await pendingWrites.current.catch(() => {});
+    const stored = await AsyncStorage.getItem("pending-action:" + cid);
+    if (!stored) return null;
+    const value = JSON.parse(stored) as BranchRequest;
+    if (
+      typeof value.client_id !== "string" ||
+      typeof value.message_id !== "string" ||
+      !["branch", "regenerate", "edit"].includes(value.action) ||
+      (value.action === "edit" && typeof value.content !== "string")
+    )
+      throw new Error(
+        "이전 이야기 요청을 불러오지 못했어요. 앱을 다시 열어 주세요.",
+      );
+    return value;
+  }
+  function flushDraft() {
+    if (draftTimer.current) clearTimeout(draftTimer.current);
+    draftTimer.current = null;
+    if (activeConversation.current && draftHydrated.current)
+      persistDraft(activeConversation.current, draftRef.current);
+  }
+  function resetChatView() {
+    flushDraft();
+    chatGeneration.current += 1;
+    ctrl.current?.abort();
+    ctrl.current = null;
+    activeConversation.current = null;
+    chatRef.current = null;
+    pending.current = null;
+    pendingAction.current = null;
+    lock.current = false;
+    nearBottom.current = true;
+    draftRef.current = "";
+    draftHydrated.current = false;
+    draftRevision.current += 1;
+    setChat(null);
+    setDraft("");
+    setMemoryKey("");
+    setMemoryValue("");
+    setActionDialog(null);
+    setActionContent("");
+    setActionSending(false);
+    setSending(false);
+    setStream("");
+    setReplyPhase(null);
+    setResumeTurn(null);
+    setShowLatest(false);
+    setError("");
+    setSheet(null);
+    return chatGeneration.current;
+  }
+  function jumpToLatest(animated = true) {
+    nearBottom.current = true;
+    setShowLatest(false);
+    scroll.current?.scrollToEnd({ animated });
   }
   useEffect(() => {
     Promise.all([
@@ -205,35 +388,56 @@ function Experience() {
       .catch((e) => setError(e.message));
     refreshUser().catch(() => {});
     return () => {
+      chatGeneration.current += 1;
       ctrl.current?.abort();
-      if (draftTimer.current) clearTimeout(draftTimer.current);
+      flushDraft();
     };
   }, []);
   useEffect(() => {
     const sub = AppState.addEventListener("change", async (state) => {
       if (state === "active" && chatRef.current) {
+        const cid = chatRef.current.id;
+        const generation = chatGeneration.current;
         try {
-          const c = await reload(chatRef.current.id);
-          if (c.active_turn) void follow(c.id, c.active_turn);
+          const c = await reload(cid, generation);
+          if (c?.active_turn && !pending.current && !pendingAction.current)
+            void follow(c.id, c.active_turn, generation);
         } catch (e) {
-          setError((e as Error).message);
+          if (isCurrentChat(cid, generation)) setError((e as Error).message);
         }
       }
     });
     return () => sub.remove();
   }, []);
-  async function follow(cid: string, tid: string) {
+  async function follow(
+    cid: string,
+    tid: string,
+    generation = chatGeneration.current,
+  ) {
+    if (!isCurrentChat(cid, generation)) return;
     ctrl.current?.abort();
     const abort = new AbortController();
     ctrl.current = abort;
+    const current = () =>
+      isCurrentChat(cid, generation) &&
+      ctrl.current === abort &&
+      !abort.signal.aborted;
+    lock.current = true;
     setSending(true);
     setStream("");
+    setError("");
+    setReplyPhase("thinking");
+    setResumeTurn({ conversationId: cid, turnId: tid });
     let cursor = 0,
-      terminal = false;
+      terminal: "done" | "failed" | null = null,
+      restored = false;
     try {
       for (let attempt = 0; attempt < 8 && !terminal; attempt++) {
+        if (!current()) return;
+        if (attempt > 0) setReplyPhase("reconnecting");
         try {
           const token = await SecureStore.getItemAsync("yeoun-token");
+          if (!current()) return;
           const res = await streamFetch(
             `${base}/v1/turns/${tid}/events?after=${cursor}`,
             {
@@ -243,12 +447,14 @@ function Experience() {
           );
           if (!res.ok || !res.body)
             throw new Error("답변 연결을 확인해 주세요.");
+          if (!current()) return;
           const reader = res.body.getReader(),
             decoder = new TextDecoder();
           let buffer = "";
           try {
             while (true) {
               const { done, value } = await reader.read();
+              if (!current()) return;
               buffer += decoder.decode(value, { stream: !done });
               let end;
               while ((end = buffer.indexOf("\n\n")) >= 0) {
@@ -256,49 +462,84 @@ function Experience() {
                 buffer = buffer.slice(end + 2);
                 if (item && item.id > cursor) {
                   cursor = item.id;
-                  if (item.event === "delta")
+                  if (item.event === "phase") {
+                    const name = item.data.name;
+                    if (name === "thinking" || name === "writing")
+                      setReplyPhase(name);
+                  }
+                  if (item.event === "delta") {
+                    setReplyPhase("writing");
                     setStream((s) => s + String(item.data.text));
+                  }
                   if (item.event === "failed") {
                     setStream("");
                     setError(String(item.data.message));
                   }
-                  if (["done", "failed"].includes(item.event)) terminal = true;
+                  if (item.event === "done" || item.event === "failed")
+                    terminal = item.event;
                 }
               }
               if (done || terminal) break;
             }
           } finally {
-            await reader.cancel();
+            await reader.cancel().catch(() => {});
           }
         } catch (e) {
-          if (abort.signal.aborted) throw e;
+          if (!current()) return;
         }
-        if (!terminal)
+        if (!terminal && attempt < 7) {
+          setReplyPhase("reconnecting");
           await new Promise((r) =>
             setTimeout(r, Math.min(500 * 2 ** attempt, 4000)),
           );
+        }
       }
-      if (!terminal) throw new Error("다시 연결하면 저장된 답변을 불러와요.");
-      if (!abort.signal.aborted) {
-        await reload(cid);
+      if (!current()) return;
+      // The server may have committed a reply even if its terminal event was lost.
+      const saved = await reload(cid, generation);
+      if (!current()) return;
+      if (!terminal && saved) {
+        if (
+          saved.messages.some(
+            (m) => m.turn_id === tid && m.role === "assistant",
+          )
+        )
+          terminal = "done";
+        else if (
+          saved.messages.some((m) => m.turn_id === tid && m.status === "failed")
+        ) {
+          terminal = "failed";
+          setError("답변을 완성하지 못했어요. 사용한 빛은 돌려드렸어요.");
+        }
+      }
+      if (!terminal || !saved)
+        throw new Error(
+          "연결이 끊겼어요. 저장된 답변을 다시 불러올 수 있어요.",
+        );
+      restored = true;
+      setResumeTurn(null);
+      if (terminal === "done")
         void Haptics.notificationAsync(
           Haptics.NotificationFeedbackType.Success,
-        );
-      }
+        ).catch(() => {});
     } catch (e) {
-      if (!abort.signal.aborted) setError((e as Error).message);
+      if (current()) setError((e as Error).message);
     } finally {
-      if (!abort.signal.aborted) {
+      if (current()) {
+        ctrl.current = null;
         setSending(false);
-        setStream("");
-        lock.current = false;
+        setReplyPhase(restored ? null : "paused");
+        if (restored) setStream("");
+        lock.current = !restored;
       }
     }
   }
-  async function open(c: Character, id?: string) {
-    setError("");
+  async function open(c: Character, id?: string, preloaded?: Conversation) {
+    const generation = resetChatView();
+    const openingDraftRevision = draftRevision.current;
     try {
-      await ensure();
+      if (!preloaded) await ensure();
+      if (generation !== chatGeneration.current) return;
       const cid =
         id ||
         convs.find((x) => x.character_id === c.id)?.id ||
@@ -308,12 +549,37 @@ function Experience() {
             body: JSON.stringify({ character_id: c.id }),
           })
         ).id;
-      const data = await reload(cid);
-      setDraft((await AsyncStorage.getItem("draft:" + cid)) || "");
-      pending.current = null;
-      if (data.active_turn) void follow(cid, data.active_turn);
+      if (generation !== chatGeneration.current) return;
+      activeConversation.current = cid;
+      const storedPending = await loadPending(cid);
+      const storedAction = await loadPendingAction(cid);
+      if (!isCurrentChat(cid, generation)) return;
+      pending.current = storedPending;
+      pendingAction.current = storedAction;
+      const data = preloaded || (await reload(cid, generation));
+      if (!data || !isCurrentChat(cid, generation)) return;
+      if (preloaded) {
+        chatRef.current = data;
+        setChat(data);
+        void refreshUser().catch(() => {});
+      }
+      if (data.active_turn && !storedPending && !storedAction)
+        void follow(cid, data.active_turn, generation);
+      await draftWrites.current.catch(() => {});
+      const savedDraft = await AsyncStorage.getItem("draft:" + cid).catch(
+        () => undefined,
+      );
+      if (!isCurrentChat(cid, generation)) return;
+      if (
+        savedDraft !== undefined &&
+        openingDraftRevision === draftRevision.current
+      ) {
+        draftRef.current = savedDraft || "";
+        draftHydrated.current = true;
+        setDraft(savedDraft || "");
+      }
     } catch (e) {
-      setError((e as Error).message);
+      if (generation === chatGeneration.current) setError((e as Error).message);
     }
   }
   async function send(
@@ -321,10 +587,19 @@ function Experience() {
     event: string | null = null,
     retry = false,
   ) {
-    if (!chat || !text.trim() || lock.current) return;
+    const currentChat = chatRef.current;
+    if (!currentChat || !text.trim() || lock.current || pendingAction.current)
+      return;
+    if (pending.current && !retry) return;
+    const cid = currentChat.id;
+    const generation = chatGeneration.current;
+    const sentDraftRevision = draftRevision.current;
+    const consumesDraft = text === draftRef.current;
     lock.current = true;
     setSending(true);
     setError("");
+    setReplyPhase("thinking");
+    jumpToLatest();
     const body =
       retry && pending.current
         ? pending.current
@@ -336,39 +611,173 @@ function Experience() {
           };
     pending.current = body;
     try {
-      const turn = await api<{ id: string }>(
-        `/v1/conversations/${chat.id}/turns`,
-        { method: "POST", body: JSON.stringify(body) },
-      );
+      // Persist the idempotency key before dispatch, including app restarts.
+      await savePending(cid, body);
+      const turn = await api<{ id: string }>(`/v1/conversations/${cid}/turns`, {
+        method: "POST",
+        body: JSON.stringify(body),
+      });
+      // Receipts belong to the request, even if its chat has since been closed.
+      await clearPending(cid, body.client_id);
+      if (!isCurrentChat(cid, generation)) return;
       pending.current = null;
-      if (draftTimer.current) clearTimeout(draftTimer.current);
-      setDraft("");
-      await AsyncStorage.removeItem("draft:" + chat.id);
-      await reload(chat.id);
-      await follow(chat.id, turn.id);
+      setResumeTurn({ conversationId: cid, turnId: turn.id });
+      if (consumesDraft && sentDraftRevision === draftRevision.current) {
+        if (draftTimer.current) clearTimeout(draftTimer.current);
+        draftTimer.current = null;
+        draftRef.current = "";
+        draftHydrated.current = true;
+        draftRevision.current += 1;
+        setDraft("");
+        persistDraft(cid, null);
+      }
+      const saved = await reload(cid, generation).catch(() => null);
+      if (!isCurrentChat(cid, generation)) return;
+      const replyAlreadySaved = saved?.messages.some(
+        (m) => m.turn_id === turn.id && m.role === "assistant",
+      );
+      const failedAlreadySaved = saved?.messages.some(
+        (m) => m.turn_id === turn.id && m.status === "failed",
+      );
+      if (replyAlreadySaved || failedAlreadySaved) {
+        setResumeTurn(null);
+        setSending(false);
+        setStream("");
+        setReplyPhase(null);
+        lock.current = false;
+        if (failedAlreadySaved)
+          setError("답변을 완성하지 못했어요. 사용한 빛은 돌려드렸어요.");
+      } else await follow(cid, turn.id, generation);
     } catch (e) {
+      const rejected =
+        e instanceof ApiError &&
+        e.status >= 400 &&
+        e.status < 500 &&
+        e.status !== 408;
+      if (rejected) await clearPending(cid, body.client_id).catch(() => {});
+      if (!isCurrentChat(cid, generation)) return;
+      if (rejected) pending.current = null;
       setError((e as Error).message);
       setSending(false);
+      setReplyPhase(null);
       lock.current = false;
     }
   }
+  function chooseAction(message: Message, action: BranchAction) {
+    const currentChat = chatRef.current;
+    if (
+      !currentChat ||
+      lock.current ||
+      chatBusy ||
+      !message.actions?.[action] ||
+      (action !== "branch" && !(Number(message.action_cost) > 0))
+    )
+      return;
+    setError("");
+    setActionContent(action === "edit" ? message.content : "");
+    setActionDialog({
+      conversationId: currentChat.id,
+      generation: chatGeneration.current,
+      message,
+      action,
+    });
+  }
+  async function confirmAction(retry = false) {
+    const source = chatRef.current;
+    if (!source || lock.current || pending.current) return;
+    const cid = source.id;
+    const generation = chatGeneration.current;
+    const selected = actionDialog;
+    let body: BranchRequest;
+    if (retry && pendingAction.current) body = pendingAction.current;
+    else {
+      if (
+        pendingAction.current ||
+        source.active_turn ||
+        !selected ||
+        selected.conversationId !== cid ||
+        selected.generation !== generation ||
+        !source.messages.find((m) => m.id === selected.message.id)?.actions?.[
+          selected.action
+        ] ||
+        (selected.action === "edit" && !actionContent.trim())
+      )
+        return;
+      body = {
+        client_id: Crypto.randomUUID(),
+        message_id: selected.message.id,
+        action: selected.action,
+        ...(selected.action === "edit" ? { content: actionContent } : {}),
+      };
+    }
+    const character = chars.find((c) => c.id === source.character_id);
+    if (!character) return;
+    lock.current = true;
+    pendingAction.current = body;
+    setActionSending(true);
+    setActionDialog(null);
+    setError("");
+    let accepted = false;
+    try {
+      await savePendingAction(cid, body);
+      const result = await api<BranchResult>(
+        `/v1/conversations/${cid}/branches`,
+        {
+          method: "POST",
+          body: JSON.stringify(body),
+        },
+      );
+      accepted = true;
+      if (!isCurrentChat(cid, generation)) {
+        await clearPendingAction(cid, body.client_id);
+        void refreshUser().catch(() => {});
+        return;
+      }
+      // Keep the idempotent request until the new conversation can be opened.
+      const target = await api<Conversation>(
+        `/v1/conversations/${result.conversation_id}`,
+      );
+      await clearPendingAction(cid, body.client_id);
+      if (!isCurrentChat(cid, generation)) return;
+      pendingAction.current = null;
+      await open(character, target.id, target);
+    } catch (e) {
+      const rejected =
+        !accepted &&
+        e instanceof ApiError &&
+        e.status >= 400 &&
+        e.status < 500 &&
+        e.status !== 408;
+      if (rejected)
+        await clearPendingAction(cid, body.client_id).catch(() => {});
+      if (!isCurrentChat(cid, generation)) return;
+      if (rejected) {
+        pendingAction.current = null;
+        if (selected) {
+          setActionDialog(selected);
+          setActionContent(body.content || "");
+        }
+      }
+      setError((e as Error).message);
+    } finally {
+      if (isCurrentChat(cid, generation)) {
+        lock.current = false;
+        setActionSending(false);
+      }
+    }
+  }
   function close() {
-    ctrl.current?.abort();
-    setChat(null);
-    chatRef.current = null;
-    setSending(false);
-    lock.current = false;
+    resetChatView();
     refreshUser().catch(() => {});
   }
   function changeDraft(s: string) {
+    draftRef.current = s;
+    draftHydrated.current = true;
+    draftRevision.current += 1;
     setDraft(s);
     if (draftTimer.current) clearTimeout(draftTimer.current);
-    const cid = chat?.id;
-    if (cid)
-      draftTimer.current = setTimeout(
-        () => void AsyncStorage.setItem("draft:" + cid, s),
-        150,
-      );
+    const cid = activeConversation.current;
+    if (cid) draftTimer.current = setTimeout(() => persistDraft(cid, s), 150);
   }
   async function auth() {
     setError("");
@@ -393,16 +802,19 @@ function Experience() {
   }
   async function saveMemory() {
     if (!chat) return;
+    const cid = chat.id;
+    const generation = chatGeneration.current;
     try {
-      await api(`/v1/conversations/${chat.id}/memories`, {
+      await api(`/v1/conversations/${cid}/memories`, {
         method: "POST",
         body: JSON.stringify({ key: memoryKey, value: memoryValue }),
       });
-      await reload(chat.id);
+      await reload(cid, generation);
+      if (!isCurrentChat(cid, generation)) return;
       setMemoryKey("");
       setMemoryValue("");
     } catch (e) {
-      setError((e as Error).message);
+      if (isCurrentChat(cid, generation)) setError((e as Error).message);
     }
   }
   return (
@@ -431,13 +843,38 @@ function Experience() {
             </Pressable>
           </View>
           {demo && <Text style={s.demo}>로컬 체험 모드 · 예시 답변입니다</Text>}
+          {chat.branch && (
+            <View style={s.branchBanner}>
+              <Text style={s.small}>↳ 원본에서 이어진 새로운 이야기</Text>
+              <Pressable
+                accessibilityRole="button"
+                onPress={() => open(char, chat.branch!.parent_id)}
+              >
+                <Text style={s.link}>원본 대화 보기</Text>
+              </Pressable>
+            </View>
+          )}
           <ScrollView
             ref={scroll}
             style={s.fill}
             contentContainerStyle={s.messages}
-            onContentSizeChange={() =>
-              scroll.current?.scrollToEnd({ animated: true })
-            }
+            scrollEventThrottle={16}
+            onScroll={({ nativeEvent }) => {
+              const atBottom =
+                nativeEvent.contentSize.height -
+                  nativeEvent.layoutMeasurement.height -
+                  nativeEvent.contentOffset.y <
+                80;
+              nearBottom.current = atBottom;
+              setShowLatest(!atBottom);
+            }}
+            onLayout={() => {
+              if (nearBottom.current) jumpToLatest(false);
+            }}
+            onContentSizeChange={() => {
+              if (nearBottom.current) jumpToLatest(false);
+              else setShowLatest(true);
+            }}
           >
             <Text style={s.scene}>{char.description}</Text>
             {chat.messages.map((m) => (
@@ -455,18 +892,115 @@ function Experience() {
                 {m.status === "failed" && (
                   <Text style={s.error}>답변 실패 · 빛 환급</Text>
                 )}
+                {m.actions && (
+                  <View style={s.messageActions}>
+                    {(["branch", "regenerate", "edit"] as const)
+                      .filter(
+                        (action) =>
+                          m.actions?.[action] &&
+                          (action === "branch" || Number(m.action_cost) > 0),
+                      )
+                      .map((action) => (
+                        <Pressable
+                          key={action}
+                          accessibilityRole="button"
+                          disabled={chatBusy}
+                          style={[s.messageAction, chatBusy && s.disabled]}
+                          onPress={() => chooseAction(m, action)}
+                        >
+                          <Text style={s.messageActionText}>
+                            {actionLabels[action]} ·{" "}
+                            {action === "branch"
+                              ? "무료"
+                              : `${m.action_cost} 빛`}
+                          </Text>
+                        </Pressable>
+                      ))}
+                  </View>
+                )}
               </View>
             ))}
-            {sending && (
+            {(sending || resumeTurn) && (
               <View style={[s.message, s.assistantMessage]}>
                 <Text style={s.author}>{char.name}</Text>
-                <Text style={s.messageText}>
-                  {stream || "답장을 생각하고 있어요…"}
-                </Text>
+                <Text style={s.messageText}>{stream || phaseLabel}</Text>
+                {!!stream &&
+                  (replyPhase === "reconnecting" ||
+                    replyPhase === "paused") && (
+                    <Text
+                      accessibilityLiveRegion="polite"
+                      style={s.replyStatus}
+                    >
+                      {phaseLabel}
+                    </Text>
+                  )}
               </View>
             )}
           </ScrollView>
+          {showLatest && (
+            <Pressable
+              accessibilityRole="button"
+              accessibilityLabel="최근 대화로 이동"
+              onPress={() => jumpToLatest()}
+              style={s.latestButton}
+            >
+              <Text style={s.latestLabel}>최근 대화 ↓</Text>
+            </Pressable>
+          )}
           <View style={s.composerWrap}>
+            {actionSending && (
+              <View style={s.branchProgress}>
+                <ActivityIndicator color="#ff8aa0" size="small" />
+                <Text style={s.small}>새 이야기를 준비하고 있어요…</Text>
+              </View>
+            )}
+            {pendingAction.current && !actionSending && (
+              <View style={s.resumeNotice}>
+                <Text style={s.small}>
+                  이야기 요청의 결과를 확인하지 못했어요. 같은 요청을 확인하며
+                  빛을 중복으로 사용하지 않아요.
+                </Text>
+                <Pressable
+                  accessibilityRole="button"
+                  onPress={() => confirmAction(true)}
+                >
+                  <Text style={s.link}>요청한 이야기 다시 열기</Text>
+                </Pressable>
+              </View>
+            )}
+            {pending.current && !sending && (
+              <View style={s.resumeNotice}>
+                <Text style={s.small}>
+                  전송 결과를 확인하지 못했어요. 같은 메시지를 안전하게
+                  재시도해요.
+                </Text>
+                <Pressable
+                  accessibilityRole="button"
+                  onPress={() => {
+                    const retry = pending.current;
+                    if (retry)
+                      void send(retry.content, retry.story_event, true);
+                  }}
+                >
+                  <Text style={s.link}>같은 메시지 재시도</Text>
+                </Pressable>
+              </View>
+            )}
+            {resumeTurn && !sending && (
+              <View style={s.resumeNotice}>
+                <Text style={s.small}>
+                  같은 답변을 불러와요. 빛은 추가로 사용하지 않아요.
+                </Text>
+                <Pressable
+                  accessibilityRole="button"
+                  onPress={() =>
+                    follow(resumeTurn.conversationId, resumeTurn.turnId)
+                  }
+                >
+                  <Text style={s.link}>저장된 답변 다시 연결</Text>
+                </Pressable>
+              </View>
+            )}
             <ScrollView
               horizontal
               showsHorizontalScrollIndicator={false}
@@ -474,7 +1008,7 @@ function Experience() {
             >
               {(chat.messages.length === 1 ? char.starters : []).map((t) => (
                 <Pressable
-                  disabled={sending}
+                  disabled={chatBusy}
                   key={t}
                   style={s.chip}
                   onPress={() => send(t)}
@@ -483,7 +1017,7 @@ function Experience() {
                 </Pressable>
               ))}
               <Pressable
-                disabled={sending}
+                disabled={chatBusy}
                 style={s.chip}
                 onPress={() =>
                   send("주변의 새로운 단서를 찾아본다.", "discovery")
@@ -492,7 +1026,7 @@ function Experience() {
                 <Text style={s.chipText}>✧ 새로운 발견</Text>
               </Pressable>
               <Pressable
-                disabled={sending}
+                disabled={chatBusy}
                 style={s.chip}
                 onPress={() => send("같이 잠깐 쉬자.", "quiet")}
               >
@@ -512,7 +1046,7 @@ function Experience() {
               />
               <View style={s.composerFooter}>
                 <Pressable
-                  disabled={sending}
+                  disabled={chatBusy}
                   onPress={() => setMode(mode === "quick" ? "story" : "quick")}
                 >
                   <Text style={s.small}>
@@ -523,9 +1057,9 @@ function Experience() {
                   </Text>
                 </Pressable>
                 <Pressable
-                  disabled={sending || !draft.trim()}
+                  disabled={chatBusy || !draft.trim()}
                   accessibilityLabel="메시지 보내기"
-                  style={[s.send, sending && s.disabled]}
+                  style={[s.send, chatBusy && s.disabled]}
                   onPress={() => send()}
                 >
                   {sending ? (
@@ -711,9 +1245,19 @@ function Experience() {
                     onPress={() => open(character, c.id)}
                   >
                     <Portrait c={character} style={s.rowAvatar} />
-                    <View>
+                    <View style={s.fill}>
                       <Text style={s.cardName}>{character.name}</Text>
                       <Text style={s.small}>{c.relationship.stage}</Text>
+                      {c.branch && (
+                        <Text style={s.branchLabel}>
+                          ↳{" "}
+                          {c.branch.action === "regenerate"
+                            ? "다른 답장으로 이어진 이야기"
+                            : c.branch.action === "edit"
+                              ? "수정한 말에서 이어진 이야기"
+                              : "새롭게 나눈 이야기"}
+                        </Text>
+                      )}
                     </View>
                     <Text style={s.back}>›</Text>
                   </Pressable>
@@ -746,25 +1290,90 @@ function Experience() {
           <Text accessibilityRole="alert" style={s.error}>
             {error}
           </Text>
-          {pending.current && (
-            <Pressable
-              disabled={sending}
-              onPress={() =>
-                send(
-                  pending.current!.content,
-                  pending.current!.story_event,
-                  true,
-                )
-              }
-            >
-              <Text style={s.link}>같은 메시지 재시도</Text>
-            </Pressable>
-          )}
           <Pressable onPress={() => setError("")}>
             <Text style={s.link}>닫기</Text>
           </Pressable>
         </View>
       )}
+      <Modal
+        visible={actionDialog !== null}
+        animationType="slide"
+        presentationStyle="pageSheet"
+        onRequestClose={() => setActionDialog(null)}
+      >
+        <SafeAreaView style={s.safe}>
+          <View style={s.header}>
+            <Text style={s.chatName}>
+              {actionDialog ? actionLabels[actionDialog.action] : "이야기 선택"}
+            </Text>
+            <View style={s.fill} />
+            <Pressable onPress={() => setActionDialog(null)}>
+              <Text style={s.link}>취소</Text>
+            </Pressable>
+          </View>
+          {actionDialog && (
+            <ScrollView
+              contentContainerStyle={s.sheet}
+              keyboardShouldPersistTaps="handled"
+              automaticallyAdjustKeyboardInsets
+            >
+              <Text style={s.title}>원본 대화는 그대로 남아요</Text>
+              <Text style={s.subtitle}>
+                {actionDialog.action === "branch"
+                  ? "선택한 답장 직후의 기억, 관계와 이야기 상태에서 새 이야기를 시작해요. 이후 대화는 새 이야기에 포함하지 않아요."
+                  : actionDialog.action === "edit"
+                    ? "이 메시지를 보내기 전의 기억, 관계와 이야기 상태로 돌아가 수정한 말에 대한 답장을 받아요. 그 뒤의 대화는 새 이야기에 포함하지 않아요."
+                    : "선택한 답장이 만들어지기 전의 기억, 관계와 이야기 상태로 돌아가 다른 답장을 받아요. 그 뒤의 대화는 새 이야기에 포함하지 않아요."}{" "}
+                나중에 고치거나 지운 기억도 당시 상태로 돌아와요.
+              </Text>
+              <View style={s.memory}>
+                <Text style={s.author}>선택한 메시지</Text>
+                <Text style={s.messageText} numberOfLines={6}>
+                  {actionDialog.message.content}
+                </Text>
+              </View>
+              {actionDialog.action === "edit" && (
+                <>
+                  <Text style={s.author}>새 이야기에서 보낼 말</Text>
+                  <TextInput
+                    accessibilityLabel="수정할 메시지"
+                    value={actionContent}
+                    onChangeText={setActionContent}
+                    multiline
+                    maxLength={3000}
+                    style={[s.field, s.editMessageInput]}
+                  />
+                </>
+              )}
+              <Text style={s.subtitle}>
+                {actionDialog.action === "branch"
+                  ? "갈래 만들기는 무료예요. 새 이야기를 연 뒤 직접 메시지를 보내면 선택한 대화 모드의 빛을 사용해요."
+                  : `원래 메시지와 같은 대화 모드로 새 답장을 받아요. ${actionDialog.message.action_cost} 빛을 사용해요.`}
+              </Text>
+              {!!error && (
+                <Text accessibilityRole="alert" style={s.error}>
+                  {error}
+                </Text>
+              )}
+              <Pressable
+                accessibilityRole="button"
+                disabled={
+                  actionSending ||
+                  (actionDialog.action === "edit" && !actionContent.trim())
+                }
+                style={s.primary}
+                onPress={() => confirmAction()}
+              >
+                <Text style={s.white}>
+                  {actionDialog.action === "branch"
+                    ? "무료로 새 이야기 만들기"
+                    : `${actionDialog.message.action_cost} 빛으로 ${actionDialog.action === "edit" ? "수정하고 이어가기" : "다른 답장 보기"}`}
+                </Text>
+              </Pressable>
+            </ScrollView>
+          )}
+        </SafeAreaView>
+      </Modal>
       <Modal
         visible={sheet !== null}
         animationType="slide"
@@ -825,8 +1434,9 @@ function Experience() {
                   <Text style={s.cardRole}>대화 기억 사용</Text>
                   <Switch
                     value={chat.settings.memory_enabled}
-                    disabled={sending}
+                    disabled={chatBusy}
                     onValueChange={async (value) => {
+                      const generation = chatGeneration.current;
                       try {
                         await api(`/v1/conversations/${chat.id}/settings`, {
                           method: "PATCH",
@@ -835,9 +1445,10 @@ function Experience() {
                             memory_enabled: value,
                           }),
                         });
-                        await reload(chat.id);
+                        await reload(chat.id, generation);
                       } catch (e) {
-                        setError((e as Error).message);
+                        if (isCurrentChat(chat.id, generation))
+                          setError((e as Error).message);
                       }
                     }}
                   />
@@ -848,7 +1459,7 @@ function Experience() {
                     <Text style={s.messageText}>{m.value}</Text>
                     <View style={s.memoryActions}>
                       <Pressable
-                        disabled={sending}
+                        disabled={chatBusy}
                         onPress={() => {
                           setMemoryKey(m.key);
                           setMemoryValue(m.value);
@@ -857,15 +1468,17 @@ function Experience() {
                         <Text style={s.link}>수정</Text>
                       </Pressable>
                       <Pressable
-                        disabled={sending}
+                        disabled={chatBusy}
                         onPress={async () => {
+                          const generation = chatGeneration.current;
                           try {
                             await api(`/v1/memories/${m.id}`, {
                               method: "DELETE",
                             });
-                            await reload(chat.id);
+                            await reload(chat.id, generation);
                           } catch (e) {
-                            setError((e as Error).message);
+                            if (isCurrentChat(chat.id, generation))
+                              setError((e as Error).message);
                           }
                         }}
                       >
@@ -889,15 +1502,17 @@ function Experience() {
                       </View>
                     ))}
                     <Pressable
-                      disabled={sending}
+                      disabled={chatBusy}
                       onPress={async () => {
+                        const generation = chatGeneration.current;
                         try {
                           await api(`/v1/conversations/${chat.id}/episodes`, {
                             method: "DELETE",
                           });
-                          await reload(chat.id);
+                          await reload(chat.id, generation);
                         } catch (e) {
-                          setError((e as Error).message);
+                          if (isCurrentChat(chat.id, generation))
+                            setError((e as Error).message);
                         }
                       }}
                     >
@@ -929,7 +1544,9 @@ function Experience() {
                   maxLength={500}
                 />
                 <Pressable
-                  disabled={sending || !memoryKey.trim() || !memoryValue.trim()}
+                  disabled={
+                    chatBusy || !memoryKey.trim() || !memoryValue.trim()
+                  }
                   style={s.primary}
                   onPress={saveMemory}
                 >
@@ -1254,6 +1871,54 @@ const s = StyleSheet.create({
   },
   author: { fontSize: 10, color: "#d2b7cf", marginBottom: 8 },
   messageText: { fontSize: 14, color: "#e1e3ec", lineHeight: 25 },
+  messageActions: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 16,
+    marginTop: 10,
+  },
+  messageAction: { minHeight: 44, justifyContent: "center" },
+  messageActionText: { color: "#bda5bc", fontSize: 12, paddingVertical: 8 },
+  branchBanner: {
+    paddingHorizontal: 20,
+    paddingVertical: 7,
+    backgroundColor: "#211e29",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    gap: 10,
+  },
+  branchLabel: { color: "#c9a6bf", fontSize: 10, marginTop: 5 },
+  branchProgress: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 10,
+    padding: 12,
+  },
+  editMessageInput: {
+    minHeight: 140,
+    textAlignVertical: "top",
+    lineHeight: 24,
+  },
+  replyStatus: { fontSize: 11, color: "#b8a0b4", marginTop: 12 },
+  latestButton: {
+    alignSelf: "center",
+    paddingHorizontal: 16,
+    paddingVertical: 10,
+    marginBottom: 6,
+    backgroundColor: "#36303f",
+    borderColor: "#625069",
+    borderWidth: 1,
+    borderRadius: 22,
+  },
+  latestLabel: { color: "#ffe5ec", fontSize: 12, fontWeight: "600" },
+  resumeNotice: {
+    backgroundColor: "#292531",
+    borderRadius: 10,
+    paddingHorizontal: 14,
+    paddingVertical: 10,
+    marginBottom: 12,
+  },
   composerWrap: { padding: 14, paddingTop: 7 },
   composer: {
     backgroundColor: "#20232e",

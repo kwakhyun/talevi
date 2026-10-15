@@ -11,6 +11,8 @@
     "dev": "npm run dev -w @yeoun/web",
     "build": "npm run build -w @yeoun/web",
     "typecheck": "npm run typecheck --workspaces --if-present",
+    "test:chat-stream": "node --test scripts/test-chat-stream.mjs",
+    "test:mobile-chat": "node apps/mobile/tests/chat-reliability.cjs",
     "db:start": "node scripts/postgres.mjs",
     "mobile": "npm run start -w @yeoun/mobile",
     "check": "node scripts/check.mjs"

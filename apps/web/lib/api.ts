@@ -9,10 +9,12 @@ export async function followTurn(
   id: string,
   onEvent: (item: StreamItem) => void,
   signal: AbortSignal,
+  onConnection?: (state: "connected" | "reconnecting") => void,
 ) {
   let cursor = 0,
     terminal = false;
   for (let attempt = 0; attempt < 8 && !terminal; attempt++) {
+    signal.throwIfAborted();
     try {
       const res = await fetch(`/api/v1/turns/${id}/events?after=${cursor}`, {
         credentials: "include",
@@ -23,6 +25,8 @@ export async function followTurn(
           res.status,
           "답변에 다시 연결하지 못했어요. 대화를 다시 열어 주세요.",
         );
+      signal.throwIfAborted();
+      onConnection?.("connected");
       const reader = res.body.getReader(),
         decoder = new TextDecoder();
       let buffer = "";
@@ -36,9 +40,11 @@ export async function followTurn(
             buffer = buffer.slice(boundary + 2);
             const item = parseSseBlock(block);
             if (item && item.id > cursor) {
+              signal.throwIfAborted();
               cursor = item.id;
               onEvent(item);
               terminal = ["done", "failed"].includes(item.event);
+              if (terminal) break;
             }
           }
           if (done || terminal) break;
@@ -52,9 +58,12 @@ export async function followTurn(
       if (error instanceof ApiError && [401, 403, 404].includes(error.status))
         throw error;
     }
+    if (attempt === 7) break;
+    onConnection?.("reconnecting");
     await new Promise<void>((resolve, reject) => {
       const abort = () => {
         clearTimeout(timer);
+        signal.removeEventListener("abort", abort);
         reject(new DOMException("Aborted", "AbortError"));
       };
       const timer = setTimeout(
@@ -70,6 +79,6 @@ export async function followTurn(
   }
   if (!terminal)
     throw new Error(
-      "연결이 끊겼어요. 다시 열면 저장된 답변을 불러올 수 있어요.",
+      "연결이 끊겼어요. ‘답변 다시 연결’로 저장된 답변을 불러올 수 있어요.",
     );
 }

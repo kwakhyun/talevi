@@ -16,6 +16,15 @@ from sqlalchemy.exc import IntegrityError
 
 from .billing import adjust_credits
 from .billing import router as billing_router
+from .branching import (
+    action_metadata,
+    branch_result,
+    checkpoints_for,
+    clone_checkpoint,
+    existing_branch,
+    queue_turn,
+    save_checkpoint,
+)
 from .catalog import CHARACTERS, RETIRED_IDS
 from .config import settings
 from .db import SessionLocal, database, engine
@@ -23,6 +32,7 @@ from .memory_context import invalidate_fact
 from .models import (
     AuthSession,
     Base,
+    BranchRequest,
     Character,
     Conversation,
     Feedback,
@@ -36,6 +46,7 @@ from .models import (
 )
 from .schemas import (
     AccountIn,
+    BranchIn,
     CharacterIn,
     ConfirmIn,
     ConversationIn,
@@ -156,7 +167,7 @@ def user_json(u):
     }
 
 
-def message_json(m):
+def message_json(m, capabilities=None):
     return {
         "id": m.id,
         "role": m.role,
@@ -164,6 +175,13 @@ def message_json(m):
         "status": m.status,
         "created": m.created,
         "turn_id": m.turn_id,
+        **(
+            capabilities
+            or {
+                "actions": {"branch": False, "regenerate": False, "edit": False},
+                "action_cost": 0,
+            }
+        ),
     }
 
 
@@ -351,6 +369,7 @@ async def conversations(request: Request, db=Depends(database)):
             "character_id": c.character_id,
             "relationship": c.relationship,
             "updated": c.updated,
+            "branch": c.branch,
         }
         for c in rows
     ]
@@ -368,9 +387,12 @@ async def new_conversation(
     c = Conversation(user_id=u.id, character_id=char.id)
     db.add(c)
     await db.flush()
-    db.add(
-        Message(conversation_id=c.id, role="assistant", content=char.payload["opening"])
+    opening = Message(
+        conversation_id=c.id, role="assistant", content=char.payload["opening"]
     )
+    db.add(opening)
+    await db.flush()
+    await save_checkpoint(db, c, opening, "after")
     await db.commit()
     return {"id": c.id}
 
@@ -383,7 +405,7 @@ async def conversation(cid: str, request: Request, db=Depends(database)):
         await db.scalars(
             select(Message)
             .where(Message.conversation_id == cid)
-            .order_by(Message.created.desc())
+            .order_by(Message.created.desc(), Message.id.desc())
             .limit(1000)
         )
     ).all()
@@ -394,10 +416,18 @@ async def conversation(cid: str, request: Request, db=Depends(database)):
             .order_by(Memory.updated.desc())
         )
     ).all()
+    checkpoints = {
+        (p.message_id, p.phase): p
+        for p in await checkpoints_for(db, cid, with_state=False)
+    }
     return {
         "id": c.id,
         "character_id": c.character_id,
-        "messages": [message_json(m) for m in reversed(msgs)],
+        "branch": c.branch,
+        "messages": [
+            message_json(m, action_metadata(m, checkpoints, bool(c.active_turn)))
+            for m in reversed(msgs)
+        ],
         "memories": [memory_json(m) for m in mem],
         "settings": {k: v for k, v in c.settings.items() if k != "context_reset_at"},
         "relationship": c.relationship,
@@ -428,6 +458,15 @@ async def submit_turn(cid: str, body: TurnIn, request: Request, db=Depends(datab
             503, "AI 연결을 준비하고 있어요. 잠시 후 다시 시도해 주세요."
         )
     c = await owned_conversation(db, u, cid, True)
+    await db.execute(select(User.id).where(User.id == u.id).with_for_update())
+    if (
+        await db.scalars(
+            select(BranchRequest).where(
+                BranchRequest.user_id == u.id, BranchRequest.client_id == body.client_id
+            )
+        )
+    ).first():
+        raise HTTPException(409, "다른 작업에 사용한 요청 번호예요.")
     fingerprint = digest(
         json.dumps(
             {"cid": cid, **body.model_dump(exclude={"client_id"})},
@@ -446,54 +485,78 @@ async def submit_turn(cid: str, body: TurnIn, request: Request, db=Depends(datab
         return {"id": existing.id, "status": existing.status, "cost": existing.cost}
     if c.active_turn:
         raise HTTPException(409, "이전 답변을 기다려 주세요.")
-    cost = 3 if body.mode == "story" else 1
-    changed = await db.execute(
-        update(User)
-        .where(User.id == u.id, User.credits >= cost, User.credit_debt == 0)
-        .values(credits=User.credits - cost)
-        .returning(User.id)
+    t = await queue_turn(db, u, c, body, fingerprint)
+    await db.commit()
+    return {"id": t.id, "status": t.status, "cost": t.cost}
+
+
+@app.post("/v1/conversations/{cid}/branches", status_code=202)
+async def create_branch(
+    cid: str, body: BranchIn, request: Request, db=Depends(database)
+):
+    u = await get_user(request, db)
+    await rate_limit(db, "branch:" + u.id, 30, 60)
+    source = await owned_conversation(db, u, cid, True)
+    await db.execute(select(User.id).where(User.id == u.id).with_for_update())
+    fingerprint = digest(
+        json.dumps(
+            {"cid": cid, **body.model_dump(exclude={"client_id"})},
+            sort_keys=True,
+            ensure_ascii=False,
+        )
     )
-    if not changed.scalar_one_or_none():
-        raise HTTPException(402, "빛이 부족해요. 충전 후 이 대화를 이어갈 수 있어요.")
-    t = Turn(
-        conversation_id=cid,
+    previous = await existing_branch(db, u, body, fingerprint)
+    if previous:
+        return await branch_result(db, previous)
+    if (
+        await db.scalars(
+            select(Turn).where(Turn.user_id == u.id, Turn.client_id == body.client_id)
+        )
+    ).first():
+        raise HTTPException(409, "다른 작업에 사용한 요청 번호예요.")
+    if source.active_turn:
+        raise HTTPException(409, "답변이 끝난 뒤 이야기를 나눠 주세요.")
+    anchor = await db.get(Message, body.message_id)
+    if not anchor or anchor.conversation_id != cid:
+        raise HTTPException(404, "메시지를 찾을 수 없어요.")
+    checkpoints = await checkpoints_for(db, cid)
+    if not action_metadata(anchor, checkpoints)["actions"][body.action]:
+        raise HTTPException(
+            409,
+            "이 메시지는 당시 상태가 저장되지 않아 복원할 수 없어요. 새 대화부터 이용해 주세요.",
+        )
+    by_anchor = {(p.message_id, p.phase): p for p in checkpoints}
+    selected = by_anchor[(anchor.id, "before" if body.action == "edit" else "after")]
+    replay = selected.replay
+    if body.action == "regenerate":
+        selected = by_anchor[(replay["user_message_id"], "before")]
+    if body.action != "branch" and not cfg.demo_mode and not cfg.openai_api_key:
+        raise HTTPException(
+            503, "AI 연결을 준비하고 있어요. 잠시 후 다시 시도해 주세요."
+        )
+    clone = await clone_checkpoint(
+        db, u, source, anchor, selected, body.action, checkpoints
+    )
+    turn = None
+    if body.action != "branch":
+        replay_body = TurnIn(
+            client_id=body.client_id,
+            content=body.content if body.action == "edit" else replay["content"],
+            mode=replay["mode"],
+            story_event=replay["story_event"],
+        )
+        turn = await queue_turn(db, u, clone, replay_body, fingerprint)
+    receipt = BranchRequest(
         user_id=u.id,
         client_id=body.client_id,
         fingerprint=fingerprint,
-        content=body.content,
-        mode=body.mode,
-        story_event=body.story_event,
-        cost=cost,
+        conversation_id=clone.id,
+        turn_id=turn.id if turn else None,
+        cost=turn.cost if turn else 0,
     )
-    db.add(t)
-    try:
-        await db.flush()
-    except IntegrityError:
-        await db.rollback()
-        existing = (
-            await db.execute(
-                select(Turn).where(
-                    Turn.user_id == t.user_id, Turn.client_id == body.client_id
-                )
-            )
-        ).scalar_one_or_none()
-        if existing and existing.fingerprint == fingerprint:
-            return {"id": existing.id, "status": existing.status, "cost": existing.cost}
-        raise HTTPException(409, "같은 전송 번호로 다른 내용을 보낼 수 없어요.")
-    c.active_turn = t.id
-    db.add(
-        Message(conversation_id=cid, turn_id=t.id, role="user", content=body.content)
-    )
-    db.add(
-        Ledger(
-            user_id=u.id,
-            reference="turn:" + t.id,
-            delta=-cost,
-            reason="이야기 대화" if cost == 3 else "짧은 대화",
-        )
-    )
+    db.add(receipt)
     await db.commit()
-    return {"id": t.id, "status": t.status, "cost": cost}
+    return await branch_result(db, receipt)
 
 
 @app.get("/v1/turns/{tid}/events")
@@ -559,7 +622,9 @@ async def add_memory(cid: str, body: MemoryIn, request: Request, db=Depends(data
         memory.locked = True
         memory.deleted = False
         memory.updated = time.time()
-        memory.source_id = None  # Manually authored value is not the old quoted message.
+        memory.source_id = (
+            None  # Manually authored value is not the old quoted message.
+        )
     else:
         memory = Memory(
             conversation_id=cid, key=body.key, value=body.value, locked=True

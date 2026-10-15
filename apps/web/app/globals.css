@@ -1307,9 +1307,48 @@ textarea::placeholder {
 }
 .message-scroll {
   flex: 1;
+  min-height: 0;
   overflow-y: auto;
   padding: 20px 34px 10px;
   overscroll-behavior: contain;
+}
+.chat-progress {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.chat-progress:empty {
+  display: none;
+}
+.latest-message-button,
+.reply-recovery button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: 1px solid #5d4d72;
+  border-radius: 20px;
+  background: #2b2438;
+  color: #eadcf7;
+  padding: 8px 12px;
+  font-size: 12px;
+  flex-shrink: 0;
+}
+.connection-note,
+.reply-recovery {
+  font-size: 12px;
+  line-height: 1.6;
+  color: #c2b7d0;
+  padding: 4px 20px;
+}
+.reply-recovery {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 .scene-intro {
   text-align: center;
@@ -1383,8 +1422,11 @@ textarea::placeholder {
   margin-top: 6px;
 }
 .message-actions {
-  opacity: 0;
-  margin-top: 4px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px 12px;
+  opacity: 0.7;
+  margin-top: 5px;
 }
 .message:hover .message-actions,
 .message:focus-within .message-actions {
@@ -1395,8 +1437,102 @@ textarea::placeholder {
   align-items: center;
   gap: 5px;
   color: #8d91a4;
-  font-size: 9px;
-  padding: 4px 0;
+  font-size: 10px;
+  min-height: 30px;
+  padding: 5px 0;
+}
+.message-actions button:not(:disabled):hover {
+  color: #e4c4e0;
+}
+.message-actions button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.message.user .message-actions {
+  justify-content: flex-end;
+}
+.branch-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 24px;
+  border-bottom: 1px solid #332d40;
+  background: #211d2c;
+  color: #c4b5d4;
+  font-size: 11px;
+}
+.branch-banner span,
+.branch-banner button,
+.branch-list-label,
+.branch-cost span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.branch-banner button {
+  flex-shrink: 0;
+  color: #eed8ec;
+  min-height: 28px;
+}
+.branch-list-label {
+  margin-left: 8px;
+  color: #c5a2cb;
+  font-size: 10px;
+}
+.branch-preview {
+  margin: 0;
+  padding: 15px 17px;
+  border-left: 2px solid #9b769a;
+  background: #24212d;
+  color: #beb7cb;
+  line-height: 1.8;
+  font-size: 12px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  max-height: 190px;
+  overflow-y: auto;
+}
+.branch-form .field textarea {
+  min-height: 160px;
+}
+.branch-form .field small {
+  text-align: right;
+  color: #9690a5;
+}
+.branch-cost {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  color: #e5c3df;
+  font-size: 13px;
+}
+.branch-cost small {
+  color: #9993a8;
+  font-size: 11px;
+}
+.branch-dialog-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.branch-dialog-actions .primary {
+  flex: 1;
+}
+@media (max-width: 700px) {
+  .branch-banner {
+    padding: 7px 14px;
+    font-size: 10px;
+  }
+  .message-actions button,
+  .branch-banner button {
+    min-height: 44px;
+    font-size: 11px;
+  }
+  .branch-list-label {
+    display: flex;
+    margin: 4px 0 0;
+  }
 }
 .composer-wrap {
   padding: 10px 28px 14px;

@@ -5,6 +5,7 @@ import time
 from sqlalchemy import delete, or_, select, update
 
 from .billing import adjust_credits
+from .branching import save_checkpoint
 from .db import SessionLocal
 from .engine import UnsafeContent, extract_memories, relationship_next, stream_reply
 from .episodes import compact_episodes
@@ -12,6 +13,7 @@ from .memory_context import invalidate_fact
 from .models import (
     Character,
     Conversation,
+    ConversationCheckpoint,
     Memory,
     Message,
     RateBucket,
@@ -52,7 +54,13 @@ async def finish(
                 return
             if turn.status == "pending" and turn.created >= cutoff - 600:
                 return
-        conv = await db.get(Conversation, turn.conversation_id)
+        conv = (
+            await db.scalars(
+                select(Conversation)
+                .where(Conversation.id == turn.conversation_id)
+                .with_for_update()
+            )
+        ).one()
         if error:
             turn.status = "failed"
             turn.error = error
@@ -140,6 +148,16 @@ async def finish(
                             )
                         )
             await db.flush()
+            before = (
+                await db.scalars(
+                    select(ConversationCheckpoint).where(
+                        ConversationCheckpoint.message_id == source.id,
+                        ConversationCheckpoint.phase == "before",
+                    )
+                )
+            ).one_or_none()
+            if before:
+                await save_checkpoint(db, conv, msg, "after", replay=before.replay)
             db.add(
                 StreamEvent(
                     turn_id=turn.id,
@@ -176,7 +194,7 @@ async def process_turn(turn_id):
                                 c.narrative.get("episode_cutoff", 0),
                             ),
                         )
-                        .order_by(Message.created.desc())
+                        .order_by(Message.created.desc(), Message.id.desc())
                         .limit(100)
                     )
                 ).all()

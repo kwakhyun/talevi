@@ -1,7 +1,7 @@
 import re
 from typing import Literal
 
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, Field, field_validator, model_validator
 
 
 class GuestIn(BaseModel):
@@ -88,3 +88,20 @@ class CharacterIn(BaseModel):
     hair: str = Field(min_length=3, max_length=200)
     build: str = Field(min_length=3, max_length=200)
     signature: str = Field(min_length=3, max_length=200)
+
+
+class BranchIn(BaseModel):
+    client_id: str = Field(min_length=16, max_length=64, pattern=r"^[a-zA-Z0-9_-]+$")
+    message_id: str = Field(min_length=1, max_length=36)
+    action: Literal["branch", "regenerate", "edit"]
+    content: str | None = Field(default=None, min_length=1, max_length=3000)
+
+    @model_validator(mode="after")
+    def action_content(self):
+        if self.action == "edit":
+            if not self.content or not self.content.strip():
+                raise ValueError("수정할 메시지를 입력해 주세요.")
+            self.content = self.content.strip()
+        elif self.content is not None:
+            raise ValueError("메시지 수정에서만 새 내용을 입력할 수 있어요.")
+        return self

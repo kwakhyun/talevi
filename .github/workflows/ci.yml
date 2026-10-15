@@ -25,6 +25,8 @@ jobs:
       - run: npm ci
       - run: pip install -r apps/api/requirements.lock
       - run: npm run typecheck
+      - run: npm run test:chat-stream
+      - run: npm run test:mobile-chat
       - run: npm run build
       - run: npx expo export --platform ios --platform android --output-dir dist
         working-directory: apps/mobile
