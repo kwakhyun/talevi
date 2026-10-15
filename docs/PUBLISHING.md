@@ -6,13 +6,15 @@
 
 소스, 캐릭터와 프롬프트, 로컬 시연 영상, 기술 설명, 자동 검사와 과거 유료 모델 평가 원문을 같은 저장소에서 관리한다. 지원서에는 [원본 저장소](https://github.com/kwakhyun/talevi)를 공유한다.
 
-기존 [talevi-portfolio](https://github.com/kwakhyun/talevi-portfolio)는 원본으로 이동했다는 README를 남기고 아카이브한다. 과거 소개 자료와 평가 요약을 삭제하지 않으며, 기존 지원서 링크도 유지한다. 별도 소개 문서를 다시 내보내는 `export_portfolio.py`는 종료 안내만 표시한다.
+별도 소개 저장소는 운영하지 않는다. 사용자의 후속 요청에 따라 기존 소개 저장소를 삭제하고 원본 하나로 통합한다. 기존 주소를 사용한 지원서나 외부 문서에는 위 원본 주소를 사용한다. 과거 소개 자료는 [docs/portfolio](portfolio/README.md), 평가 요약은 [evaluation-summary.json](portfolio/evaluation-summary.json), 화면 자료는 `docs/screenshots/`에 보존한다. 별도 소개 문서를 다시 내보내는 `export_portfolio.py`는 종료 안내만 표시한다.
 
 ## 검증 자료 보존
 
 [유료 모델 평가 색인](MODEL-EVALUATION-ARCHIVE.md)은 초기 비교부터 최종 v11까지 연결한다. 최종 v11의 1,256건은 완료된 평가 응답 수이며, 모든 시기의 유료 호출 총합이나 청구 건수가 아니다. 초안 보완, 압축, moderation, 실패와 재시도는 응답 수와 구분한다.
 
 공개 준비 중 기존 증거 126개를 모두 유지했다. 그중 123개는 원본과 바이트 단위로 같고, 로그 3개는 로컬 경로만 치환했다. 원본 로그의 오류와 중단 기록을 남겼으며, [파일별 전후 해시](publication-evidence-preservation.json)와 [커밋 대응](HISTORY-REWRITE-2026-10-15.md)을 제공한다. 새 모델 호출은 하지 않았다.
+
+소개 저장소 삭제 전에도 이 126개 파일의 SHA-256을 위 보존 목록과 대조했다. 소개 저장소의 평가 요약과 스크린샷 8개는 원본의 파일과 바이트 단위로 같으며, 평가 문서의 기존 검사 결과도 유지한다. 삭제 직전 소개 저장소의 전체 Git 이력은 Git에서 제외한 로컬 bundle로 백업한다.
 
 ## 제외할 자료와 이력 관리
 

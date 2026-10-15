@@ -72,9 +72,9 @@ OpenAI 키는 저장소 루트 `.env.local`의 `OPENAI_API_KEY`에서 API가 읽
 
 2026-10-15에 Vercel Hobby + Render Free + Neon Free 구성을 준비했다. API와 이벤트 기반 워커는 Render 무료 웹 서비스 한 개에서 실행한다. 별도 유료 워커와 Render PostgreSQL 구성은 제거했다. 자세한 설정, 과금 방지 조건과 검증 결과는 [무료 배포 안내](FREE-HOSTING.md)를 따른다.
 
-Vercel의 기존 `khyun/yeoun` 프로젝트는 Hobby이며, Render는 Hobby/카드 미등록 상태다. 실제 웹/API 배포와 Neon DB 생성은 하지 않았다. 계정 연결 단계에서 사용자가 포트폴리오용 로컬 녹화본과 공개 배포의 가치를 재검토하도록 요청했다. 현재 권고는 영상, 공개 소개 저장소와 검증 근거를 먼저 준비하는 것이다.
+Vercel의 기존 `khyun/yeoun` 프로젝트는 Hobby이며, Render는 Hobby/카드 미등록 상태다. 실제 웹/API 배포와 Neon DB 생성은 하지 않았다. 사용자의 결정에 따라 공개 서비스 배포는 보류하고, 로컬 시연 영상과 기술 설명, 검증 근거를 공개 저장소에 제공한다.
 
-전체 소스는 비공개 `kwakhyun/talevi`, 공개 소개는 `kwakhyun/talevi-portfolio`로 분리되어 있다. [저장소 운영 방침](PUBLISHING.md)을 참고한다.
+전체 소스와 포트폴리오는 공개 [kwakhyun/talevi](https://github.com/kwakhyun/talevi) 하나로 통합했다. [저장소 운영 방침](PUBLISHING.md)을 참고한다.
 
 ## 운영 배포 구성
 

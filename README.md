@@ -184,4 +184,4 @@ npm run dev
 
 ## 소스 공개 정책
 
-전체 소스와 포트폴리오 자료를 [kwakhyun/talevi](https://github.com/kwakhyun/talevi)에 통합했습니다. 기존 [소개 저장소](https://github.com/kwakhyun/talevi-portfolio)는 이전 안내를 남기고 아카이브합니다. [권리 안내](RIGHTS.md)를 적용하는 소스 공개 포트폴리오이며 오픈소스 재사용 라이선스를 부여한 것은 아닙니다. 공개 서비스 호스팅은 계속 보류합니다.
+전체 소스와 포트폴리오 자료는 [kwakhyun/talevi](https://github.com/kwakhyun/talevi) 한곳에서 관리합니다. 서비스 소개, 시연 영상, 기술 설명과 [과거 유료 검증 자료](docs/MODEL-EVALUATION-ARCHIVE.md)를 이 저장소에서 함께 확인할 수 있습니다. [권리 안내](RIGHTS.md)를 적용하는 소스 공개 포트폴리오이며 오픈소스 재사용 라이선스를 부여한 것은 아닙니다. 공개 서비스 호스팅은 계속 보류합니다.
